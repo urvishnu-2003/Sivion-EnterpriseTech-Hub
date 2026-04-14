@@ -10,10 +10,11 @@ const {
 } = require("../controllers/career.controller");
 
 const { protect, authorizeRoles } = require("../middleware/auth.middleware");
+const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
-// User create + update own
-router.post("/apply", protect, authorizeRoles("user"), submitApplication);
-router.put("/:id", protect, authorizeRoles("user"), updateOwnApplication);
+// User create + update own + reCAPTCHA
+router.post("/apply", protect, authorizeRoles("user"), verifyRecaptcha, submitApplication);
+router.put("/:id", protect, authorizeRoles("user"), verifyRecaptcha, updateOwnApplication);
 
 // Admin read + delete
 router.get("/", protect, authorizeRoles("admin"), getAllApplications);

@@ -10,10 +10,11 @@ const {
 } = require("../controllers/quote.controller");
 
 const { protect, authorizeRoles } = require("../middleware/auth.middleware");
+const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
-// User create + update own
-router.post("/", protect, authorizeRoles("user"), submitQuote);
-router.put("/:id", protect, authorizeRoles("user"), updateOwnQuote);
+// User create + update own + reCAPTCHA
+router.post("/", protect, authorizeRoles("user"), verifyRecaptcha, submitQuote);
+router.put("/:id", protect, authorizeRoles("user"), verifyRecaptcha, updateOwnQuote);
 
 // Admin read + delete
 router.get("/", protect, authorizeRoles("admin"), getAllQuotes);
