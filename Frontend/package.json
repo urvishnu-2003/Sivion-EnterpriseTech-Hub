@@ -8,9 +8,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.1",
+    "@react-three/drei": "^9.112.0",
+    "@react-three/fiber": "^8.17.10",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.12.5",
+    "lucide-react": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^7.14.1"
+    "react-router-dom": "^7.14.1",
+    "tailwind-merge": "^3.5.0",
+    "three": "0.166.0"
+  },
+  "overrides": {
+    "three": "0.166.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
