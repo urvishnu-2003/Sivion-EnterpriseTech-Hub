@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Box, Globe, Share2, Terminal, Mail, Phone, MapPin, Send } from 'lucide-react';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,68 +8,64 @@ function Footer() {
   return (
     <footer className="app-footer">
       <div className="footer-content">
-        <div className="footer-section">
-          <Link to="/" className="logo" style={{ marginBottom: '1.5rem' }}>
+        <div className="footer-section brand">
+          <Link to="/" className="logo">
             <div className="logo-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white"/>
-                <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <Box className="cyan-glow" size={24} color="#00d4ff" />
             </div>
-            <span className="logo-text">Sivion<span>Hub</span></span>
+            <span className="logo-text">Sivion<span className="cyan-text">Hub</span></span>
           </Link>
-          <p>
-            Bridging the gap between enterprise needs and innovative technology. 
-            Delivering cutting-edge solutions for the modern digital landscape.
+          <p className="footer-desc">
+            Architecting world-class digital twins and enterprise ecosystems. 
+            Empowering global leaders with innovative technology and 
+            future-proof infrastructure.
           </p>
+          <div className="social-links">
+            <a href="#" className="social-icon"><Globe size={20} /></a>
+            <a href="#" className="social-icon"><Share2 size={20} /></a>
+            <a href="#" className="social-icon"><Terminal size={20} /></a>
+          </div>
         </div>
 
         <div className="footer-section">
-          <h4>Company</h4>
+          <h4>Ecosystem</h4>
           <ul className="footer-links">
-            <li><Link to="/aboutus">About Us</Link></li>
-            <li><Link to="/services">Services</Link></li>
-            <li><Link to="/projects">Projects</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
+            <li><Link to="/services">Solutions</Link></li>
+            <li><Link to="/aboutus">Capability</Link></li>
+            <li><Link to="/projects">Case Studies</Link></li>
+            <li><Link to="/blog">Insights</Link></li>
+            <li><Link to="/careers">Careers</Link></li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h4>Legal</h4>
-          <ul className="footer-links">
-            <li><Link to="/privacy">Privacy Policy</Link></li>
-            <li><Link to="/terms">Terms of Service</Link></li>
-            <li><Link to="/cookies">Cookie Policy</Link></li>
+          <h4>Contact Hub</h4>
+          <ul className="footer-contact">
+            <li><Mail size={16} className="cyan-text" /> <span>hello@sivion.tech</span></li>
+            <li><Phone size={16} className="cyan-text" /> <span>+1 (234) 567-890</span></li>
+            <li><MapPin size={16} className="cyan-text" /> <span>Silicon Valley, CA</span></li>
           </ul>
         </div>
 
-        <div className="footer-section">
-          <h4>Stay Connected</h4>
-          <p style={{ marginBottom: '1rem' }}>Join our newsletter for latest updates.</p>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <input 
-              type="email" 
-              placeholder="Email address" 
-              style={{ 
-                background: 'var(--surface)', 
-                border: '1px solid var(--border)', 
-                padding: '0.6rem 1rem', 
-                borderRadius: '8px', 
-                color: 'white',
-                flex: 1
-              }} 
-            />
-            <button className="cta-button" style={{ padding: '0.6rem 1rem', borderRadius: '8px' }}>Join</button>
+        <div className="footer-section newsletter">
+          <h4>Future-Proofing</h4>
+          <p>Subscribe to our tech synthesis.</p>
+          <div className="newsletter-box">
+            <input type="email" placeholder="Terminal@enterprise.com" />
+            <button className="send-btn"><Send size={18} /></button>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Sivion EnterpriseTech Hub. All rights reserved.</p>
-        <div style={{ display: 'flex', gap: '1.5rem' }}>
-          <a href="#" className="nav-link">Twitter</a>
-          <a href="#" className="nav-link">LinkedIn</a>
-          <a href="#" className="nav-link">GitHub</a>
+        <div className="legal-links">
+          <span>&copy; {currentYear} Sivion EnterpriseTech Hub.</span>
+          <Link to="/privacy">Privacy</Link>
+          <Link to="/terms">Terms</Link>
+        </div>
+        <div className="status-indicator">
+          <div className="pulse-dot"></div>
+          <span>All Systems Operational</span>
         </div>
       </div>
     </footer>
