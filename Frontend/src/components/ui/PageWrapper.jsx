@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // Cyan wipe bar sweeps across on page nav (SRS AR-12)
 const wipeVariants = {
-  initial: { scaleX: 0, transformOrigin: 'left' },
-  animate: { scaleX: 1, transformOrigin: 'left', transition: { duration: 0.28, ease: [0.76, 0, 0.24, 1] } },
-  exit:    { scaleX: 0, transformOrigin: 'right', transition: { duration: 0.28, ease: [0.76, 0, 0.24, 1], delay: 0.05 } },
+  initial: { scaleX: 1, transformOrigin: 'right' },
+  animate: { scaleX: 0, transformOrigin: 'right', transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  exit:    { scaleX: 1, transformOrigin: 'left',  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const contentVariants = {
