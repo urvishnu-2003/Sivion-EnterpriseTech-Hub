@@ -2,73 +2,102 @@ const Quote = require("../models/quote.model");
 const asyncHandler = require("../utils/asyncHandler");
 const { successResponse, errorResponse } = require("../utils/response.utils");
 
-exports.submitQuote = asyncHandler(async (req, res) => {
-  const { fullName, email, service, projectDetails, phone, company, budget, timeline } = req.body;
+exports.createQuoteRequest = asyncHandler(async (req, res) => {
+  const {
+    requestType,
+    fullName,
+    email,
+    phone,
+    company,
+    serviceType,
+    budget,
+    projectDetails,
+    preferredDate,
+    preferredTime,
+  } = req.body;
 
-  if (!fullName || !email || !service || !projectDetails) {
-    return errorResponse(res, 400, "Full name, email, service, and project details are required");
+  if (!fullName || !email || !serviceType || !projectDetails) {
+    return errorResponse(
+      res,
+      400,
+      "Full name, email, service type, and project details are required"
+    );
   }
 
   const quote = await Quote.create({
-    submittedBy: req.user._id,
+    submittedBy: req.user ? req.user._id : undefined,
+    requestType,
     fullName,
     email,
-    service,
-    projectDetails,
     phone,
     company,
+    serviceType,
     budget,
-    timeline,
+    projectDetails,
+    preferredDate,
+    preferredTime,
   });
 
-  return successResponse(res, 201, "Quote request submitted successfully", quote);
+  return successResponse(
+    res,
+    201,
+    `${
+      requestType === "consultation" ? "Consultation" : "Quote"
+    } request submitted successfully`,
+    quote
+  );
 });
 
-exports.getAllQuotes = asyncHandler(async (req, res) => {
+exports.getAllQuoteRequests = asyncHandler(async (req, res) => {
   const quotes = await Quote.find()
     .populate("submittedBy", "fullName email role")
     .sort({ createdAt: -1 });
 
-  return successResponse(res, 200, "Quote requests fetched successfully", quotes);
+  return successResponse(res, 200, "Requests fetched successfully", quotes);
 });
 
-exports.getQuoteById = asyncHandler(async (req, res) => {
+exports.getQuoteRequestById = asyncHandler(async (req, res) => {
   const quote = await Quote.findById(req.params.id).populate(
     "submittedBy",
     "fullName email role"
   );
 
   if (!quote) {
-    return errorResponse(res, 404, "Quote request not found");
+    return errorResponse(res, 404, "Request not found");
   }
 
-  return successResponse(res, 200, "Quote request fetched successfully", quote);
+  return successResponse(res, 200, "Request fetched successfully", quote);
 });
 
-exports.updateOwnQuote = asyncHandler(async (req, res) => {
+exports.updateOwnQuoteRequest = asyncHandler(async (req, res) => {
   const quote = await Quote.findById(req.params.id);
 
   if (!quote) {
-    return errorResponse(res, 404, "Quote request not found");
+    return errorResponse(res, 404, "Request not found");
   }
 
-  if (quote.submittedBy.toString() !== req.user._id.toString()) {
+  if (
+    !quote.submittedBy ||
+    quote.submittedBy.toString() !== req.user._id.toString()
+  ) {
     return errorResponse(
       res,
       403,
-      "Forbidden: You can update only your own quote request"
+      "Forbidden: You can update only your own request"
     );
   }
 
   const allowedFields = [
+    "requestType",
     "fullName",
     "email",
     "phone",
     "company",
-    "service",
+    "serviceType",
     "budget",
-    "timeline",
     "projectDetails",
+    "preferredDate",
+    "preferredTime",
   ];
 
   allowedFields.forEach((field) => {
@@ -79,17 +108,22 @@ exports.updateOwnQuote = asyncHandler(async (req, res) => {
 
   const updatedQuote = await quote.save();
 
-  return successResponse(res, 200, "Quote request updated successfully", updatedQuote);
+  return successResponse(
+    res,
+    200,
+    "Request updated successfully",
+    updatedQuote
+  );
 });
 
-exports.deleteQuote = asyncHandler(async (req, res) => {
+exports.deleteQuoteRequest = asyncHandler(async (req, res) => {
   const quote = await Quote.findById(req.params.id);
 
   if (!quote) {
-    return errorResponse(res, 404, "Quote request not found");
+    return errorResponse(res, 404, "Request not found");
   }
 
   await quote.deleteOne();
 
-  return successResponse(res, 200, "Quote request deleted successfully");
+  return successResponse(res, 200, "Request deleted successfully");
 });

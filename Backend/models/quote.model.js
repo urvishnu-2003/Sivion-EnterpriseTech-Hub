@@ -2,6 +2,17 @@ const mongoose = require("mongoose");
 
 const quoteSchema = new mongoose.Schema(
   {
+    submittedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
+    requestType: {
+      type: String,
+      enum: ["quote", "consultation"],
+      default: "quote",
+      required: true,
+    },
     fullName: {
       type: String,
       required: true,
@@ -23,7 +34,7 @@ const quoteSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
-    service: {
+    serviceType: {
       type: String,
       required: true,
       trim: true,
@@ -33,20 +44,25 @@ const quoteSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
-    timeline: {
-      type: String,
-      default: "",
-      trim: true,
-    },
     projectDetails: {
       type: String,
       required: true,
       trim: true,
     },
-    submittedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+    preferredDate: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    preferredTime: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    status: {
+      type: String,
+      enum: ["new", "reviewed", "quoted", "scheduled", "closed"],
+      default: "new",
     },
   },
   { timestamps: true }
