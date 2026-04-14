@@ -31,13 +31,13 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/auth", require("./routes/auth.routes"));
-app.use("/api/projects", require("./routes/project.routes"));
-app.use("/api/blogs", require("./routes/blog.routes"));
-app.use("/api/inquiries", require("./routes/inquiry.routes"));
-app.use("/api/quotes", require("./routes/quote.routes"));
-app.use("/api/careers", require("./routes/career.routes"));
-app.use("/api/subscribers", require("./routes/subscriber.routes"));
+app.use("/api/auth", require("./routes/auth.router"));
+app.use("/api/projects", require("./routes/project.router"));
+app.use("/api/blogs", require("./routes/blog.router"));
+app.use("/api/inquiries", require("./routes/inquiry.router"));
+app.use("/api/quotes", require("./routes/quote.router"));
+app.use("/api/careers", require("./routes/career.router"));
+app.use("/api/subscribers", require("./routes/subscriber.router"));
 
 app.use(notFound);
 app.use(errorHandler);
