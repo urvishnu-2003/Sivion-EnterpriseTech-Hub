@@ -7,7 +7,7 @@ import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 

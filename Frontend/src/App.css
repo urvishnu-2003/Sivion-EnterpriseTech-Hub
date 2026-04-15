@@ -60,6 +60,25 @@
   --transition-lg: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+@theme {
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
+  --color-navy-light: var(--navy-light);
+  --color-navy-card: var(--navy-card);
+  --color-cyan: var(--cyan);
+  --color-cyan-dim: var(--cyan-dim);
+  --color-green: var(--green);
+  --color-purple: var(--purple);
+  --color-white: var(--white);
+  --color-off-white: var(--off-white);
+  --color-text-dim: var(--text-dim);
+  --color-text-muted: var(--text-muted);
+
+  --font-main: var(--font-main);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
 /* ── RESET & BASE ── */
 *,
 *::before,
@@ -787,7 +806,7 @@ body::before {
   line-height: 1.08;
   letter-spacing: -3px;
   color: var(--white);
-  margin-top: -2.5rem;
+  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   animation: fadeSlideUp 0.8s 0.2s ease both;
 }
@@ -1248,14 +1267,14 @@ body::before {
   color: #9fe9ff;
 }
 
-.services-index-page .about-hero > .container > div > div {
+.services-index-page .about-hero>.container>div>div {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 3rem;
 }
 
-.services-index-page .about-hero > .container > div > div > div {
+.services-index-page .about-hero>.container>div>div>div {
   background: rgba(4, 14, 30, 0.80) !important;
   border: 1px solid rgba(0, 195, 255, 0.16) !important;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 18px 42px rgba(0, 0, 0, 0.32);
@@ -1263,11 +1282,11 @@ body::before {
   padding: 1.8rem;
 }
 
-.services-index-page .about-hero > .container > div > div > div h4 {
+.services-index-page .about-hero>.container>div>div>div h4 {
   color: #fdfcff;
 }
 
-.services-index-page .about-hero > .container > div > div > div p {
+.services-index-page .about-hero>.container>div>div>div p {
   color: rgba(207, 223, 255, 0.74);
 }
 
@@ -3805,4 +3824,417 @@ body::before {
 .blog-read-now:hover {
   gap: 8px;
   color: #a5b4fc;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NEW BOARD CSS — Boards 7‒16 Shared Components
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Hero Label (JetBrains Mono badge row) ──────────────────── */
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan, #00F5FF);
+  padding: 0.45rem 1rem;
+  background: rgba(0, 245, 255, 0.07);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00F5FF;
+  box-shadow: 0 0 8px #00F5FF;
+  flex-shrink: 0;
+}
+
+/* ── Glassmorphism Buttons ──────────────────────────────────── */
+.glass-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #00F5FF, #0066FF);
+  color: #0A192F;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 24px rgba(0, 245, 255, 0.3);
+  letter-spacing: 0.3px;
+  font-family: inherit;
+}
+
+.glass-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 35px rgba(0, 245, 255, 0.5);
+}
+
+.glass-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(0, 245, 255, 0.07);
+  color: #00F5FF;
+  border: 1px solid rgba(0, 245, 255, 0.35);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.glass-button-secondary:hover {
+  background: rgba(0, 245, 255, 0.14);
+  border-color: rgba(0, 245, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ── Link Arrow CTA ─────────────────────────────────────────── */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #00F5FF;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: gap 0.2s ease, opacity 0.2s ease;
+}
+
+.link-arrow:hover {
+  gap: 0.7rem;
+  opacity: 0.85;
+}
+
+.link-arrow svg {
+  transition: transform 0.2s ease;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── Tech Pod Cards ─────────────────────────────────────────── */
+.tech-page .pod-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-page .pod-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.03), transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tech-page .pod-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Solutions Accordion ────────────────────────────────────── */
+.solutions-accordion-panel {
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+/* ── Book Trial Calendar ────────────────────────────────────── */
+.trial-calendar {
+  user-select: none;
+}
+
+/* ── Contact Page Map ───────────────────────────────────────── */
+.contact-map-container {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 245, 255, 0.12);
+}
+
+/* ── Legal Hub Quick Summary ────────────────────────────────── */
+.legal-summary-box {
+  position: sticky;
+  top: 100px;
+  background: rgba(17, 34, 64, 0.9);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* ── Thank You Page ─────────────────────────────────────────── */
+.thank-you-next-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .thank-you-next-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Lead Forms ─────────────────────────────────────────────── */
+.lead-forms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .lead-forms-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Industry Accordion ─────────────────────────────────────── */
+.industry-panel-services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+}
+
+@media (max-width: 900px) {
+  .industry-panel-services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Floating Label Forms ───────────────────────────────────── */
+.float-label-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.float-label-group input,
+.float-label-group textarea,
+.float-label-group select {
+  width: 100%;
+  background: rgba(10, 25, 47, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1.3rem 1rem 0.5rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.float-label-group input:focus,
+.float-label-group textarea:focus,
+.float-label-group select:focus {
+  border-color: #00F5FF;
+}
+
+.float-label-group label {
+  position: absolute;
+  top: 0.38rem;
+  left: 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #64748b;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.float-label-group input:focus+label,
+.float-label-group input:not(:placeholder-shown)+label {
+  top: 0.2rem;
+  color: #00F5FF;
+  font-size: 0.62rem;
+}
+
+/* ── Responsive: new boards ─────────────────────────────────── */
+@media (max-width: 768px) {
+
+  .glass-button-primary,
+  .glass-button-secondary {
+    padding: 0.7rem 1.1rem;
+    font-size: 0.85rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .lead-forms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-label {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ── Scrollbar glow for new pages ───────────────────────────── */
+.legal-section-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.legal-section-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.legal-section-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 255, 0.25);
+  border-radius: 4px;
+}
+
+.legal-section-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 245, 255, 0.45);
+}
+
+/* ── Tag chips for services / blog ──────────────────────────── */
+.knowledge-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  background: rgba(0, 245, 255, 0.08);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 50px;
+  color: #00F5FF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.knowledge-tag:hover,
+.knowledge-tag.active {
+  background: rgba(0, 245, 255, 0.18);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.25);
+}
+
+/* ── CTA universal banner (appears bottom of every page) ────── */
+.universal-cta-banner {
+  padding: 5rem 5%;
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.06) 0%, rgba(124, 58, 237, 0.06) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.universal-cta-banner h2 {
+  color: #fff;
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.universal-cta-banner p {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.universal-cta-banner .btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Tooltip for tech pod annotations ───────────────────────── */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-box {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(17, 34, 64, 0.95);
+  border: 1px solid rgba(0, 245, 255, 0.25);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #00F5FF;
+  z-index: 100;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.tooltip-container:hover .tooltip-box {
+  opacity: 1;
+}
+
+.tooltip-box::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 245, 255, 0.25);
+}
+
+/* ── Design System color swatches ───────────────────────────── */
+.ds-swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-block;
+}
+
+/* ── Form validation states ─────────────────────────────────── */
+.input-valid {
+  border-color: #10B981 !important;
+}
+
+.input-error {
+  border-color: #EF4444 !important;
+}
+
+.input-valid-msg {
+  color: #10B981;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.input-error-msg {
+  color: #EF4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  FaBlog,
-  FaProjectDiagram,
-  FaFileInvoiceDollar,
-  FaBriefcase,
-  FaUsers,
-  FaEnvelopeOpenText,
-  FaQuestionCircle,
-  FaAddressBook,
-} from "react-icons/fa";
+  FileText,
+  Cpu,
+  CreditCard,
+  Briefcase,
+  Users,
+  Mail,
+  HelpCircle,
+  Contact,
+} from "lucide-react";
 
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
 import Toast from "../components/Toast";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../../api/axios";
 
 const Dashboard = () => {
   const [counts, setCounts] = useState({
@@ -88,35 +88,35 @@ const Dashboard = () => {
       ) : (
         <>
           <div className="summary-grid">
-            <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
+            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
             <SummaryCard
-              icon={<FaProjectDiagram />}
+              icon={<Cpu />}
               label="Projects"
               count={counts.projects}
             />
             <SummaryCard
-              icon={<FaFileInvoiceDollar />}
+              icon={<CreditCard />}
               label="Quotes"
               count={counts.quotes}
             />
-            <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
+            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
             <SummaryCard
-              icon={<FaUsers />}
+              icon={<Users />}
               label="Applications"
               count={counts.applications}
             />
             <SummaryCard
-              icon={<FaEnvelopeOpenText />}
+              icon={<Mail />}
               label="Newsletter"
               count={counts.subscribers}
             />
             <SummaryCard
-              icon={<FaQuestionCircle />}
+              icon={<HelpCircle />}
               label="Inquiry"
               count={counts.inquiries}
             />
             <SummaryCard
-              icon={<FaAddressBook />}
+              icon={<Contact />}
               label="Contact"
               count={counts.contacts}
             />

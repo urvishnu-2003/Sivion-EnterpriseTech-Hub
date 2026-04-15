@@ -127,29 +127,23 @@ const Service = () => {
 
       <section className="services-section">
         <div className="container">
-          <div className="section-header">
-            <p className="section-desc">
-              We deliver full lifecycle services from strategic planning to seamless delivery, supporting
-              software, web, API, portal, and support programs for ambitious enterprises.
-            </p>
-          </div>
-
-          <div className="services-grid">
-            {allServices.map((service, index) => (
+          <div className="services-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+            {allServices.map((service, i) => (
               <motion.div
                 key={service.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
+                transition={{ delay: i * 0.05 }}
               >
-                <TiltCard className="service-card">
-                  <div className="service-icon">{service.icon}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.desc}</p>
-                  <Link to={service.path} className="premium-btn" style={{ marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                    Explore Service
-                    <ArrowRight size={16} />
+                <TiltCard className="service-card large" style={{ height: '100%' }}>
+                  <div className="service-icon" style={{ marginBottom: '1.25rem', width: '48px', height: '48px', color: 'var(--cyan)' }}>
+                     {service.icon}
+                  </div>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, letterSpacing: '0.5px', marginBottom: '0.75rem', textTransform: 'uppercase' }}>{service.title}</h3>
+                  <p style={{ fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem', minHeight: '60px' }}>{service.desc}</p>
+                  <Link to={service.path} className="link-arrow" style={{ fontSize: '0.9rem' }}>
+                    Read More <ArrowRight size={16} />
                   </Link>
                 </TiltCard>
               </motion.div>
@@ -158,16 +152,8 @@ const Service = () => {
         </div>
       </section>
 
-      <section className="services-section" style={{ paddingTop: '2rem' }}>
+      <section className="service-trust" style={{ padding: '6rem 0' }}>
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Why Choose Our Services</h2>
-            <p className="section-desc">
-              Trust a partner that blends software engineering, UX capability, and enterprise governance to drive
-              predictable digital transformation.
-            </p>
-          </div>
-
           <div className="services-grid">
             {trustPoints.map((point, index) => (
               <motion.div
