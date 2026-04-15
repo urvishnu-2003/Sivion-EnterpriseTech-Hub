@@ -2563,3 +2563,38 @@ body::before {
   background: radial-gradient(ellipse, rgba(0,200,255,0.05) 0%, transparent 70%);
   pointer-events: none;
 }
+
+/* ─── Blog Page Horizontal Slider ──────────────────────────── */
+.blog-layout {
+  padding-bottom: 5rem;
+}
+
+/* Hide scrollbar for the blog slider */
+.blog-grid::-webkit-scrollbar {
+  display: none;
+}
+.blog-grid {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+@media (max-width: 680px) {
+  .blog-hero-title {
+    font-size: 2.2rem !important;
+  }
+}
+
+/* Blog card hover glow & image zoom */
+.blog-card:hover .blog-card-img {
+  transform: scale(1.08);
+}
+
+.blog-card:hover .blog-read-now svg {
+  transform: translateX(4px);
+  transition: transform 0.25s ease;
+}
+
+.blog-read-now:hover {
+  gap: 8px;
+  color: #a5b4fc;
+}
