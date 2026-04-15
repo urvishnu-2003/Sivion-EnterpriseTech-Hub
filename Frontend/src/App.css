@@ -1,13 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* ═══════════════════════════════════════════════════════════════
    SIVION ENTERPRISETECH HUB — FUTURISTIC THEME v2.0
    Design Language: Neo-Holographic Corporate
    ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ── DESIGN TOKENS ── */
 :root {
@@ -471,6 +467,24 @@ body::before {
 .premium-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 200, 255, 0.35);
+}
+
+/* Outline Button */
+.outline-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  padding: 0.7rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: var(--transition);
 }
 
 .outline-btn:hover {
@@ -3585,4 +3599,10 @@ body::before {
 .blog-read-now:hover {
   gap: 8px;
   color: #a5b4fc;
+}
+
+@media (max-width: 768px) {
+  .tech-categories-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
