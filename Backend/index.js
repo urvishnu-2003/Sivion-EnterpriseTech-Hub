@@ -40,6 +40,7 @@ app.use("/api/quotes", require("./routes/quote.router"));
 app.use("/api/jobs", require("./routes/job.router"));
 app.use("/api/applications", require("./routes/application.router"));
 app.use("/api/subscribers", require("./routes/subscriber.router"));
+app.use("/api/contacts", require("./routes/contact.router"));
 
 app.use(notFound);
 app.use(errorHandler);
