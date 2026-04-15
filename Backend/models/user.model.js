@@ -18,31 +18,19 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
-      minlength: 6,
     },
     role: {
       type: String,
       enum: ["admin", "user"],
       default: "user",
     },
-    otpCode: {
-      type: String,
-      default: null,
-    },
-    otpExpire: {
-      type: Date,
-      default: null,
-    },
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
