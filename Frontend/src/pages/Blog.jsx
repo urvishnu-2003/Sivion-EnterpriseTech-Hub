@@ -360,6 +360,5 @@ export default function Blog() {
         </div>
       )}
     </div>
-    </div>
   );
 }
