@@ -59,21 +59,7 @@ export const projects = [
       tech: ["React", "Node.js", "MySQL"]
     }
   },
-   {
-    id: 5,
-    title: "ERP System",
-    category: "Software",
-    desc: "Enterprise platform",
-    stats: "High performance",
-    image: "https://i.postimg.cc/tCdnJgpb/download-(1).jpg",
-
-    details: {
-      problem: "Disconnected business systems.",
-      solution: "Built centralized ERP system.",
-      result: "Improved productivity and workflow.",
-      tech: ["React", "Node.js", "MySQL"]
-    }
-  }
+   
 
   
 ];

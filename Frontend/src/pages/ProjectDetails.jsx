@@ -2,6 +2,9 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { projects } from "../data";
 import "./ProjectDetails.css";
+import { useEffect } from "react";
+
+
 
 const ProjectDetails = () => {
   const { id } = useParams();

@@ -9,13 +9,19 @@ import { projects } from "../data";
 
 
 
+
 const Projects = () => {
   const [filter, setFilter] = useState('All');
-  const categories = ['All', 'AI', 'Cloud', 'Software', 'Strategy'];
+  // 🔥 Dynamic categories (no mismatch issues)
+const categories = ['All', ...new Set(projects.map(p => p.category))];
 
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(p => p.category === filter);
+// 🔥 Case-safe filtering (prevents bugs)
+const filteredProjects =
+  filter === 'All'
+    ? projects
+    : projects.filter(
+        p => p.category?.toLowerCase() === filter.toLowerCase()
+      );
 
   return (
     <PageWrapper className="projects-page">
@@ -49,13 +55,14 @@ const Projects = () => {
     <div className="hero-bg">
       {/* FLOATING CARD */}
       <div className="floating-card">
-        <span className="badge">Technology</span>
-        <h4>AWS Migration</h4>
+        {/* <span className="badge">Technology</span> */}
+        {/* <h4>AWS Migration</h4> */}
       </div>
     </div>
 
   </div>
 </section>
+
       
       
 
@@ -63,17 +70,18 @@ const Projects = () => {
       <section className="filter-section">
         <div className="container">
           <div className="filter-tabs">
-            <Filter size={18} className="text-white opacity-40 mr-4" />
-            {categories.map(cat => (
-              <button
-                key={cat}
-                className={`filter-btn ${filter === cat ? 'active' : ''}`}
-                onClick={() => setFilter(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+  <Filter size={18} className="filter-icon" />
+
+  {categories.map((cat) => (
+    <button
+      key={cat}
+      className={`filter-btn ${filter === cat ? 'active' : ''}`}
+      onClick={() => setFilter(cat)}
+    >
+      {cat}
+    </button>
+  ))}
+</div>
         </div>
       </section>
       
@@ -136,7 +144,7 @@ const Projects = () => {
       
       {/* 🔥 IMPACT STRIP */}
       <section className="impact-strip">
-        <div className="container">
+        <div className="container1">
           <div className="impact-box">
             <div>
               <h2>150+</h2>
@@ -160,17 +168,31 @@ const Projects = () => {
 
       {/* 🔥 CTA */}
       <section className="bottom-cta">
-        <div className="container">
-          <div className="cta-panel glass">
-            <h2>Let’s build your next success story</h2>
-            <p>Bring your idea — we’ll engineer the impact.</p>
+  <div className="cta-container">
+    <div className="cta-panel glass">
 
-            <Link to="/contact" className="primary-btn">
-              Start Consultation <ArrowRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Glow Elements */}
+      <div className="cta-glow"></div>
+
+      <h2>
+        Let’s build your <span className="highlight">next success story</span>
+      </h2>
+
+      <p>
+        Bring your idea — we’ll engineer scalable, high-impact solutions.
+      </p>
+
+      <div className="cta-actions">
+        <Link to="/contact" className="primary-btn">
+          Start Consultation <ArrowRight size={18} />
+        </Link>
+
+        
+      </div>
+
+    </div>
+  </div>
+</section>
     </PageWrapper>
   );
 };
