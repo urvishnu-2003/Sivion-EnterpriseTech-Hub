@@ -7,7 +7,7 @@ import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +22,7 @@ const Blogs = () => {
   const loadBlogs = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/blogs");
+      const response = await API.get("/blogs");
       setBlogs(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load blogs", type: "error" });
@@ -51,7 +51,7 @@ const Blogs = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/blogs/${selectedDelete._id}`);
+      await API.delete(`/blogs/${selectedDelete._id}`);
       setToast({ message: "Blog deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadBlogs();

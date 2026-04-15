@@ -7,7 +7,8 @@ import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
+
 
 const PAGE_SIZE = 5;
 
@@ -23,7 +24,7 @@ const Quotes = () => {
   const loadQuotes = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/quotes");
+      const response = await API.get("/quotes");
       setQuotes(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load quotes", type: "error" });
@@ -52,7 +53,7 @@ const Quotes = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/quotes/${selectedDelete._id}`);
+      await API.delete(`/quotes/${selectedDelete._id}`);
       setToast({ message: "Quote deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadQuotes();

@@ -7,7 +7,7 @@ import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -23,7 +23,7 @@ const Inquiry = () => {
   const loadInquiries = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/inquiries");
+      const response = await API.get("/inquiries");
       setInquiries(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load inquiries", type: "error" });
@@ -52,7 +52,7 @@ const Inquiry = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/inquiries/${selectedDelete._id}`);
+      await API.delete(`/inquiries/${selectedDelete._id}`);
       setToast({ message: "Inquiry deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadInquiries();

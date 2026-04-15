@@ -7,7 +7,8 @@ import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
+
 
 const PAGE_SIZE = 5;
 
@@ -23,7 +24,7 @@ const Contact = () => {
   const loadContacts = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/contacts");
+      const response = await API.get("/contacts");
       setContacts(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load contacts", type: "error" });
@@ -52,7 +53,7 @@ const Contact = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/contacts/${selectedDelete._id}`);
+      await API.delete(`/contacts/${selectedDelete._id}`);
       setToast({ message: "Contact deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadContacts();

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   FaBlog,
   FaProjectDiagram,
@@ -14,9 +15,10 @@ import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
 import Toast from "../components/Toast";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
-const Dashboard = () => {
+
+const AdminDashboard = () => {
   const [counts, setCounts] = useState({
     blogs: 0,
     projects: 0,
@@ -45,14 +47,14 @@ const Dashboard = () => {
         inquiriesResponse,
         contactsResponse,
       ] = await Promise.all([
-        axiosInstance.get("/blogs"),
-        axiosInstance.get("/projects/admin/all"),
-        axiosInstance.get("/quotes"),
-        axiosInstance.get("/jobs/admin/all"),
-        axiosInstance.get("/applications"),
-        axiosInstance.get("/subscribers"),
-        axiosInstance.get("/inquiries"),
-        axiosInstance.get("/contact"),
+        API.get("/blogs"),
+        API.get("/projects/admin/all"),
+        API.get("/quotes"),
+        API.get("/jobs/admin/all"),
+        API.get("/applications"),
+        API.get("/subscribers"),
+        API.get("/inquiries"),
+        API.get("/contact"),
       ]);
 
       setCounts({
@@ -134,4 +136,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

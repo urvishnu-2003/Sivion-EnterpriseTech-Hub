@@ -7,7 +7,7 @@ import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +22,7 @@ const Projects = () => {
   const loadProjects = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/projects/admin/all");
+      const response = await API.get("/projects/admin/all");
       setProjects(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load projects", type: "error" });
@@ -51,7 +51,7 @@ const Projects = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/projects/${selectedDelete._id}`);
+      await API.delete(`/projects/${selectedDelete._id}`);
       setToast({ message: "Project deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadProjects();

@@ -7,7 +7,7 @@ import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +22,7 @@ const Jobs = () => {
   const loadJobs = async () => {
     try {
       setLoading(true);
-      const res = await axiosInstance.get("/jobs/admin/all");
+      const res = await API.get("/jobs/admin/all");
       setJobs(res.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load jobs", type: "error" });
@@ -51,7 +51,7 @@ const Jobs = () => {
 
   const handleToggle = async (id) => {
     try {
-      await axiosInstance.patch(`/jobs/${id}/toggle`);
+      await API.patch(`/jobs/${id}/toggle`);
       setToast({ message: "Job status updated successfully", type: "success" });
       loadJobs();
     } catch (error) {
@@ -61,7 +61,7 @@ const Jobs = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/jobs/${selectedDelete._id}`);
+      await API.delete(`/jobs/${selectedDelete._id}`);
       setToast({ message: "Job deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadJobs();

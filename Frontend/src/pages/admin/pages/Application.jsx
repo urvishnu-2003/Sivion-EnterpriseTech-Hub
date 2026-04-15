@@ -7,7 +7,7 @@ import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -22,7 +22,7 @@ const Applications = () => {
   const loadApplications = async () => {
     try {
       setLoading(true);
-      const res = await axiosInstance.get("/applications");
+      const res = await API.get("/applications");
       setApplications(res.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load applications", type: "error" });
@@ -51,7 +51,7 @@ const Applications = () => {
 
   const handleStatusChange = async (id, status) => {
     try {
-      await axiosInstance.patch(`/applications/${id}/status`, { status });
+      await API.patch(`/applications/${id}/status`, { status });
       setToast({ message: "Status updated successfully", type: "success" });
       loadApplications();
     } catch (error) {
@@ -61,7 +61,7 @@ const Applications = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/applications/${selectedDelete._id}`);
+      await API.delete(`/applications/${selectedDelete._id}`);
       setToast({ message: "Application deleted successfully", type: "success" });
       setSelectedDelete(null);
       loadApplications();

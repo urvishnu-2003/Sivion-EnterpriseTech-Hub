@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import API from "../../../api/axios";
 
 const PAGE_SIZE = 5;
 
@@ -19,7 +19,7 @@ const Newsletter = () => {
   const loadSubscribers = async () => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get("/subscribers");
+      const response = await API.get("/subscribers");
       setSubscribers(response.data?.data || []);
     } catch (error) {
       setToast({ message: "Failed to load subscribers", type: "error" });

@@ -29,12 +29,17 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
-import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+//import Admin from './pages/admin/Admin';
+//import AdminLogin from './pages/admin/AdminLogin';
+//import AdminDashboard from './pages/admin/AdminDashboard';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
+
+//admin
+import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
+import AdminRoutes from './pages/admin/routes/AdminRoutes';
+import "./pages/admin/style/admin.css";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -70,9 +75,14 @@ function AnimatedRoutes() {
         <Route path="/terms" element={<TermsConditions />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+            path="/admin/*"
+            element={
+              <AdminAuthProvider>
+                <AdminRoutes />
+              </AdminAuthProvider>
+            }
+          />
       </Routes>
     </AnimatePresence>
   );

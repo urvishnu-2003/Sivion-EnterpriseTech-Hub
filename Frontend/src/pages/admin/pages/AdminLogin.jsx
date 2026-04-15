@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
+
 import { useAdminAuth } from "../context/AdminAuthContext";
-import "../styles/login.css";
+import API from "../../../api/axios";
+import "../style/admin.css";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      const response = await axiosInstance.post("/auth/admin/login", formData);
+      const response = await API.post("/auth/admin/login", formData);
       login(response.data.data);
       navigate("/admin/dashboard");
     } catch (err) {
