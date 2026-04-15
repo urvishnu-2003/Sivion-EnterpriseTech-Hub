@@ -8,8 +8,9 @@ const connectDB = require("./config/db");
 const notFound = require("./middleware/notFound.middleware");
 const errorHandler = require("./middleware/error.middleware");
 
+const seedDefaultAdmin = require('./config/seedAdmin');
+
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -36,7 +37,8 @@ app.use("/api/projects", require("./routes/project.router"));
 app.use("/api/blogs", require("./routes/blog.router"));
 app.use("/api/inquiries", require("./routes/inquiry.router"));
 app.use("/api/quotes", require("./routes/quote.router"));
-app.use("/api/careers", require("./routes/career.router"));
+app.use("/api/jobs", require("./routes/job.router"));
+app.use("/api/applications", require("./routes/application.router"));
 app.use("/api/subscribers", require("./routes/subscriber.router"));
 
 app.use(notFound);
@@ -44,6 +46,18 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();        // wait for DB
+    await seedDefaultAdmin(); // then seed admin
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Server startup failed:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
