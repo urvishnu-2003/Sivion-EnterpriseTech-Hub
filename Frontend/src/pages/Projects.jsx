@@ -4,66 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Filter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import { projects } from "../data";
 
-const projects = [
-  {
-    id: 1,
-    title: "The Sentient Bank",
-    category: "AI",
-    desc: "Fraud detection system",
-    stats: "99.4% Accuracy",
-    image: "https://plus.unsplash.com/premium_photo-1661877731370-1c2e0c0b5b5c?w=800",
 
-    details: {
-      problem: "Bank was facing fraud detection issues in real-time transactions.",
-      solution: "Built AI-based fraud detection system using ML models.",
-      result: "Achieved 99.4% accuracy and reduced fraud significantly.",
-      tech: ["Python", "TensorFlow", "AWS"]
-    }
-  },
-  {
-    id: 2,
-    title: "Cloud Migration",
-    category: "Cloud",
-    desc: "Multi-cloud system",
-    stats: "0% Downtime",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800",
-     details: {
-      problem: "Bank was facing fraud detection issues in real-time transactions.",
-      solution: "Built AI-based fraud detection system using ML models.",
-      result: "Achieved 99.4% accuracy and reduced fraud significantly.",
-      tech: ["Python", "TensorFlow", "AWS"]
-    }
-  },
-  {
-    id: 3,
-    title: "Logistics AI",
-    category: "Strategy",
-    desc: "Supply chain optimization",
-    stats: "30% Efficiency",
-    image: "https://plus.unsplash.com/premium_photo-1683121710547-0a4f0f1c2d6d?w=800",
-     details: {
-      problem: "Bank was facing fraud detection issues in real-time transactions.",
-      solution: "Built AI-based fraud detection system using ML models.",
-      result: "Achieved 99.4% accuracy and reduced fraud significantly.",
-      tech: ["Python", "TensorFlow", "AWS"]
-    }
-  },
-  {
-    id: 4,
-    title: "ERP System",
-    category: "Software",
-    desc: "Enterprise platform",
-    stats: "High performance",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800",
-     details: {
-      problem: "Bank was facing fraud detection issues in real-time transactions.",
-      solution: "Built AI-based fraud detection system using ML models.",
-      result: "Achieved 99.4% accuracy and reduced fraud significantly.",
-      tech: ["Python", "TensorFlow", "AWS"]
-    }
-  }
-];
 
 
 const Projects = () => {
@@ -175,7 +118,7 @@ const Projects = () => {
 
                 {/* 🔥 NEW BUTTON */}
                 <Link
-                  to={`/projects/${project.id}`}
+                  to={`/project-details/${project.id}`}
                   className={`view-btn ${project.category.toLowerCase()}`}
                 >
                   View Details →

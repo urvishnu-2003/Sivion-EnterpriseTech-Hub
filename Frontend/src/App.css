@@ -1134,7 +1134,7 @@ body::before {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #333 0%, #666 50%, #444 100%);
-  filter: saturate(0);
+  opacity: 0.3;
   transition: filter 0.5s ease;
 }
 
@@ -2598,3 +2598,680 @@ body::before {
   gap: 8px;
   color: #a5b4fc;
 }
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PROJECTS PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* =========================
+   PROJECT GRID CONTAINER
+========================= */
+/* =========================
+   HERO SECTION
+========================= */
+
+.projects-hero {
+  padding: 80px 0;
+  background: linear-gradient(120deg, #0f172a, #1e3a8a, #3b82f6);
+  color: white;
+}
+
+.hero-flex {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* LEFT CONTENT */
+.hero-content {
+  flex: 1;
+}
+
+.hero-chip {
+  font-size: 12px;
+  color: #93c5fd;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.hero-content h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #60a5fa, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  color: rgba(255,255,255,0.8);
+}
+
+/* STATS */
+.hero-stats {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-box {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.stat-box h3 {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.stat-box p {
+  color: rgba(255,255,255,0.8);
+}
+
+.stat-box.green h3 {
+  color: #4ade80;
+}
+
+/* RIGHT IMAGE */
+.hero-bg {
+  flex: 1;
+  min-height: 400px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+
+  background: url("https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200")
+    no-repeat center / cover;
+}
+
+/* IMAGE OVERLAY */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top right,
+    rgba(59,130,246,0.2),
+    rgba(14,165,233,0.2)
+  );
+}
+
+/* =========================
+   CARD WRAPPER
+========================= */
+
+.project-card-wrapper {
+  height: 100%;
+  display: flex;
+}
+
+/* =========================
+   PROJECT CARD
+========================= */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0b1220;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   IMAGE SECTION (IMPORTANT FIX)
+========================= */
+
+.project-image {
+  width: 100%;
+  height: 220px;          /* FIXED HEIGHT → prevents collapse */
+  overflow: hidden;
+  position: relative;
+  background: #111827;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* IMPORTANT: keeps image clean */
+  display: block;         /* removes inline gap */
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.08);
+}
+
+/* =========================
+   OVERLAY EFFECT
+========================= */
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.view-link {
+  color: white;
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* =========================
+   CONTENT SECTION
+========================= */
+
+.project-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.project-cat {
+  background: rgba(59, 130, 246, 0.15);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #60a5fa;
+}
+
+.project-stats {
+  color: #34d399;
+  font-weight: 500;
+}
+
+.project-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.project-info p {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+/* =========================
+   FILTER BUTTONS ALIGNMENT
+========================= */
+
+.filter-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #38bdf8;
+  color: white;
+}
+
+.filter-btn.active {
+  background: #38bdf8;
+  color: #000;
+  font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVE FIX
+========================= */
+
+@media (max-width: 768px) {
+  .project-image {
+    height: 180px;
+  }
+
+  .project-info h3 {
+    font-size: 16px;
+  }
+}
+
+/* SECTION WRAPPER */
+.impact-strip {
+  padding: 80px 20px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: center;
+}
+
+/* MAIN CARD */
+.impact-box {
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 20px;
+  padding: 50px 40px;
+
+  /* 🔥 Gradient like screenshot */
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+
+  /* Soft glass + shadow */
+  box-shadow: 
+    0 20px 40px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  color: white;
+}
+
+/* EACH STAT BLOCK */
+/* ===== Impact Strip Section ===== */
+/* ===== Impact Strip Section ===== */
+.impact-strip {
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Deep dark + subtle glow */
+  background: radial-gradient(circle at top, rgba(0, 207, 255, 0.08), transparent 60%),
+              linear-gradient(135deg, #020617, #061a2b, #0b2a3c);
+}
+
+/* Container */
+.impact-strip .container {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 20px;
+}
+
+/* Impact Box Layout */
+.impact-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+/* Individual Cards */
+.impact-box > div {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+
+  /* Soft border */
+  border: 1px solid rgba(0, 207, 255, 0.12);
+
+  /* Depth */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Animated Glow Border */
+/* ===== Cards ===== */
+.impact-box > div {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.01)
+  );
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+
+  /* Clean border */
+  border: 1px solid rgba(0, 207, 255, 0.12);
+
+  /* Depth */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* 🔵 Soft Glow Layer (NOT flashy) */
+.impact-box > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+
+  background: radial-gradient(
+    circle at top,
+    rgba(0, 207, 255, 0.15),
+    transparent 70%
+  );
+
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Hover */
+.impact-box > div:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(0, 207, 255, 0.35);
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 207, 255, 0.15);
+}
+
+.impact-box > div:hover::before {
+  opacity: 1;
+}
+
+/* Numbers */
+.impact-box h2 {
+  font-size: 2.3rem;
+  font-weight: 700;
+
+  color: #00cfff; /* solid instead of gradient (more premium) */
+
+  margin-bottom: 8px;
+}
+
+/* Text */
+.impact-box p {
+  font-size: 0.95rem;
+  color: #9fb3c8;
+  letter-spacing: 0.4px;
+}
+
+/* cta section */
+/* SECTION WRAPPER */
+.bottom-cta {
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+/* MAIN CTA CARD */
+.cta-panel {
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+
+  /* 🔥 DARK GRADIENT (like screenshot) */
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+
+  /* Glow + depth */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ✨ Subtle gradient glow overlay */
+.cta-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.3), transparent 50%);
+  pointer-events: none;
+}
+
+/* TITLE */
+.cta-panel h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* SUBTEXT */
+.cta-panel p {
+  font-size: 15px;
+  opacity: 0.75;
+  margin-bottom: 30px;
+}
+
+/* BUTTON */
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 24px;
+  border-radius: 30px;
+
+  /* 🔥 Purple gradient button */
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+
+  border: none;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/* BUTTON HOVER */
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.5);
+}
+
+/* SECONDARY BUTTON (Optional if you add "View Projects") */
+.secondary-btn {
+  margin-left: 12px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: 0.3s;
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .cta-panel {
+    padding: 40px 20px;
+  }
+
+  .cta-panel h2 {
+    font-size: 24px;
+  }
+
+  .primary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.cta-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent, rgba(124,58,237,0.6), transparent);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+/* CARD */
+.project-card {
+  background: #020617;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+/* IMAGE */
+.project-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+}
+
+.project-card:hover img {
+  transform: scale(1.1);
+}
+
+/* CONTENT */
+.project-info {
+  padding: 16px;
+}
+
+/* META */
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* CATEGORY TAG COLORS */
+.project-cat {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+/* Different category colors */
+.project-cat.ai { background: rgba(139,92,246,0.2); color: #a78bfa; }
+.project-cat.cloud { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.project-cat.strategy { background: rgba(16,185,129,0.2); color: #34d399; }
+.project-cat.software { background: rgba(244,114,182,0.2); color: #f472b6; }
+
+/* STATS */
+.project-stats {
+  color: #22c55e;
+  font-size: 12px;
+}
+
+/* TEXT */
+.project-info h3 {
+  color: #f1f5f9;
+  margin: 5px 0;
+}
+
+.project-info p {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* 🔥 UNIQUE BUTTON */
+.view-btn {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* Button Colors per Category */
+.view-btn.ai {
+  background: rgba(139,92,246,0.2);
+  color: #a78bfa;
+}
+
+.view-btn.cloud {
+  background: rgba(59,130,246,0.2);
+  color: #60a5fa;
+}
+
+.view-btn.strategy {
+  background: rgba(16,185,129,0.2);
+  color: #34d399;
+}
+
+.view-btn.software {
+  background: rgba(244,114,182,0.2);
+  color: #f472b6;
+}
+
+/* Hover */
+.view-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* GRID */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+
+/* ProjectDetails */
+/* ===== PAGE WRAPPER ===== */
