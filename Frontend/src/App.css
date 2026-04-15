@@ -3600,3 +3600,9 @@ body::before {
   gap: 8px;
   color: #a5b4fc;
 }
+
+@media (max-width: 768px) {
+  .tech-categories-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
