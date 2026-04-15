@@ -13,8 +13,8 @@ const { protect, authorizeRoles } = require("../middleware/auth.middleware");
 const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
 // User create + update own + reCAPTCHA
-router.post("/apply", protect, authorizeRoles("user"), verifyRecaptcha, submitApplication);
-router.put("/:id", protect, authorizeRoles("user"), verifyRecaptcha, updateOwnApplication);
+router.post("/apply", verifyRecaptcha, submitApplication);
+router.put("/:id", verifyRecaptcha, updateOwnApplication);
 
 // Admin read + delete
 router.get("/", protect, authorizeRoles("admin"), getAllApplications);

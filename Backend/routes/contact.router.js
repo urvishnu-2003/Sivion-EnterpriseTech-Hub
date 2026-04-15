@@ -11,7 +11,7 @@ const { protect, authorizeRoles } = require("../middleware/auth.middleware");
 const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
 // User create only + reCAPTCHA
-router.post("/", protect, authorizeRoles("user"), verifyRecaptcha, submitContact);
+router.post("/", verifyRecaptcha, submitContact);
 
 // Admin read + delete
 router.get("/", protect, authorizeRoles("admin"), getAllContacts);
