@@ -8,7 +8,7 @@ export default defineConfig({
     open: true
   },
   optimizeDeps: {
-    include: ['gsap'],
+    include: ['gsap', 'react', 'react-dom/client', '@react-three/fiber', '@react-three/drei', 'three'],
     exclude: ['@gsap/react']
   }
 })
