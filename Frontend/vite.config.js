@@ -10,5 +10,8 @@ export default defineConfig({
   optimizeDeps: {
     include: ['gsap', 'react', 'react-dom/client', '@react-three/fiber', '@react-three/drei', 'three'],
     exclude: ['@gsap/react']
+  },
+  css: {
+    postcss: './postcss.config.js'
   }
 })
