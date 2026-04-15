@@ -1,30 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import API from "../../../api/axios";
-
-const PAGE_SIZE = 5;
+import ConfirmModal from "../components/ConfirmModal";
+import { getSubscribers, deleteSubscriber } from "../services/newsettlerService";
 
 const Newsletter = () => {
   const [subscribers, setSubscribers] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
+  const [deleteId, setDeleteId] = useState(null);
 
   const loadSubscribers = async () => {
     try {
-      setLoading(true);
-      const response = await API.get("/subscribers");
-      setSubscribers(response.data?.data || []);
+      const { data } = await getSubscribers();
+      setSubscribers(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load subscribers", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -32,57 +21,41 @@ const Newsletter = () => {
     loadSubscribers();
   }, []);
 
-  const filteredSubscribers = useMemo(() => {
-    return subscribers.filter((item) =>
-      `${item.email || ""}`.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [subscribers, search]);
-
-  const totalPages = Math.ceil(filteredSubscribers.length / PAGE_SIZE) || 1;
-  const paginatedSubscribers = filteredSubscribers.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
+  const handleDelete = async () => {
+    try {
+      await deleteSubscriber(deleteId);
+      setDeleteId(null);
+      loadSubscribers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const columns = [
-    { key: "email", label: "Email" },
+    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
+    { header: "Email", key: "email" },
+    { header: "Created At", key: "createdAt", render: (row) => row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "-" },
     {
-      key: "subscribedDate",
-      label: "Subscribed Date",
-      render: (row) =>
-        new Date(row.subscribedAt || row.createdAt).toLocaleDateString(),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
-      render: () => <button className="secondary-btn">View</button>,
+      render: (row) => (
+        <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+          Delete
+        </button>
+      ),
     },
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search subscribers..."
-        />
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedSubscribers} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
+    <AdminLayout title="Manage Newsletter" subtitle="Review and manage newsletter subscribers.">
+      <DataTable columns={columns} rows={subscribers} emptyText="No subscribers available" />
+      <ConfirmModal
+        open={!!deleteId}
+        title="Delete Subscriber"
+        message="Are you sure you want to delete this subscriber?"
+        onConfirm={handleDelete}
+        onClose={() => setDeleteId(null)}
+      />
     </AdminLayout>
   );
 };

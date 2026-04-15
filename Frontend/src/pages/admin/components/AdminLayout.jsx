@@ -1,19 +1,21 @@
-import { Outlet } from "react-router-dom";
+import React from "react";
 import AdminSidebar from "./AdminSidebar";
 import AdminHeader from "./AdminHeader";
-import "../style/admin.css";
+import { ThemeProvider } from "../context/ThemeContext";
 
-const AdminLayout = () => {
+const AdminLayout = ({ title, subtitle, children, actions }) => {
   return (
-    <div className="admin-shell">
-      <AdminSidebar />
-      <div className="admin-main">
-        <AdminHeader />
-        <div className="admin-content">
-          <Outlet />
+    <ThemeProvider>
+      <div className="admin-shell">
+        <AdminSidebar />
+
+        <div className="admin-content-wrapper">
+          <AdminHeader title={title} subtitle={subtitle} />
+          {actions ? <div className="admin-page-actions">{actions}</div> : null}
+          <div className="admin-page-content">{children}</div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

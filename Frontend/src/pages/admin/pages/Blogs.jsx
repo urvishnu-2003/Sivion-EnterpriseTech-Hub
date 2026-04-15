@@ -1,33 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import API from "../../../api/axios";
-
-const PAGE_SIZE = 5;
+import { getBlogs, deleteBlog } from "../services/blogService";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
-  const [selectedDelete, setSelectedDelete] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
   const loadBlogs = async () => {
     try {
-      setLoading(true);
-      const response = await API.get("/blogs");
-      setBlogs(response.data?.data || []);
+      const { data } = await getBlogs();
+      setBlogs(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load blogs", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -35,92 +21,42 @@ const Blogs = () => {
     loadBlogs();
   }, []);
 
-  const filteredBlogs = useMemo(() => {
-    return blogs.filter((blog) =>
-      `${blog.title} ${blog.category || ""} ${blog.status || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [blogs, search]);
-
-  const totalPages = Math.ceil(filteredBlogs.length / PAGE_SIZE) || 1;
-  const paginatedBlogs = filteredBlogs.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
   const handleDelete = async () => {
     try {
-      await API.delete(`/blogs/${selectedDelete._id}`);
-      setToast({ message: "Blog deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteBlog(deleteId);
+      setDeleteId(null);
       loadBlogs();
     } catch (error) {
-      setToast({ message: "Failed to delete blog", type: "error" });
+      console.log(error);
     }
   };
 
   const columns = [
-    { key: "title", label: "Title" },
-    { key: "category", label: "Category" },
+    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
+    { header: "Title", key: "title" },
+    { header: "Category", key: "category" },
+    { header: "Status", key: "status" },
     {
-      key: "status",
-      label: "Status",
-      render: (row) => (
-        <StatusBadge status={row.isPublished ? "Active" : "Inactive"} />
-      ),
-    },
-    {
-      key: "date",
-      label: "Date",
-      render: (row) => new Date(row.createdAt).toLocaleDateString(),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn">Edit</button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
-            Delete
-          </button>
-        </div>
+        <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+          Delete
+        </button>
       ),
     },
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
+    <AdminLayout title="Manage Blogs" subtitle="View and manage all blog content.">
+      <DataTable columns={columns} rows={blogs} emptyText="No blogs available" />
       <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
+        open={!!deleteId}
+        title="Delete Blog"
+        message="Are you sure you want to delete this blog?"
         onConfirm={handleDelete}
-        message={`Delete blog "${selectedDelete?.title}"?`}
+        onClose={() => setDeleteId(null)}
       />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search blogs..."
-        />
-        <button className="primary-btn">Add New Blog</button>
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedBlogs} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
     </AdminLayout>
   );
 };

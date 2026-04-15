@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
-
-import {
-  FaBlog,
-  FaProjectDiagram,
-  FaFileInvoiceDollar,
-  FaBriefcase,
-  FaUsers,
-  FaEnvelopeOpenText,
-  FaQuestionCircle,
-  FaAddressBook,
-} from "react-icons/fa";
-
+import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
-import SkeletonTable from "../components/SkeletonTable";
-import Toast from "../components/Toast";
-import API from "../../../api/axios";
-
+import { getBlogs } from "../services/blogService";
+import { getProjects } from "../services/projectService";
+import { getQuotes } from "../services/quoteService";
+import { getJobs } from "../services/jobService";
+import { getApplications } from "../services/applicationService";
+import { getSubscribers } from "../services/newsettlerService";
+import { getInquiries } from "../services/inquiryService";
+import { getContacts } from "../services/contactService";
 
 const AdminDashboard = () => {
   const [counts, setCounts] = useState({
@@ -30,108 +23,61 @@ const AdminDashboard = () => {
     contacts: 0,
   });
 
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
-
-  const loadDashboardCounts = async () => {
-    try {
-      setLoading(true);
-
-      const [
-        blogsResponse,
-        projectsResponse,
-        quotesResponse,
-        jobsResponse,
-        applicationsResponse,
-        subscribersResponse,
-        inquiriesResponse,
-        contactsResponse,
-      ] = await Promise.all([
-        API.get("/blogs"),
-        API.get("/projects/admin/all"),
-        API.get("/quotes"),
-        API.get("/jobs/admin/all"),
-        API.get("/applications"),
-        API.get("/subscribers"),
-        API.get("/inquiries"),
-        API.get("/contact"),
-      ]);
-
-      setCounts({
-        blogs: blogsResponse.data?.data?.length || 0,
-        projects: projectsResponse.data?.data?.length || 0,
-        quotes: quotesResponse.data?.data?.length || 0,
-        jobs: jobsResponse.data?.data?.length || 0,
-        applications: applicationsResponse.data?.data?.length || 0,
-        subscribers: subscribersResponse.data?.data?.length || 0,
-        inquiries: inquiriesResponse.data?.data?.length || 0,
-        contacts: contactsResponse.data?.data?.length || 0,
-      });
-    } catch (error) {
-      setToast({
-        message: "Failed to load dashboard data",
-        type: "error",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadDashboardCounts();
+    const loadCounts = async () => {
+      try {
+        const [blogs, projects, quotes, jobs, applications, subscribers, inquiries, contacts] = await Promise.all([
+          getBlogs(),
+          getProjects(),
+          getQuotes(),
+          getJobs(),
+          getApplications(),
+          getSubscribers(),
+          getInquiries(),
+          getContacts(),
+        ]);
+
+        setCounts({
+          blogs: blogs.data?.data?.length || blogs.data?.length || 0,
+          projects: projects.data?.data?.length || projects.data?.length || 0,
+          quotes: quotes.data?.data?.length || quotes.data?.length || 0,
+          jobs: jobs.data?.data?.length || jobs.data?.length || 0,
+          applications: applications.data?.data?.length || applications.data?.length || 0,
+          subscribers: subscribers.data?.data?.length || subscribers.data?.length || 0,
+          inquiries: inquiries.data?.data?.length || inquiries.data?.length || 0,
+          contacts: contacts.data?.data?.length || contacts.data?.length || 0,
+        });
+      } catch (error) {
+        console.log("Dashboard load failed", error);
+      }
+    };
+
+    loadCounts();
   }, []);
 
-  return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
+    return (
+    <AdminLayout
+      title="Admin Dashboard"
+      subtitle="Track platform activity and manage all enterprise modules from one place."
+    >
+      <div className="summary-grid">
+        <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
+        <SummaryCard icon={<FaProjectDiagram />} label="Projects" count={counts.projects} />
+        <SummaryCard icon={<FaFileInvoiceDollar />} label="Quotes" count={counts.quotes} />
+        <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
+        <SummaryCard icon={<FaUsers />} label="Applications" count={counts.applications} />
+        <SummaryCard icon={<FaEnvelopeOpenText />} label="Newsletter" count={counts.subscribers} />
+        <SummaryCard icon={<FaQuestionCircle />} label="Inquiry" count={counts.inquiries} />
+        <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
+      </div>
 
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <div className="summary-grid">
-            <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
-            <SummaryCard
-              icon={<FaProjectDiagram />}
-              label="Projects"
-              count={counts.projects}
-            />
-            <SummaryCard
-              icon={<FaFileInvoiceDollar />}
-              label="Quotes"
-              count={counts.quotes}
-            />
-            <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
-            <SummaryCard
-              icon={<FaUsers />}
-              label="Applications"
-              count={counts.applications}
-            />
-            <SummaryCard
-              icon={<FaEnvelopeOpenText />}
-              label="Newsletter"
-              count={counts.subscribers}
-            />
-            <SummaryCard
-              icon={<FaQuestionCircle />}
-              label="Inquiry"
-              count={counts.inquiries}
-            />
-            <SummaryCard
-              icon={<FaAddressBook />}
-              label="Contact"
-              count={counts.contacts}
-            />
-          </div>
-
-          <div className="panel-card" style={{ padding: "20px" }}>
-            <h3>Recent Activity</h3>
-            <p className="muted-text">
-              Recent admin actions, submissions, and updates can be shown here.
-            </p>
-          </div>
-        </>
-      )}
+      <div className="dashboard-welcome-card">
+        <h3>Admin Overview</h3>
+        <p>
+          Use the left navigation to manage blogs, projects, quotes, jobs, applications,
+          newsletter subscribers, inquiries, and contact requests.
+        </p>
+      </div>
     </AdminLayout>
   );
 };

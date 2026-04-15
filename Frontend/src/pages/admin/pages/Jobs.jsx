@@ -1,96 +1,97 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import API from "../../../api/axios";
+import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService";
 
-const PAGE_SIZE = 5;
+const initialForm = {
+  title: "",
+  company: "Sivion Global Technologies",
+  location: "",
+  type: "",
+  experience: "",
+  description: "",
+  status: "active",
+};
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
-  const [selectedDelete, setSelectedDelete] = useState(null);
+  const [formData, setFormData] = useState(initialForm);
+  const [editId, setEditId] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
   const loadJobs = async () => {
     try {
-      setLoading(true);
-      const res = await API.get("/jobs/admin/all");
-      setJobs(res.data?.data || []);
+      const { data } = await getJobs();
+      setJobs(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load jobs", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
-
   useEffect(() => {
     loadJobs();
   }, []);
 
-  const filteredJobs = useMemo(() => {
-    return jobs.filter((job) =>
-      `${job.title} ${job.department} ${job.location}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [jobs, search]);
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-  const totalPages = Math.ceil(filteredJobs.length / PAGE_SIZE) || 1;
-  const paginatedJobs = filteredJobs.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
-  const handleToggle = async (id) => {
+  const resetForm = () => {
+    setFormData(initialForm);
+    setEditId(null);
+  };
+const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await API.patch(`/jobs/${id}/toggle`);
-      setToast({ message: "Job status updated successfully", type: "success" });
+      if (editId) {
+        await updateJob(editId, formData);
+      } else {
+        await createJob(formData);
+      }
+      resetForm();
       loadJobs();
     } catch (error) {
-      setToast({ message: "Failed to update job status", type: "error" });
+      console.log(error);
     }
   };
 
-  const handleDelete = async () => {
+  const handleEdit = (job) => {
+    setEditId(job._id);
+    setFormData({
+      title: job.title || "",
+      company: job.company || "Sivion Global Technologies",
+      location: job.location || "",
+      type: job.type || "",
+      experience: job.experience || "",
+      description: job.description || "",
+      status: job.status || "active",
+    });
+  };
+ const handleDelete = async () => {
     try {
-      await API.delete(`/jobs/${selectedDelete._id}`);
-      setToast({ message: "Job deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteJob(deleteId);
+      setDeleteId(null);
       loadJobs();
     } catch (error) {
-      setToast({ message: "Failed to delete job", type: "error" });
+      console.log(error);
     }
   };
 
   const columns = [
-    { key: "title", label: "Title" },
-    { key: "department", label: "Department" },
-    { key: "location", label: "Location" },
-    { key: "type", label: "Type" },
+    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
+    { header: "Title", key: "title" },
+    { header: "Location", key: "location" },
+    { header: "Type", key: "type" },
+    { header: "Status", key: "status" },
     {
-      key: "status",
-      label: "Status",
-      render: (row) => (
-        <StatusBadge status={row.isActive ? "Active" : "Inactive"} />
-      ),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn" onClick={() => handleToggle(row._id)}>
-            Toggle
+        <div className="table-action-group">
+          <button className="admin-btn admin-btn-secondary" onClick={() => handleEdit(row)}>
+            Edit
           </button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
+          <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
             Delete
           </button>
         </div>
@@ -98,40 +99,49 @@ const Jobs = () => {
     },
   ];
 
-  return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
-        onConfirm={handleDelete}
-        message={`Are you sure you want to delete ${selectedDelete?.title}?`}
-      />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search jobs..."
-        />
-        <button className="primary-btn">Add New Job</button>
+   return (
+    <AdminLayout title="Manage Jobs" subtitle="Create, update, and remove job openings.">
+      <div className="admin-form-card">
+        <h3>{editId ? "Edit Job" : "Create Job"}</h3>
+        <form className="admin-form-grid" onSubmit={handleSubmit}>
+          <input name="title" placeholder="Job Title" value={formData.title} onChange={handleChange} required />
+          <input name="company" placeholder="Company" value={formData.company} onChange={handleChange} />
+          <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} />
+          <input name="type" placeholder="Type" value={formData.type} onChange={handleChange} />
+          <input name="experience" placeholder="Experience" value={formData.experience} onChange={handleChange} />
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            rows="4"
+          />
+           <div className="admin-form-actions">
+            <button type="submit" className="admin-btn admin-btn-primary">
+              {editId ? "Update Job" : "Create Job"}
+            </button>
+            <button type="button" className="admin-btn admin-btn-secondary" onClick={resetForm}>
+              Reset
+            </button>
+          </div>
+        </form>
       </div>
 
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedJobs} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
+      <DataTable columns={columns} rows={jobs} emptyText="No jobs available" />
+
+      <ConfirmModal
+        open={!!deleteId}
+        title="Delete Job"
+        message="Are you sure you want to delete this job?"
+        onConfirm={handleDelete}
+        onClose={() => setDeleteId(null)}
+      />
     </AdminLayout>
   );
-};
+}
 
 export default Jobs;
