@@ -153,16 +153,7 @@ const FormCard = ({ title, icon, accent, children }) => (
 ══════════════════════════════════════════════════════════════ */
 const RequestQuote = () => {
   const navigate = useNavigate();
-  const [cvFile, setCvFile] = useState(null);
-  const [submittingCareer, setSubmittingCareer] = useState(false);
   const [submittingProposal, setSubmittingProposal] = useState(false);
-
-  const submitCareer = async (e) => {
-    e.preventDefault();
-    setSubmittingCareer(true);
-    await new Promise(r => setTimeout(r, 1200));
-    navigate('/thank-you');
-  };
 
   const submitProposal = async (e) => {
     e.preventDefault();
@@ -182,47 +173,25 @@ const RequestQuote = () => {
           borderRadius: 50, marginBottom: '1.5rem'
         }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00F5FF', display: 'inline-block', boxShadow: '0 0 6px #00F5FF' }} />
-          Lead Generation Suite
+          Project Inception Suite
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>
-          Careers &{' '}
-          <span style={{ background: 'linear-gradient(135deg,#00F5FF,#7C3AED)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Proposal Suite
+          Request a{' '}
+          <span style={{ background: 'linear-gradient(135deg,#7C3AED,#00F5FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            Technical Proposal
           </span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
           style={{ color: '#94a3b8', fontSize: '1.05rem', maxWidth: 560, margin: '0 auto' }}>
-          Whether you're joining our team or proposing a project — both pathways start here.
+          Define your vision and technical requirements. Our solution architects will synthesize a comprehensive strategy and roadmap.
         </motion.p>
       </section>
 
-      {/* Two-column forms */}
+      {/* Single-column centered form */}
       <section style={{ padding: '0 5% 7rem' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+        <div style={{ maxWidth: '650px', margin: '0 auto' }}>
 
-          {/* ── COLUMN LEFT: Career Application ── */}
-          <FormCard title="Career Application Form" icon={<User size={20} />} accent="#00F5FF">
-            <form onSubmit={submitCareer}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
-                <Float label="First Name" required />
-                <Float label="Last Name" required />
-              </div>
-              <Float label="Email Address" type="email" required />
-              <SelectField label="Role Selection" required options={[
-                'Java Engineer', 'UI/UX Designer', 'Backend Developer',
-                'Cloud Architect', 'Frontend Developer', 'Project Manager',
-              ]} />
-              <Float label="Portfolio URL" type="url" placeholder="https://yourportfolio.com" />
-              <FileUpload onFile={setCvFile} uploaded={cvFile} />
-              <TextArea label="Why Sivion? Tell us about yourself" required rows={4} />
-              <GlowBtn color="#00F5FF">
-                Apply Now <ArrowRight size={18} />
-              </GlowBtn>
-            </form>
-          </FormCard>
-
-          {/* ── COLUMN RIGHT: Project Proposal ── */}
           <FormCard title="Project Proposal Form" icon={<Briefcase size={20} />} accent="#7C3AED">
             <form onSubmit={submitProposal}>
               <Float label="Project Name" required />
@@ -240,7 +209,7 @@ const RequestQuote = () => {
               <TextArea label="Project Description" required rows={5} placeholder="Describe your vision, goals, and technical requirements..." />
               <SelectField label="Preferred Contact Method" options={['Email', 'Phone Call', 'Video Meeting', 'Whatsapp']} />
               <GlowBtn color="#7C3AED">
-                Request a Proposal <Send size={18} />
+                {submittingProposal ? 'Processing...' : 'Request a Proposal'} <Send size={18} />
               </GlowBtn>
             </form>
           </FormCard>

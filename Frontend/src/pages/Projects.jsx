@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
-import { motion } from 'framer-motion';
-import { ChevronRight, Settings, Code2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, Settings, Code2, Filter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import { projects } from "../data";
@@ -129,14 +129,15 @@ const filteredProjects =
                   to={`/project-details/${project.id}`}
                   className={`view-btn ${project.category.toLowerCase()}`}
                 >
-                  View Details →
                 </Link>
-
               </div>
             </div>
-          </div>
-
-      
+          </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+  </section>
       {/* 🔥 IMPACT STRIP */}
       <section className="impact-strip">
         <div className="container1">

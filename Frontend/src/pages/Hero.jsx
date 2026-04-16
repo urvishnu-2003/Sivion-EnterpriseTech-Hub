@@ -451,7 +451,6 @@ function Hero() {
       {/* ── HERO BANNER ── */}
       <section className="hero-section" aria-label="Hero banner">
         <ParticleCanvas />
-        <div className="hex-grid-overlay" aria-hidden="true" />
 
         <div className="hero-content">
           <motion.h1 className="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }}>

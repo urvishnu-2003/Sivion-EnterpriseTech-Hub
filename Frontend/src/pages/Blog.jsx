@@ -278,7 +278,7 @@ export default function Blog() {
         <p className="blog-hero__sub">
           Deep dives into enterprise technology, cloud strategy, cybersecurity, and the ideas reshaping the digital world.
         </p>
-</section>
+      </section>
 
       {/* ── Tag Filter ───────────────────────────────────── */}
       <div className="blog-tag-bar">
