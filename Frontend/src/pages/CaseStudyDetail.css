@@ -1,0 +1,32 @@
+/* ═══════════════════════════════════════════════════════════════
+   CASE STUDY DETAIL PAGE SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.case-study-detail {
+  padding-top: 100px;
+}
+
+.cs-hero {
+  padding: 8rem 5% 6rem;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.07) 0%, transparent 60%);
+}
+
+.cs-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 5% 8rem;
+}
+
+.cs-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--white);
+  font-family: var(--font-main);
+  margin: 3rem 0 1rem;
+}
+
+.cs-content p {
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}

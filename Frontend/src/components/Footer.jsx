@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Mail, Phone, MapPin, Send, Globe, Share2, Terminal, MessageCircle, Video } from 'lucide-react';
+import './Footer.css';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -151,10 +152,6 @@ function Footer() {
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms & Conditions</Link>
           <Link to="/faq">FAQ</Link>
-        </div>
-        <div className="status-indicator" aria-live="polite">
-          <div className="pulse-dot" aria-hidden="true" />
-          <span>All Systems Operational</span>
         </div>
       </div>
     </footer>

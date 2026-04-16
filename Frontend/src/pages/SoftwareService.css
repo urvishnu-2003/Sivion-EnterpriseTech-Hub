@@ -1,0 +1,122 @@
+@import './ServiceDetail.css';
+
+/* ══ SOFTWARE THEME ══ */
+.software-theme .gradient-text {
+  background: linear-gradient(135deg, #10B981, #3B82F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.code-glow-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.stack-showcase {
+  padding: 8rem 5%;
+}
+
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.split-view.invert {
+  direction: rtl;
+}
+
+.split-view.invert > * {
+  direction: ltr;
+}
+
+.tech-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tech-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.terminal-mockup {
+  background: #050a14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.mockup-header {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.7rem;
+  color: #475569;
+}
+
+.mockup-header .dots {
+  display: flex;
+  gap: 6px;
+}
+
+.mockup-header .dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1e293b;
+}
+
+.mockup-body.code {
+  padding: 2rem;
+  min-height: 200px;
+}
+
+.code-line {
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.code-line span {
+  color: #10B981;
+  margin-right: 8px;
+}
+
+.cursor-blink {
+  width: 8px;
+  height: 16px;
+  background: #10B981;
+  display: inline-block;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 1024px) {
+  .split-view {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}

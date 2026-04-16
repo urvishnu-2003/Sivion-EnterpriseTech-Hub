@@ -4,6 +4,8 @@ import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { Code2, Cpu, Zap, Terminal, GitBranch, ShieldCheck, Box, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './SoftwareService.css';
+
 
 const SoftwareService = () => {
   const lifecycle = [

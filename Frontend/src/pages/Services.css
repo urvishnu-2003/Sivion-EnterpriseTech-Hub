@@ -1,0 +1,89 @@
+/* ═══════════════════════════════════════════════════════════════
+   SERVICES PAGE SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.services-index-page {
+  padding-top: 100px;
+}
+
+.servicesSubtitle {
+  max-width: 1111px !important;
+}
+
+.services-section {
+  padding: 4rem 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 4rem;
+}
+
+.service-card {
+  height: 100%;
+}
+
+.service-icon {
+  margin-bottom: 1.25rem;
+  width: 48px;
+  height: 48px;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-arrow {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.link-arrow:hover {
+  gap: 12px;
+}
+
+.service-trust {
+  padding: 6rem 0;
+}
+
+.service-cta {
+  padding: 4rem 0 6rem;
+}
+
+/* Custom styles for grid items in Service.jsx */
+.strategic-item {
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.18);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.strategic-item h4 {
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.strategic-item p {
+  color: #9fd8ff;
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

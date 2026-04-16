@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Code2, Layout, Layers, ShieldCheck, Settings, Cpu, Database, Smartphone, Briefcase, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import './ServiceDetail.css';
 import PageWrapper from '../components/ui/PageWrapper';
 import TiltCard from '../components/ui/TiltCard';
 
@@ -305,45 +306,45 @@ const ServiceDetail = () => {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="hero-label" style={{ marginBottom: '1rem' }}>
              <div className="hero-label-dot" /> JetBrains Mono &nbsp;&nbsp;|&nbsp;&nbsp; JetBrains Mono
           </motion.div>
-          <h1 style={{ color: '#fff', fontSize: 'clamp(2rem, 4vw, 3.2rem)', margin: '0 0 0.5rem', fontWeight: 700 }}>
+          <h1 className="hero-title-main">
             {service.title}
           </h1>
-          <p style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '3rem' }}>
+          <p className="hero-subtitle-main">
             Tiened Tiered Architecture
           </p>
 
           {/* Architecture Diagram Canvas */}
-          <div style={{ background: 'rgba(10,22,40,0.4)', border: '1px solid rgba(0,245,255,0.2)', padding: '2.5rem', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,245,255,0.05)' }}>
+          <div className="arch-diagram">
             
             {/* Top Level Layer */}
-            <div style={{ background: 'rgba(0,245,255,0.1)', border: '1px solid rgba(0,245,255,0.3)', padding: '0.75rem', borderRadius: '8px', color: '#fff', fontSize: '0.9rem', width: '80%', margin: '0 auto' }}>
+            <div className="arch-layer-top">
               Marn Expert
             </div>
 
             {/* Middle Container */}
-            <div style={{ border: '1px solid rgba(0,245,255,0.2)', padding: '1.5rem 1rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative' }}>
-               <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#0a192f', padding: '0 10px', fontSize: '0.8rem', color: '#00F5FF' }}>
+            <div className="arch-layer-middle">
+               <div className="arch-tag">
                  Yom Tims
                </div>
 
-               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-                 <div style={{ background: '#00F5FF', color: '#0A192F', padding: '0.6rem', borderRadius: '8px', fontWeight: 600, fontSize: '0.85rem' }}>Yom Down</div>
-                 <div style={{ background: 'rgba(0,245,255,0.15)', border: '1px solid #00F5FF', color: '#fff', padding: '0.6rem', borderRadius: '8px', fontSize: '0.85rem' }}>Vanlion</div>
-                 <div style={{ background: '#00F5FF', color: '#0A192F', padding: '0.6rem', borderRadius: '8px', fontWeight: 600, fontSize: '0.85rem' }}>Wan Setem</div>
+               <div className="arch-grid">
+                 <div className="arch-grid-item">Yom Down</div>
+                 <div className="arch-grid-item outline">Vanlion</div>
+                 <div className="arch-grid-item">Wan Setem</div>
                </div>
 
-               <div style={{ background: 'rgba(0,245,255,0.05)', border: '1px solid rgba(0,245,255,0.2)', padding: '0.75rem', borderRadius: '8px', color: '#cbd5e1', fontSize: '0.85rem' }}>
+               <div className="arch-layer-info">
                  Nayori Besishmarks
                </div>
             </div>
 
             {/* Bottom Level Layer */}
-            <div style={{ background: 'rgba(0,245,255,0.05)', border: '1px solid rgba(0,245,255,0.2)', padding: '0.75rem', borderRadius: '8px', color: '#cbd5e1', fontSize: '0.85rem', width: '90%', margin: '0 auto' }}>
+            <div className="arch-layer-bottom">
               Toynd Orchiterters
             </div>
             
             {/* Side Label */}
-            <div style={{ position: 'absolute', right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg)', fontSize: '0.75rem', color: '#00F5FF', letterSpacing: '2px' }}>
+            <div className="arch-side-label">
               Mour Grooup
             </div>
           </div>
@@ -351,19 +352,19 @@ const ServiceDetail = () => {
       </section>
 
       {/* Benefits & Double CTA */}
-      <section style={{ padding: '2rem 2rem 6rem' }}>
+      <section className="benefits-section" style={{ padding: '2rem 2rem 6rem' }}>
         <div className="container" style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
           <div>
-            <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1.25rem' }}>Benefits</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-               <ul style={{ listStyle: 'disc', color: '#cbd5e1', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+            <h3 className="benefits-title">Benefits</h3>
+            <div className="benefits-grid">
+               <ul className="benefits-list">
                  <li>Flesremoccumd xratcous! and vaotisicn</li>
                  <li>Hetienre cxlabile imeaxis enofure and pplicnbasmos.</li>
                  <li>Meemparee ocote nic oeaton architecture serivices</li>
                  <li>Cuatoma soliuane ante batrid development.</li>
                </ul>
-               <ul style={{ listStyle: 'disc', color: '#cbd5e1', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+               <ul className="benefits-list">
                  <li>Reoulaive sellese sinc and fumt black hsseconnecsive.</li>
                  <li>Previda subte ierlios of custom eiolceteons</li>
                  <li>Design-od softwane ewobano an Expert.</li>
@@ -372,7 +373,7 @@ const ServiceDetail = () => {
           </div>
 
           {/* Double CTA */}
-          <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+          <div className="cta-actions-row" style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
             <Link to="/quote" className="glass-button-primary" style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}>Request a Quote</Link>
             <Link to="/contact" className="glass-button-secondary" style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}>Talk to an Expert</Link>
           </div>

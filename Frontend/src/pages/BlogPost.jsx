@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Clock, ArrowLeft, Share2, Tag, Calendar } from 'lucide-react';
+import './BlogPost.css';
 
 const BlogPost = () => {
   const { id } = useParams();

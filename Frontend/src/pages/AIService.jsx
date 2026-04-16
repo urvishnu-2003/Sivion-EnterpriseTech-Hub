@@ -4,6 +4,8 @@ import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { Brain, Cpu, Database, Network, TrendingUp, BarChart3, Binary, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './AIService.css';
+
 
 const AIService = () => {
   const lifecycle = [

@@ -1,0 +1,19 @@
+@import './ServiceDetail.css';
+
+/* ══ AI THEME ══ */
+.ai-theme .gradient-text {
+  background: linear-gradient(135deg, #00F5FF, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.neural-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 50% 50%, rgba(0, 245, 255, 0.05) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}

@@ -1,4 +1,6 @@
-import './App.css';
+import './styles/GlobalStyles.css';
+import './styles/Animations.css';
+import './styles/CommonUI.css';
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';

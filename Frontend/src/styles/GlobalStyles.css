@@ -1,0 +1,180 @@
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL STYLES & DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── DESIGN TOKENS ── */
+:root {
+  /* Brand Colors */
+  --navy: #050000;
+  --navy-mid: #0a0a1a;
+  --navy-light: #0d1222;
+  --navy-card: #0a0e1a;
+  --cyan: #00F5FF;
+  --cyan-dim: #0088CC;
+  --cyan-glow: rgba(0, 245, 255, 0.12);
+  --cyan-glow-lg: rgba(0, 245, 255, 0.45);
+  --blue-deep: #031775;
+  --blue-gradient: linear-gradient(135deg, #00F5FF 0%, #031775 100%);
+  --green: #00e5a0;
+  --green-glow: rgba(0, 229, 160, 0.2);
+  --purple: #7c3aed;
+  --purple-glow: rgba(124, 58, 237, 0.2);
+  --white: #ffffff;
+  --off-white: #e8f0fe;
+  --text-dim: #6b87a8;
+  --text-muted: #3d5a7a;
+
+  /* Glassmorphism */
+  --glass: rgba(10, 22, 40, 0.6);
+  --glass-light: rgba(15, 32, 64, 0.4);
+  --glass-border: rgba(0, 200, 255, 0.12);
+  --glass-border2: rgba(255, 255, 255, 0.06);
+  --glass-hover: rgba(0, 200, 255, 0.08);
+
+  /* Typography */
+  --font-main: 'Montserrat', 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Gradients */
+  --gradient-primary: var(--blue-gradient);
+  --gradient-aurora: linear-gradient(135deg, #00c8ff 0%, #7c3aed 50%, #00e5a0 100%);
+  --gradient-glow-bg: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.12) 0%, transparent 70%);
+  --gradient-text: linear-gradient(135deg, #ffffff 0%, #00c8ff 60%, #7c3aed 100%);
+
+  /* Spacing */
+  --section-pad: 1rem 5%;
+  --card-pad: 2.5rem;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+
+  /* Transitions */
+  --transition-sm: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-lg: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Aliases */
+  --bg-dark: var(--navy);
+  --text-main: var(--off-white);
+}
+
+/* ── BASE RESETS ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--navy);
+  color: var(--off-white);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, .logo-text {
+  font-family: var(--font-main);
+}
+
+/* ── CUSTOM CURSOR ── */
+#cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s;
+  box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+}
+
+#cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(0, 200, 255, 0.7);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), width 0.3s, height 0.3s, background 0.3s;
+}
+
+#cursor-ring.hovering {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 200, 255, 0.1);
+  border-color: var(--cyan);
+}
+
+@media (hover: none) {
+  #cursor-dot, #cursor-ring { display: none; }
+}
+
+/* ── LAYOUT ── */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background: var(--navy);
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  padding-top: 80px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.page-wrapper {
+  padding-top: 90px;
+  animation: fadeSlideUp 0.5s ease both;
+}
+
+/* ── UTILITY CLASSES ── */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════════════════
+   REQUEST QUOTE PAGE SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.quote-hero {
+  padding: 7rem 5% 3rem;
+  text-align: center;
+}
+
+.quote-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #00F5FF;
+  padding: 0.5rem 1.2rem;
+  background: rgba(0,245,255,0.07);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-radius: 50px;
+  margin-bottom: 1.5rem;
+}
+
+.quote-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00F5FF;
+  display: inline-block;
+  box-shadow: 0 0 6px #00F5FF;
+}
+
+.quote-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.quote-subtitle {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  maxWidth: 560px;
+  margin: 0 auto;
+}
+
+/* Form Styles */
+.quote-form-section {
+  padding: 0 5% 7rem;
+}
+
+.quote-form-container {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.quote-form-field {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.quote-form-label {
+  position: absolute;
+  top: 0.4rem;
+  left: 1rem;
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.quote-form-input, .quote-form-select, .quote-form-textarea {
+  width: 100%;
+  background: rgba(10,25,47,0.9);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 1.35rem 1rem 0.55rem;
+  color: #fff;
+  font-size: 0.93rem;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+.quote-form-textarea {
+  padding: 1.7rem 1rem 0.7rem;
+  resize: vertical;
+}
+
+.quote-form-input:focus, .quote-form-select:focus, .quote-form-textarea:focus {
+  border-color: #00F5FF;
+}
+
+/* Form Card */
+.quote-form-card {
+  background: rgba(17,34,64,0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+
+.quote-form-header {
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quote-form-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-form-body {
+  padding: 2rem;
+}
+
+.quote-glow-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+  color: #0A192F;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.quote-glow-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Bottom CTA */
+.quote-bottom-cta {
+  padding: 4rem 5% 6rem;
+  textAlign: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(135deg, rgba(0,245,255,0.04), rgba(124,58,237,0.04));
+}
+
+.quote-bottom-cta h3 {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.quote-bottom-cta p {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.quote-discovery-call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #00F5FF, #0066FF);
+  color: #0A192F;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(0,245,255,0.3);
+}

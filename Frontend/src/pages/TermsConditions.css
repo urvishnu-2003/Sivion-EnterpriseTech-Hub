@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════════════════════
+   TERMS & CONDITIONS PAGE SPECIFIC STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+.terms-header {
+  padding: 8rem 0 4rem;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(10,22,40,1) 0%, rgba(10,22,40,0) 100%);
+}
+
+.terms-icon-wrapper {
+  display: inline-flex;
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.terms-title {
+  font-size: 3rem;
+  margin: 1rem 0;
+}
+
+.terms-subtitle {
+  color: #94a3b8;
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.terms-content-section {
+  padding-bottom: 6rem;
+}
+
+.terms-document-body {
+  background: rgba(10, 22, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 4rem;
+  color: #e2e8f0;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.terms-document-body p {
+  line-height: 1.8;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.terms-heading {
+  color: #00d4ff;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}

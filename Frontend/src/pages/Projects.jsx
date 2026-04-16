@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Settings, Code2, Filter, ArrowRight } from 'lucide-react';
+import './Projects.css';
 import { Link } from 'react-router-dom';
-import '../App.css';
 import { projects } from "../data";
 
 

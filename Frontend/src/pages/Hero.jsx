@@ -6,6 +6,7 @@ import {
   Code2, Cloud, Briefcase, Layers, CheckCircle2,
   ChevronDown, ChevronUp, MessageSquare
 } from 'lucide-react';
+import './Home.css';
 import Services from '../components/sections/Services';
 import Process from '../components/sections/Process';
 

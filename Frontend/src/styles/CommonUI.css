@@ -1,0 +1,187 @@
+/* ═══════════════════════════════════════════════════════════════
+   COMMON SHARED UI COMPONENTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── BUTTONS ── */
+
+.premium-btn {
+  position: relative;
+  overflow: hidden;
+  background: var(--blue-gradient);
+  color: #000;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-family: var(--font-main);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  white-space: nowrap;
+  box-shadow: 0 0 30px var(--cyan-glow-lg);
+}
+
+.premium-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.5s ease;
+}
+
+.premium-btn:hover::before {
+  left: 100%;
+}
+
+.premium-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 200, 255, 0.35);
+}
+
+.premium-btn.shimmer-load::before {
+  animation: shimmer 1.2s ease 0.5s forwards;
+}
+
+.outline-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  color: var(--white);
+  backdrop-filter: blur(10px);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-family: var(--font-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.outline-btn:hover {
+  background: rgba(0, 245, 255, 0.1);
+  border-color: var(--cyan);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.cyan-btn {
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.4);
+  color: var(--cyan);
+  padding: 0.7rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.cyan-btn:hover {
+  background: var(--cyan);
+  color: var(--navy);
+  box-shadow: 0 0 20px var(--cyan-glow-lg);
+}
+
+/* ── TYPOGRAPHY MODULES ── */
+
+.gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.cyan-text { color: var(--cyan); }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1.2rem;
+  padding: 0.4rem 1rem;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  border-radius: 50px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--white);
+  margin-bottom: 1.2rem;
+  letter-spacing: -1px;
+}
+
+.section-desc {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.25);
+  padding: 0.45rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 2rem;
+}
+
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gradient-primary);
+  margin: 1.5rem auto;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: var(--transition-sm);
+}
+
+.link-arrow:hover { gap: 0.8rem; }

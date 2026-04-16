@@ -3,19 +3,23 @@ import { motion } from 'framer-motion';
 import { Calendar, Clock, User, Building2, Mail, FileText, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from '../components/ui/PageWrapper';
+import './BookTrial.css';
 
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const SLOTS = ['09:00 AM','10:00 AM','11:00 AM','02:00 PM','03:00 PM','04:00 PM'];
+// ── Helpers ────────────────────────────────────────────────
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const SLOTS = ["09:00 AM", "10:00 AM", "11:30 AM", "02:00 PM", "04:30 PM"];
 
-function buildCalendar(year, month) {
-  const first = new Date(year, month, 1).getDay();
+const buildCalendar = (year, month) => {
+  const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const cells = [];
-  for (let i = 0; i < first; i++) cells.push(null);
+  // padding
+  for (let i = 0; i < firstDay; i++) cells.push(null);
+  // days
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
   return cells;
-}
+};
 
 const BookTrial = () => {
   const navigate = useNavigate();
@@ -50,52 +54,22 @@ const BookTrial = () => {
 
   return (
     <PageWrapper>
-      <style>{`
-        .cal-day { transition: all 0.2s ease; cursor: pointer; }
-        .cal-day:hover:not(.past):not(.empty) { background: rgba(0,245,255,0.15); border-color: #00F5FF; color: #fff; }
-        .cal-day.selected { background: #00F5FF !important; color: #0A192F !important; border-color: #00F5FF !important; font-weight:700; }
-        .slot-btn { transition:all 0.2s ease; cursor:pointer; }
-        .slot-btn:hover { background:rgba(0,245,255,0.15); border-color:#00F5FF; color:#fff; }
-        .slot-btn.selected { background:#00F5FF; color:#0A192F; font-weight:700; border-color:#00F5FF; }
-        .duration-btn { transition:all 0.2s ease; cursor:pointer; }
-        .duration-btn:hover { border-color:#00F5FF; color:#fff; }
-        .duration-btn.active { background:rgba(0,245,255,0.15); border-color:#00F5FF; color:#00F5FF; }
-        .float-input { position:relative; margin-bottom:1.5rem; }
-        .float-input input, .float-input textarea {
-          width:100%; background:rgba(10,25,47,0.8); border:1px solid rgba(255,255,255,0.1);
-          border-radius:10px; padding:1.25rem 1rem 0.6rem; color:#fff; font-size:0.95rem;
-          transition:border 0.2s; outline:none; font-family:inherit;
-        }
-        .float-input input:focus, .float-input textarea:focus { border-color:#00F5FF; }
-        .float-input label {
-          position:absolute; top:0.75rem; left:1rem; color:#64748b; font-size:0.78rem;
-          font-weight:600; letter-spacing:0.5px; pointer-events:none;
-        }
-        .float-input input:not(:placeholder-shown) + label,
-        .float-input input:focus + label { color:#00F5FF; font-size:0.7rem; top:0.35rem; }
-      `}</style>
-
       {/* Hero */}
-      <section style={{ padding: '7rem 5% 3rem', textAlign: 'center' }}>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{
-          display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: '0.7rem', fontWeight: 700,
-          letterSpacing: '3px', color: '#00F5FF', padding: '0.5rem 1.2rem',
-          background: 'rgba(0,245,255,0.07)', border: '1px solid rgba(0,245,255,0.2)',
-          borderRadius: 50, marginBottom: '1.5rem'
-        }}>
+      <section className="book-trial-hero">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="book-trial-badge">
           <Calendar size={14} /> Book a Trial Form
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}
+          className="book-trial-title"
         >
           Book a{' '}
-          <span style={{ background: 'linear-gradient(135deg,#00F5FF,#7C3AED)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <span className="gradient-text">
             Trial Session
           </span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-          style={{ color: '#94a3b8', fontSize: '1.1rem', maxWidth: 560, margin: '0 auto 2rem' }}
+          className="book-trial-subtitle"
         >
           Choose a date and time for your complimentary enterprise consultation. Our architects are ready.
         </motion.p>
@@ -105,39 +79,34 @@ const BookTrial = () => {
       <section style={{ padding: '0 5% 6rem' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-          style={{
-            maxWidth: 1000, margin: '0 auto',
-            background: 'rgba(17,34,64,0.7)', backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(0,245,255,0.15)', borderRadius: 24,
-            overflow: 'hidden', display: 'grid', gridTemplateColumns: '1fr 1px 1fr'
-          }}
+          className="booking-panel"
         >
           {/* LEFT: CALENDAR */}
-          <div style={{ padding: '3rem' }}>
-            <h2 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10, marginBottom: '2rem' }}>
+          <div className="booking-panel-left">
+            <h2 className="booking-section-title">
               <Calendar size={18} color="#00F5FF" /> Select a Date
             </h2>
 
             {/* Month nav */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-              <button onClick={prevMonth} style={{ background: 'rgba(0,245,255,0.1)', border: '1px solid rgba(0,245,255,0.2)', borderRadius: 8, padding: '0.4rem 0.7rem', color: '#00F5FF', cursor: 'pointer' }}>
+            <div className="cal-nav">
+              <button onClick={prevMonth} className="cal-nav-btn">
                 <ChevronLeft size={18} />
               </button>
-              <span style={{ color: '#fff', fontWeight: 700 }}>{MONTHS[currentMonth]} {currentYear}</span>
-              <button onClick={nextMonth} style={{ background: 'rgba(0,245,255,0.1)', border: '1px solid rgba(0,245,255,0.2)', borderRadius: 8, padding: '0.4rem 0.7rem', color: '#00F5FF', cursor: 'pointer' }}>
+              <span className="cal-month-label">{MONTHS[currentMonth]} {currentYear}</span>
+              <button onClick={nextMonth} className="cal-nav-btn">
                 <ChevronRight size={18} />
               </button>
             </div>
 
             {/* Day headers */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4, marginBottom: '0.5rem' }}>
+            <div className="cal-grid-header">
               {DAYS.map(d => (
-                <div key={d} style={{ textAlign: 'center', color: '#64748b', fontSize: '0.72rem', fontWeight: 600, padding: '0.25rem' }}>{d}</div>
+                <div key={d} className="cal-header-cell">{d}</div>
               ))}
             </div>
 
             {/* Calendar cells */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
+            <div className="cal-grid">
               {cells.map((day, i) => {
                 const isPast = isCurrentMonth && day !== null && day < today;
                 const isSelected = day === selectedDay;
@@ -146,14 +115,6 @@ const BookTrial = () => {
                     key={i}
                     className={`cal-day${day ? '' : ' empty'}${isPast ? ' past' : ''}${isSelected ? ' selected' : ''}`}
                     onClick={() => { if (day && !isPast) { setSelectedDay(day); setSelectedSlot(null); } }}
-                    style={{
-                      textAlign: 'center', padding: '0.5rem 0.25rem',
-                      borderRadius: 8, border: '1px solid transparent',
-                      color: isPast ? '#2a3a52' : day ? '#cbd5e1' : 'transparent',
-                      fontSize: '0.85rem',
-                      cursor: day && !isPast ? 'pointer' : 'default',
-                      background: isSelected ? '#00F5FF' : 'transparent',
-                    }}
                   >
                     {day || ''}
                   </div>
@@ -163,22 +124,16 @@ const BookTrial = () => {
 
             {/* Time slots */}
             {selectedDay && (
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ marginTop: '1.5rem' }}>
-                <h3 style={{ color: '#fff', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="slots-container">
+                <h3 className="slots-title">
                   <Clock size={16} color="#00F5FF" /> Available Slots
                 </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem' }}>
+                <div className="slots-grid">
                   {SLOTS.map(slot => (
                     <button
                       key={slot}
                       className={`slot-btn${selectedSlot === slot ? ' selected' : ''}`}
                       onClick={() => setSelectedSlot(slot)}
-                      style={{
-                        padding: '0.6rem 0.5rem', fontSize: '0.78rem', fontWeight: 600,
-                        background: selectedSlot === slot ? '#00F5FF' : 'rgba(10,25,47,0.6)',
-                        border: `1px solid ${selectedSlot === slot ? '#00F5FF' : 'rgba(255,255,255,0.08)'}`,
-                        borderRadius: 8, color: selectedSlot === slot ? '#0A192F' : '#94a3b8'
-                      }}
                     >
                       {slot}
                     </button>
@@ -188,23 +143,16 @@ const BookTrial = () => {
             )}
 
             {/* Duration selector */}
-            <div style={{ marginTop: '2rem' }}>
-              <h3 style={{ color: '#fff', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.75rem' }}>TRIAL DURATION</h3>
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div className="duration-section">
+              <h3>TRIAL DURATION</h3>
+              <div className="duration-btns">
                 {[{ val: '7', label: '7-DAY TRIAL', icon: '⚡' }, { val: '14', label: '14-DAY TRIAL', icon: '🚀' }].map(opt => (
                   <button
                     key={opt.val}
                     className={`duration-btn${duration === opt.val ? ' active' : ''}`}
                     onClick={() => setDuration(opt.val)}
-                    style={{
-                      flex: 1, padding: '0.875rem', fontSize: '0.82rem', fontWeight: 700,
-                      background: duration === opt.val ? 'rgba(0,245,255,0.1)' : 'rgba(10,25,47,0.6)',
-                      border: `1px solid ${duration === opt.val ? '#00F5FF' : 'rgba(255,255,255,0.08)'}`,
-                      borderRadius: 10, color: duration === opt.val ? '#00F5FF' : '#64748b',
-                      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, cursor: 'pointer'
-                    }}
                   >
-                    <span style={{ fontSize: '1.4rem' }}>{opt.icon}</span>
+                    <span className="duration-icon">{opt.icon}</span>
                     {opt.label}
                   </button>
                 ))}
@@ -213,11 +161,11 @@ const BookTrial = () => {
           </div>
 
           {/* Divider */}
-          <div style={{ background: 'rgba(0,245,255,0.1)', width: 1 }} />
+          <div className="booking-panel-divider" />
 
           {/* RIGHT: DETAILS FORM */}
-          <div style={{ padding: '3rem' }}>
-            <h2 style={{ color: '#fff', fontSize: '1.3rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10, marginBottom: '2rem' }}>
+          <div className="booking-panel-right">
+            <h2 className="booking-section-title">
               <User size={18} color="#00F5FF" /> Your Details
             </h2>
 
@@ -225,24 +173,20 @@ const BookTrial = () => {
             {selectedDay && selectedSlot && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-                style={{
-                  background: 'rgba(0,245,255,0.08)', border: '1px solid rgba(0,245,255,0.25)',
-                  borderRadius: 12, padding: '1rem 1.25rem', marginBottom: '2rem',
-                  display: 'flex', alignItems: 'center', gap: 12
-                }}
+                className="booking-summary"
               >
                 <CheckCircle2 size={20} color="#00F5FF" />
                 <div>
-                  <div style={{ color: '#00F5FF', fontSize: '0.8rem', fontWeight: 700, fontFamily: '"JetBrains Mono",monospace' }}>
+                  <div className="booking-summary-text">
                     BOOKED: {MONTHS[currentMonth]} {selectedDay}, {currentYear} at {selectedSlot}
                   </div>
-                  <div style={{ color: '#64748b', fontSize: '0.78rem' }}>{duration}-Day Trial Session Selected</div>
+                  <div className="booking-summary-sub">{duration}-Day Trial Session Selected</div>
                 </div>
               </motion.div>
             )}
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-              <div className="float-input">
+            <form onSubmit={handleSubmit} className="booking-form">
+              <div className="float-field">
                 <input
                   type="text" placeholder=" " required
                   value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
@@ -250,7 +194,7 @@ const BookTrial = () => {
                 <label>Full Name *</label>
               </div>
 
-              <div className="float-input">
+              <div className="float-field">
                 <input
                   type="text" placeholder=" "
                   value={form.company} onChange={e => setForm({ ...form, company: e.target.value })}
@@ -258,7 +202,7 @@ const BookTrial = () => {
                 <label>Company Name</label>
               </div>
 
-              <div className="float-input">
+              <div className="float-field">
                 <input
                   type="email" placeholder=" " required
                   value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
@@ -266,28 +210,17 @@ const BookTrial = () => {
                 <label>Work Email *</label>
               </div>
 
-              <div className="float-input">
+              <div className="float-field">
                 <textarea
                   rows={4} placeholder=" "
                   value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })}
-                  style={{ resize: 'vertical', padding: '1.25rem 1rem 0.5rem' }}
                 />
                 <label>Notes / Agenda</label>
               </div>
 
               <button
                 type="submit"
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                  padding: '1rem 2rem', width: '100%',
-                  background: 'linear-gradient(135deg,#00F5FF,#0066FF)',
-                  color: '#0A192F', borderRadius: 12, fontWeight: 800, fontSize: '1rem',
-                  border: 'none', cursor: 'pointer', letterSpacing: '0.5px',
-                  boxShadow: '0 8px 30px rgba(0,245,255,0.35)',
-                  transition: 'transform 0.2s, box-shadow 0.2s', marginTop: '0.5rem'
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(0,245,255,0.5)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,245,255,0.35)'; }}
+                className="schedule-btn"
               >
                 Schedule Trial <ArrowRight size={18} />
               </button>
@@ -298,5 +231,6 @@ const BookTrial = () => {
     </PageWrapper>
   );
 };
+
 
 export default BookTrial;

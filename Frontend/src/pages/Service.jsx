@@ -1,4 +1,5 @@
 import React from 'react';
+import './Services.css';
 import PageWrapper from '../components/ui/PageWrapper';
 import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
@@ -101,7 +102,7 @@ const Service = () => {
             reliability, speed, and measurable outcomes.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1rem', marginTop: '3rem' }}>
+          <div className="services-grid strategic-grid" style={{ marginTop: '3rem' }}>
             {[
               {
                 title: 'Strategic Delivery',
@@ -116,9 +117,9 @@ const Service = () => {
                 desc: 'Built-in governance, compliance, and monitoring for enterprise-grade security posture.'
               }
             ].map((item) => (
-              <div key={item.title} style={{ background: 'rgba(0,200,255,0.08)', border: '1px solid rgba(0,200,255,0.18)', borderRadius: '20px', padding: '1.5rem' }}>
-                <h4 style={{ color: '#fff', marginBottom: '0.75rem' }}>{item.title}</h4>
-                <p style={{ color: '#9fd8ff', lineHeight: '1.8' }}>{item.desc}</p>
+              <div key={item.title} className="strategic-item">
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -127,7 +128,7 @@ const Service = () => {
 
       <section className="services-section">
         <div className="container">
-          <div className="services-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+          <div className="services-grid">
             {allServices.map((service, i) => (
               <motion.div
                 key={service.id}

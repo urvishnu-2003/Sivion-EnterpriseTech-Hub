@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, TrendingUp, BarChart, Settings, ArrowRight } from 'lucide-react';
+import './CaseStudyDetail.css';
 
 const CaseStudyDetail = () => {
   const { id } = useParams();

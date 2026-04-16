@@ -4,6 +4,8 @@ import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { Cloud, Shield, Zap, Server, ShieldCheck, RefreshCw, Layers, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './CloudService.css';
+
 
 const CloudService = () => {
   const pillars = [
