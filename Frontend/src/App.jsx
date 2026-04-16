@@ -29,12 +29,16 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import BookTrial from './pages/BookTrial';
+import Solutions from './pages/Solutions';
 import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from './pages/admin/pages/AdminLogin';
+import AdminDashboard from './pages/admin/pages/AdminDashboard';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
+
+import ProjectDetails from "./pages/ProjectDetails";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -68,11 +72,7 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
-
-        {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/project-details/:id" element={<ProjectDetails />} />
       </Routes>
     </AnimatePresence>
   );

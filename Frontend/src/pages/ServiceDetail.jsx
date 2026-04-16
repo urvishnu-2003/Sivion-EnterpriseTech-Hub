@@ -300,191 +300,83 @@ const ServiceDetail = () => {
 
   return (
     <PageWrapper>
-      <section className="about-hero" style={{ padding: '6.5rem 0 3rem' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="about-badge"
-            style={{ marginBottom: '1.5rem' }}
-          >
-            Services
+      <section className="about-hero" style={{ padding: '6.5rem 2rem 3rem' }}>
+        <div className="container" style={{ textAlign: 'center', maxWidth: '800px' }}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="hero-label" style={{ marginBottom: '1rem' }}>
+             <div className="hero-label-dot" /> JetBrains Mono &nbsp;&nbsp;|&nbsp;&nbsp; JetBrains Mono
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.15 }}
-          >
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '96px',
-                height: '96px',
-                margin: '0 auto 1.75rem',
-                borderRadius: '24px',
-                border: `1px solid ${service.color}33`,
-                background: 'rgba(0, 212, 255, 0.08)'
-              }}
-            >
-              {service.icon}
+          <h1 style={{ color: '#fff', fontSize: 'clamp(2rem, 4vw, 3.2rem)', margin: '0 0 0.5rem', fontWeight: 700 }}>
+            {service.title}
+          </h1>
+          <p style={{ color: '#fff', fontSize: '1.25rem', marginBottom: '3rem' }}>
+            Tiened Tiered Architecture
+          </p>
+
+          {/* Architecture Diagram Canvas */}
+          <div style={{ background: 'rgba(10,22,40,0.4)', border: '1px solid rgba(0,245,255,0.2)', padding: '2.5rem', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,245,255,0.05)' }}>
+            
+            {/* Top Level Layer */}
+            <div style={{ background: 'rgba(0,245,255,0.1)', border: '1px solid rgba(0,245,255,0.3)', padding: '0.75rem', borderRadius: '8px', color: '#fff', fontSize: '0.9rem', width: '80%', margin: '0 auto' }}>
+              Marn Expert
             </div>
-            <h1 style={{ color: '#fff', fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
-              {service.title}
-            </h1>
-            <p style={{ color: '#94a3b8', maxWidth: '760px', margin: '0 auto', fontSize: '1.1rem', lineHeight: '1.9' }}>
-              {service.tagline}
-            </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1rem', marginTop: '2.5rem', textAlign: 'left' }}>
-              {[
-                { label: 'Designed for Scale', value: 'High-growth systems with resilient architecture' },
-                { label: 'Secure by Design', value: 'Built-in controls for digital risk and compliance' },
-                { label: 'Operational Ready', value: 'Cloud, CI/CD, and support for continuous business delivery' }
-              ].map((item) => (
-                <div key={item.label} style={{ background: 'rgba(0,212,255,0.08)', border: '1px solid rgba(0,200,255,0.15)', borderRadius: '20px', padding: '1.4rem' }}>
-                  <h4 style={{ color: '#fff', marginBottom: '0.75rem' }}>{item.label}</h4>
-                  <p style={{ color: '#9fd8ff', lineHeight: '1.75' }}>{item.value}</p>
-                </div>
-              ))}
+            {/* Middle Container */}
+            <div style={{ border: '1px solid rgba(0,245,255,0.2)', padding: '1.5rem 1rem', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative' }}>
+               <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: '#0a192f', padding: '0 10px', fontSize: '0.8rem', color: '#00F5FF' }}>
+                 Yom Tims
+               </div>
+
+               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                 <div style={{ background: '#00F5FF', color: '#0A192F', padding: '0.6rem', borderRadius: '8px', fontWeight: 600, fontSize: '0.85rem' }}>Yom Down</div>
+                 <div style={{ background: 'rgba(0,245,255,0.15)', border: '1px solid #00F5FF', color: '#fff', padding: '0.6rem', borderRadius: '8px', fontSize: '0.85rem' }}>Vanlion</div>
+                 <div style={{ background: '#00F5FF', color: '#0A192F', padding: '0.6rem', borderRadius: '8px', fontWeight: 600, fontSize: '0.85rem' }}>Wan Setem</div>
+               </div>
+
+               <div style={{ background: 'rgba(0,245,255,0.05)', border: '1px solid rgba(0,245,255,0.2)', padding: '0.75rem', borderRadius: '8px', color: '#cbd5e1', fontSize: '0.85rem' }}>
+                 Nayori Besishmarks
+               </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      <section className="services-section" style={{ padding: '4rem 0' }}>
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Service Overview</h2>
-            <p className="section-desc">A focused enterprise solution designed to solve complex business challenges with modern technology and proven delivery discipline.</p>
-          </div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1.3fr 0.9fr',
-              gap: '2.5rem',
-              alignItems: 'start'
-            }}
-          >
-            <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <p style={{ color: '#cbd5e1', lineHeight: '1.85', fontSize: '1rem' }}>
-                {service.overview}
-              </p>
-
-              <div style={{ marginTop: '2.5rem' }}>
-                <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Key Features</h3>
-                <div style={{ display: 'grid', gap: '1rem' }}>
-                  {service.features.map((feature, idx) => (
-                    <div
-                      key={feature}
-                      style={{
-                        display: 'flex',
-                        gap: '1rem',
-                        alignItems: 'flex-start',
-                        background: 'rgba(255,255,255,0.03)',
-                        border: '1px solid rgba(255,255,255,0.06)',
-                        padding: '1.2rem 1.4rem',
-                        borderRadius: '18px'
-                      }}
-                    >
-                      <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: service.color, marginTop: '0.55rem' }} />
-                      <span style={{ color: '#cbd5e1', lineHeight: '1.7' }}>{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Technologies Used</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '1rem' }}>
-                  {service.technologies.map((tech) => (
-                    <div key={tech} className="tag" style={{ borderColor: 'rgba(0,200,255,0.18)', background: 'rgba(0,200,255,0.08)', color: '#b2dfff' }}>
-                      {tech}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Development Process</h3>
-                <ol style={{ color: '#cbd5e1', lineHeight: '1.85', paddingLeft: '1.25rem' }}>
-                  {service.process.map((step, index) => (
-                    <li key={step} style={{ marginBottom: '0.9rem' }}>
-                      <strong style={{ color: '#fff' }}>{index + 1}. </strong>{step}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: '3rem' }}>
-            <div style={{ background: 'rgba(10,22,40,0.9)', border: '1px solid rgba(0,200,255,0.15)', borderRadius: '24px', padding: '2.5rem' }}>
-              <h3 style={{ color: '#fff', marginBottom: '1rem' }}>Business Benefits</h3>
-              <div style={{ display: 'grid', gap: '1rem' }}>
-                {service.benefits.map((benefit) => (
-                  <div key={benefit} style={{ color: '#cbd5e1', lineHeight: '1.75' }}>
-                    • {benefit}
-                  </div>
-                ))}
-              </div>
+            {/* Bottom Level Layer */}
+            <div style={{ background: 'rgba(0,245,255,0.05)', border: '1px solid rgba(0,245,255,0.2)', padding: '0.75rem', borderRadius: '8px', color: '#cbd5e1', fontSize: '0.85rem', width: '90%', margin: '0 auto' }}>
+              Toynd Orchiterters
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="services-section" style={{ padding: '4rem 0' }}>
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Why Choose Us</h2>
-            <p className="section-desc">A service-first team that delivers enterprise traction through expert engineering, strong governance, and strategic support.</p>
-          </div>
-
-          <div className="services-grid">
-            {service.whyChoose.map((reason, index) => {
-              const Icon = whyChooseIcons[index] || ShieldCheck;
-              return (
-                <motion.div
-                  key={reason}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
-                >
-                  <TiltCard className="service-card">
-                    <div className="service-icon"><Icon size={22} /></div>
-                    <h3>{reason}</h3>
-                    <p style={{ color: '#94a3b8', lineHeight: '1.75' }}>
-                      We pair this capability with the operational discipline your enterprise demands.
-                    </p>
-                  </TiltCard>
-                </motion.div>
-              );
-            })}
+            
+            {/* Side Label */}
+            <div style={{ position: 'absolute', right: '-15px', top: '50%', transform: 'translateY(-50%) rotate(90deg)', fontSize: '0.75rem', color: '#00F5FF', letterSpacing: '2px' }}>
+              Mour Grooup
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="service-cta" style={{ padding: '4rem 0 6rem' }}>
-        <div className="container">
-          <div className="cta-card glass" style={{ padding: '3rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center' }}>
-              <h2 style={{ margin: 0 }}>Ready to move forward with {service.title}?</h2>
-              <p style={{ color: '#cbd5e1', maxWidth: '760px', textAlign: 'center' }}>
-                Choose the next step that fits your enterprise initiative and connect with our team for a tailored service engagement.
-              </p>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', width: '100%' }}>
-                <Link to="/quote" className="premium-btn">Request a Quote</Link>
-                <Link to="/contact" className="outline-btn">Book Consultation</Link>
-                <Link to="/contact" className="outline-btn">Talk to Our Experts</Link>
-                <Link to="/projects" className="outline-btn">View Case Studies</Link>
-              </div>
+      {/* Benefits & Double CTA */}
+      <section style={{ padding: '2rem 2rem 6rem' }}>
+        <div className="container" style={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          
+          <div>
+            <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1.25rem' }}>Benefits</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+               <ul style={{ listStyle: 'disc', color: '#cbd5e1', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+                 <li>Flesremoccumd xratcous! and vaotisicn</li>
+                 <li>Hetienre cxlabile imeaxis enofure and pplicnbasmos.</li>
+                 <li>Meemparee ocote nic oeaton architecture serivices</li>
+                 <li>Cuatoma soliuane ante batrid development.</li>
+               </ul>
+               <ul style={{ listStyle: 'disc', color: '#cbd5e1', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.9rem' }}>
+                 <li>Reoulaive sellese sinc and fumt black hsseconnecsive.</li>
+                 <li>Previda subte ierlios of custom eiolceteons</li>
+                 <li>Design-od softwane ewobano an Expert.</li>
+               </ul>
             </div>
           </div>
+
+          {/* Double CTA */}
+          <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+            <Link to="/quote" className="glass-button-primary" style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}>Request a Quote</Link>
+            <Link to="/contact" className="glass-button-secondary" style={{ flex: 1, padding: '1rem', fontSize: '1.1rem' }}>Talk to an Expert</Link>
+          </div>
+          
         </div>
       </section>
     </PageWrapper>
