@@ -17,4 +17,5 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+export { API as axiosInstance };
 export default API;

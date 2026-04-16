@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
+<<<<<<< HEAD
+import SearchBar from "../components/SearchBar";
+import Pagination from "../components/Pagination";
+import Toast from "../components/Toast";
+import SkeletonTable from "../components/SkeletonTable";
+import axiosInstance from "../../../api/axios";
+
+const PAGE_SIZE = 5;
+=======
 import ConfirmModal from "../components/ConfirmModal";
 import { getSubscribers, deleteSubscriber } from "../services/newsettlerService";
+>>>>>>> origin/branch-backend/h
 
 const Newsletter = () => {
   const [subscribers, setSubscribers] = useState([]);

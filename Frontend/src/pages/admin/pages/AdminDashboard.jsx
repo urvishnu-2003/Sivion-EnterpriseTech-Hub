@@ -1,4 +1,22 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
+import {
+  FileText,
+  Cpu,
+  CreditCard,
+  Briefcase,
+  Users,
+  Mail,
+  HelpCircle,
+  Contact,
+} from "lucide-react";
+
+import AdminLayout from "../components/AdminLayout";
+import SummaryCard from "../components/SummaryCard";
+import SkeletonTable from "../components/SkeletonTable";
+import Toast from "../components/Toast";
+import axiosInstance from "../../../api/axios";
+=======
 import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
@@ -10,6 +28,7 @@ import { getApplications } from "../services/applicationService";
 import { getSubscribers } from "../services/newsettlerService";
 import { getInquiries } from "../services/inquiryService";
 import { getContacts } from "../services/contactService";
+>>>>>>> origin/branch-backend/h
 
 const AdminDashboard = () => {
   const [counts, setCounts] = useState({
@@ -72,6 +91,55 @@ const AdminDashboard = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
+      {loading ? (
+        <SkeletonTable />
+      ) : (
+        <>
+          <div className="summary-grid">
+            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
+            <SummaryCard
+              icon={<Cpu />}
+              label="Projects"
+              count={counts.projects}
+            />
+            <SummaryCard
+              icon={<CreditCard />}
+              label="Quotes"
+              count={counts.quotes}
+            />
+            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
+            <SummaryCard
+              icon={<Users />}
+              label="Applications"
+              count={counts.applications}
+            />
+            <SummaryCard
+              icon={<Mail />}
+              label="Newsletter"
+              count={counts.subscribers}
+            />
+            <SummaryCard
+              icon={<HelpCircle />}
+              label="Inquiry"
+              count={counts.inquiries}
+            />
+            <SummaryCard
+              icon={<Contact />}
+              label="Contact"
+              count={counts.contacts}
+            />
+          </div>
+
+          <div className="panel-card" style={{ padding: "20px" }}>
+            <h3>Recent Activity</h3>
+            <p className="muted-text">
+              Recent admin actions, submissions, and updates can be shown here.
+            </p>
+          </div>
+        </>
+      )}
+=======
       {/* Dashboard Statistics Section */}
       <div className="dashboard-section">
         <h4 className="dashboard-section-title">📈 Key Metrics</h4>
@@ -86,6 +154,7 @@ const AdminDashboard = () => {
           <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
         </div>
       </div>
+>>>>>>> origin/branch-backend/h
     </AdminLayout>
   );
 };
