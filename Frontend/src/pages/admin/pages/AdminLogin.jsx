@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../../api/axiosInstance";
 import { useAdminAuth } from "../context/AdminAuthContext";
-import "../styles/login.css";
+import "../styles/admin.css";
 
 const AdminLogin = () => {
   const navigate = useNavigate();

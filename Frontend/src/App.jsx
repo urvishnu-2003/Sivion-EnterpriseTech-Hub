@@ -1,6 +1,7 @@
 import './App.css';
+import './tailwind.css';
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Pillar 1: Home & Capability
@@ -29,12 +30,13 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
-import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from './pages/admin/pages/AdminLogin';
+import AdminDashboard from './pages/admin/pages/AdminDashboard';
+import AdminProtectedRoute from './pages/admin/routes/AdminProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
+import ScrollToTop from './components/ui/ScrollToTop';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -70,9 +72,13 @@ function AnimatedRoutes() {
         <Route path="/terms" element={<TermsConditions />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard" element={
+          <AdminProtectedRoute>
+            <AdminDashboard />
+          </AdminProtectedRoute>
+        } />
       </Routes>
     </AnimatePresence>
   );
@@ -135,6 +141,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       {/* Custom cursor elements — SRS AR-11 */}
       <div id="cursor-dot"  aria-hidden="true" />
       <div id="cursor-ring" aria-hidden="true" />

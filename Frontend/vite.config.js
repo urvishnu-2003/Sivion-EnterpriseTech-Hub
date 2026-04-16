@@ -10,5 +10,19 @@ export default defineConfig({
   optimizeDeps: {
     include: ['gsap', 'react', 'react-dom/client', '@react-three/fiber', '@react-three/drei', 'three'],
     exclude: ['@gsap/react']
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) return 'vendor-three';
+            if (id.includes('gsap')) return 'vendor-gsap';
+            if (id.includes('framer-motion')) return 'vendor-framer';
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
-})
+});

@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../../api/axiosInstance";
 
 const PAGE_SIZE = 5;
 
