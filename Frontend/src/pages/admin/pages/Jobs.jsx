@@ -19,6 +19,8 @@ const Jobs = () => {
   const [formData, setFormData] = useState(initialForm);
   const [editId, setEditId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [openForm, setOpenForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loadJobs = async () => {
     try {
@@ -36,26 +38,13 @@ const Jobs = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const resetForm = () => {
-    setFormData(initialForm);
+  const handleOpenCreate = () => {
     setEditId(null);
-  };
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (editId) {
-        await updateJob(editId, formData);
-      } else {
-        await createJob(formData);
-      }
-      resetForm();
-      loadJobs();
-    } catch (error) {
-      console.log(error);
-    }
+    setFormData(initialForm);
+    setOpenForm(true);
   };
 
-  const handleEdit = (job) => {
+  const handleOpenEdit = (job) => {
     setEditId(job._id);
     setFormData({
       title: job.title || "",
@@ -66,7 +55,32 @@ const handleSubmit = async (e) => {
       description: job.description || "",
       status: job.status || "active",
     });
+    setOpenForm(true);
   };
+
+  const resetForm = () => {
+    setFormData(initialForm);
+    setEditId(null);
+    setOpenForm(false);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      if (editId) {
+        await updateJob(editId, formData);
+      } else {
+        await createJob(formData);
+      }
+      resetForm();
+      loadJobs();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
  const handleDelete = async () => {
     try {
       await deleteJob(deleteId);
@@ -88,7 +102,7 @@ const handleSubmit = async (e) => {
       key: "actions",
       render: (row) => (
         <div className="table-action-group">
-          <button className="admin-btn admin-btn-secondary" onClick={() => handleEdit(row)}>
+          <button className="admin-btn admin-btn-secondary" onClick={() => handleOpenEdit(row)}>
             Edit
           </button>
           <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
@@ -101,34 +115,16 @@ const handleSubmit = async (e) => {
 
    return (
     <AdminLayout title="Manage Jobs" subtitle="Create, update, and remove job openings.">
-      <div className="admin-form-card">
-        <h3>{editId ? "Edit Job" : "Create Job"}</h3>
-        <form className="admin-form-grid" onSubmit={handleSubmit}>
-          <input name="title" placeholder="Job Title" value={formData.title} onChange={handleChange} required />
-          <input name="company" placeholder="Company" value={formData.company} onChange={handleChange} />
-          <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} />
-          <input name="type" placeholder="Type" value={formData.type} onChange={handleChange} />
-          <input name="experience" placeholder="Experience" value={formData.experience} onChange={handleChange} />
-          <select name="status" value={formData.status} onChange={handleChange}>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleChange}
-            rows="4"
-          />
-           <div className="admin-form-actions">
-            <button type="submit" className="admin-btn admin-btn-primary">
-              {editId ? "Update Job" : "Create Job"}
-            </button>
-            <button type="button" className="admin-btn admin-btn-secondary" onClick={resetForm}>
-              Reset
-            </button>
-          </div>
-        </form>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "20px",
+        }}
+      >
+        <button className="admin-btn admin-btn-primary" onClick={handleOpenCreate} type="button">
+          Add Job
+        </button>
       </div>
 
       <DataTable columns={columns} rows={jobs} emptyText="No jobs available" />
@@ -140,6 +136,140 @@ const handleSubmit = async (e) => {
         onConfirm={handleDelete}
         onClose={() => setDeleteId(null)}
       />
+
+      {openForm && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal">
+            <div className="admin-modal-header">
+              <h3>{editId ? "Update Job" : "Create Job"}</h3>
+              <button
+                className="admin-modal-close"
+                onClick={() => {
+                  setOpenForm(false);
+                  setEditId(null);
+                  setFormData(initialForm);
+                }}
+                type="button"
+              >
+                ×
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="admin-form">
+              <div className="admin-form-group">
+                <label>Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="Enter job title"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Company</label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="Enter company name"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Enter job location"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Type</label>
+                <input
+                  type="text"
+                  name="type"
+                  value={formData.type}
+                  onChange={handleChange}
+                  placeholder="e.g., Full-time, Part-time"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Experience</label>
+                <input
+                  type="text"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  placeholder="e.g., 2-3 years"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Status</label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+
+              <div className="admin-form-group">
+                <label>Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Enter job description"
+                  rows="5"
+                />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "10px",
+                  marginTop: "20px",
+                }}
+              >
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-secondary"
+                  onClick={() => {
+                    setOpenForm(false);
+                    setEditId(null);
+                    setFormData(initialForm);
+                  }}
+                >
+                  Cancel
+                </button>
+
+                <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+                  {loading
+                    ? editId
+                      ? "Updating..."
+                      : "Creating..."
+                    : editId
+                    ? "Update Job"
+                    : "Create Job"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 }

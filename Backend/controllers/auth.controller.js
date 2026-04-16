@@ -93,18 +93,36 @@ exports.forgotPassword = async (req, res) => {
 
     user.otpCode = otp;
     user.otpExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+
     await user.save({ validateBeforeSave: false });
 
     await sendEmail({
       to: user.email,
-      subject: "Admin Password Reset OTP",
+      subject: "Admin Password Reset OTP - Sivion EnterpriseTech Hub",
       text: `Your OTP for password reset is ${otp}. It is valid for 10 minutes.`,
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-          <h2>Sivion EnterpriseTech Hub</h2>
-          <p>Your OTP for admin password reset is:</p>
-          <h1 style="letter-spacing: 4px;">${otp}</h1>
-          <p>This OTP is valid for 10 minutes.</p>
+        <div style="font-family: Arial, sans-serif; background: #f4f8fb; padding: 30px;">
+          <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 10px; padding: 30px; border: 1px solid #dbe4ee;">
+            <h2 style="color: #0f172a; margin-bottom: 10px;">Sivion EnterpriseTech Hub</h2>
+            <p style="font-size: 16px; color: #334155;">Hello ${user.fullName || "Admin"},</p>
+            <p style="font-size: 16px; color: #334155;">
+              Your OTP for admin password reset is:
+            </p>
+            <h1 style="letter-spacing: 6px; text-align: center; color: #06b6d4; margin: 30px 0;">
+              ${otp}
+            </h1>
+            <p style="font-size: 15px; color: #475569;">
+              This OTP is valid for <strong>10 minutes</strong>.
+            </p>
+            <p style="font-size: 15px; color: #475569;">
+              If you did not request this, please ignore this email.
+            </p>
+            <hr style="margin: 25px 0; border: none; border-top: 1px solid #e2e8f0;" />
+            <p style="font-size: 14px; color: #64748b;">
+              Regards,<br />
+              Sivion EnterpriseTech Hub Team
+            </p>
+          </div>
         </div>
       `,
     });
@@ -144,6 +162,13 @@ exports.resetPasswordWithOtp = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Invalid or expired OTP",
+      });
+    }
+
+    if (user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Password reset is allowed for admin only",
       });
     }
 

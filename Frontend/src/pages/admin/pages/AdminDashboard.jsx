@@ -60,23 +60,31 @@ const AdminDashboard = () => {
       title="Admin Dashboard"
       subtitle="Track platform activity and manage all enterprise modules from one place."
     >
-      <div className="summary-grid">
-        <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
-        <SummaryCard icon={<FaProjectDiagram />} label="Projects" count={counts.projects} />
-        <SummaryCard icon={<FaFileInvoiceDollar />} label="Quotes" count={counts.quotes} />
-        <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
-        <SummaryCard icon={<FaUsers />} label="Applications" count={counts.applications} />
-        <SummaryCard icon={<FaEnvelopeOpenText />} label="Newsletter" count={counts.subscribers} />
-        <SummaryCard icon={<FaQuestionCircle />} label="Inquiry" count={counts.inquiries} />
-        <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
+      {/* Admin Overview Section */}
+      <div className="dashboard-section">
+        <div className="dashboard-welcome-card">
+          <h3>📊 Admin Overview</h3>
+          <p>
+            Welcome to your admin dashboard! Use the left navigation to manage blogs, projects, quotes, 
+            jobs, applications, newsletter subscribers, inquiries, and contact requests. Monitor all key 
+            metrics and data from this central hub.
+          </p>
+        </div>
       </div>
 
-      <div className="dashboard-welcome-card">
-        <h3>Admin Overview</h3>
-        <p>
-          Use the left navigation to manage blogs, projects, quotes, jobs, applications,
-          newsletter subscribers, inquiries, and contact requests.
-        </p>
+      {/* Dashboard Statistics Section */}
+      <div className="dashboard-section">
+        <h4 className="dashboard-section-title">📈 Key Metrics</h4>
+        <div className="summary-grid">
+          <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
+          <SummaryCard icon={<FaProjectDiagram />} label="Projects" count={counts.projects} />
+          <SummaryCard icon={<FaFileInvoiceDollar />} label="Quotes" count={counts.quotes} />
+          <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
+          <SummaryCard icon={<FaUsers />} label="Applications" count={counts.applications} />
+          <SummaryCard icon={<FaEnvelopeOpenText />} label="Newsletter" count={counts.subscribers} />
+          <SummaryCard icon={<FaQuestionCircle />} label="Inquiry" count={counts.inquiries} />
+          <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
+        </div>
       </div>
     </AdminLayout>
   );

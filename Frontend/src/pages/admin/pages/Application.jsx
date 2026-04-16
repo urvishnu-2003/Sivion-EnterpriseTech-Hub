@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
+import StatusSelector from "../components/StatusSelector";
 import { getApplications, updateApplication, deleteApplication } from "../services/applicationService";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [deleteId, setDeleteId] = useState(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState(null);
 
   const loadApplications = async () => {
     try {
@@ -20,12 +22,25 @@ const Applications = () => {
   useEffect(() => {
     loadApplications();
   }, []);
-const handleStatusChange = async (id, status) => {
+
+  const handleStatusChange = async (id, status) => {
+    const previousApplications = applications;
+
+    setApplications((prev) =>
+      prev.map((application) =>
+        application._id === id ? { ...application, status } : application
+      )
+    );
+
+    setUpdatingStatusId(id);
+
     try {
       await updateApplication(id, { status });
-      loadApplications();
     } catch (error) {
       console.log(error);
+      setApplications(previousApplications);
+    } finally {
+      setUpdatingStatusId(null);
     }
   };
 
@@ -47,11 +62,11 @@ const columns = [
       header: "Status",
       key: "status",
       render: (row) => (
-        <select value={row.status || "pending"} onChange={(e) => handleStatusChange(row._id, e.target.value)}>
-          <option value="pending">Pending</option>
-          <option value="selected">Selected</option>
-          <option value="rejected">Rejected</option>
-        </select>
+        <StatusSelector
+          value={row.status || "pending"}
+          onSave={(newStatus) => handleStatusChange(row._id, newStatus)}
+          disabled={updatingStatusId === row._id}
+        />
       ),
     },
     {
