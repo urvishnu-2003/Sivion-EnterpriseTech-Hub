@@ -3863,6 +3863,11 @@ h5,
   }
 }
 
+
+.blog-read-now:hover {
+  gap: 8px;
+  color: #a5b4fc;
+}
 @keyframes imageRevealFromLeft {
   0% {
     clip-path: inset(0 100% 0 0);
@@ -4049,6 +4054,7 @@ h5,
   padding: 0.45rem 1.2rem;
   border-radius: 50px;
   margin-bottom: 1.6rem;
+
 }
 
 .blog-hero__title {
@@ -4059,6 +4065,7 @@ h5,
   margin-bottom: 1.4rem;
   font-family: 'Outfit', sans-serif;
 }
+
 
 .blog-hero__title-gradient {
   background: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #06b6d4 100%);
