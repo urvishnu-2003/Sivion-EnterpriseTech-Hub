@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../api/axiosInstance";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import "../styles/admin.css";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";

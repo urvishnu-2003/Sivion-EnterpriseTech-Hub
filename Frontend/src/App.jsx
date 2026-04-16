@@ -1,7 +1,7 @@
 import './App.css';
 import './tailwind.css';
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Pillar 1: Home & Capability
@@ -77,14 +77,8 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
-        {/* Admin */}
-        <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={
-          <AdminProtectedRoute>
-            <AdminDashboard />
-          </AdminProtectedRoute>
-        } />
+
+        {/* Admin — all admin routes handled by AdminRoutes, wrapped in AdminAuthProvider */}
         <Route
           path="/admin/*"
           element={
@@ -185,18 +179,6 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      {/* Custom cursor elements — SRS AR-11 */}
-      <div id="cursor-dot"  aria-hidden="true" />
-      <div id="cursor-ring" aria-hidden="true" />
-
-      <div className="app-container">
-        <Navbar />
-        <main className="app-main">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <FloatingActions />
-      </div>
       <AppLayout />
     </BrowserRouter>
   );

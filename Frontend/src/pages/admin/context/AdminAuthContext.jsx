@@ -12,11 +12,12 @@ export const AdminAuthProvider = ({ children }) => {
 
   const isAuthenticated = !!admin?.token;
 
+  // Sync the token to localStorage so the axiosInstance picks it up via getAuthHeaders()
   useEffect(() => {
     if (admin?.token) {
-      API.defaults.headers.common.Authorization = `Bearer ${admin.token}`;
+      localStorage.setItem("adminToken", admin.token);
     } else {
-      delete API.defaults.headers.common.Authorization;
+      localStorage.removeItem("adminToken");
     }
   }, [admin]);
 
@@ -47,8 +48,8 @@ export const AdminAuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("adminInfo");
+    localStorage.removeItem("adminToken");
     setAdmin(null);
-    delete API.defaults.headers.common.Authorization;
   };
 
   const value = useMemo(
@@ -59,4 +60,4 @@ export const AdminAuthProvider = ({ children }) => {
   return <AdminAuthContext.Provider value={value}>{children}</AdminAuthContext.Provider>;
 };
 
-export const useAdminAuth = () => useContext(AdminAuthContext);
+export const useAdminAuth = () => useContext(AdminAuthContext);

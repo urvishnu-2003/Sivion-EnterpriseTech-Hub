@@ -8,7 +8,10 @@
  * Responses always resolve to { data: <parsed JSON> }
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || "";
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || "";
+const BASE_URL = rawBaseUrl.endsWith("/") 
+  ? `${rawBaseUrl}api` 
+  : `${rawBaseUrl}/api`;
 
 function getAuthHeaders() {
   const token = localStorage.getItem("adminToken");
