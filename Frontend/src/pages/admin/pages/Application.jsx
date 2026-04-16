@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
+
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
 import axiosInstance from "../../../api/axios";
 
 const PAGE_SIZE = 5;
-=======
 import StatusSelector from "../components/StatusSelector";
 import { getApplications, updateApplication, deleteApplication } from "../services/applicationService";
->>>>>>> origin/branch-backend/h
+ 
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
