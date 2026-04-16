@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-=======
 import {
   getBlogs,
   createBlog,
   updateBlog,
   deleteBlog,
 } from "../services/blogService";
->>>>>>> origin/branch-backend/h
 
 const initialForm = {
   title: "",
@@ -39,10 +33,10 @@ const Blogs = () => {
       const blogList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.blogs)
-        ? data.blogs
-        : Array.isArray(data)
-        ? data
-        : [];
+          ? data.blogs
+          : Array.isArray(data)
+            ? data
+            : [];
 
       setBlogs(blogList);
     } catch (error) {
@@ -265,8 +259,8 @@ const Blogs = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Blog"
-                    : "Create Blog"}
+                      ? "Update Blog"
+                      : "Create Blog"}
                 </button>
               </div>
             </form>

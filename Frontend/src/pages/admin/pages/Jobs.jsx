@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-=======
 import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService";
->>>>>>> origin/branch-backend/h
 
 const initialForm = {
   title: "",
@@ -87,7 +81,7 @@ const Jobs = () => {
     }
   };
 
- const handleDelete = async () => {
+  const handleDelete = async () => {
     try {
       await deleteJob(deleteId);
       setDeleteId(null);
@@ -119,7 +113,7 @@ const Jobs = () => {
     },
   ];
 
-   return (
+  return (
     <AdminLayout title="Manage Jobs" subtitle="Create, update, and remove job openings.">
       <div
         style={{
@@ -268,8 +262,8 @@ const Jobs = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Job"
-                    : "Create Job"}
+                      ? "Update Job"
+                      : "Create Job"}
                 </button>
               </div>
             </form>
