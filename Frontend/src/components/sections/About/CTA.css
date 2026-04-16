@@ -1,0 +1,47 @@
+.cta {
+  background: #020617;
+  padding: 100px 20px;
+  text-align: center;
+  color: white;
+}
+
+.cta h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.cta p {
+  color: #94a3b8;
+  margin-bottom: 25px;
+}
+
+/* BUTTONS */
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #00e5ff, #00bcd4);
+  color: black;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-outline {
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+  padding: 12px 25px;
+  border-radius: 30px;
+  background: transparent;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column;
+  }
+}

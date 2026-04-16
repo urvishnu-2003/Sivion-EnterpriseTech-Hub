@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
+
 // Pillar 1: Home & Capability
 import Hero from './pages/Hero';
 import Aboutus from './pages/Aboutus';
