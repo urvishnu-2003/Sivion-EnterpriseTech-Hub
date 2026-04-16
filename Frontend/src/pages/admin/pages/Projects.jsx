@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-=======
 import {
   getProjects,
   createProject,
   updateProject,
   deleteProject,
 } from "../services/projectService";
->>>>>>> origin/branch-backend/h
 
 const initialForm = {
   title: "",
@@ -39,10 +33,10 @@ const Projects = () => {
       const projectList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.projects)
-        ? data.projects
-        : Array.isArray(data)
-        ? data
-        : [];
+          ? data.projects
+          : Array.isArray(data)
+            ? data
+            : [];
 
       setProjects(projectList);
     } catch (error) {
@@ -299,8 +293,8 @@ const Projects = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Project"
-                    : "Create Project"}
+                      ? "Update Project"
+                      : "Create Project"}
                 </button>
               </div>
             </form>

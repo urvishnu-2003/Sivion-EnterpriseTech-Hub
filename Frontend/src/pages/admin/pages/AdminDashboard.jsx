@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
 import {
   FileText,
   Cpu,
@@ -9,15 +8,11 @@ import {
   Mail,
   HelpCircle,
   Contact,
+  FolderKanban,
+  Quote,
+  MessageSquare
 } from "lucide-react";
 
-import AdminLayout from "../components/AdminLayout";
-import SummaryCard from "../components/SummaryCard";
-import SkeletonTable from "../components/SkeletonTable";
-import Toast from "../components/Toast";
-import axiosInstance from "../../../api/axios";
-=======
-import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import { getBlogs } from "../services/blogService";
@@ -28,9 +23,9 @@ import { getApplications } from "../services/applicationService";
 import { getSubscribers } from "../services/newsettlerService";
 import { getInquiries } from "../services/inquiryService";
 import { getContacts } from "../services/contactService";
->>>>>>> origin/branch-backend/h
 
 const AdminDashboard = () => {
+  const [loading, setLoading] = useState(true);
   const [counts, setCounts] = useState({
     blogs: 0,
     projects: 0,
@@ -44,6 +39,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const loadCounts = async () => {
+      setLoading(true);
       try {
         const [blogs, projects, quotes, jobs, applications, subscribers, inquiries, contacts] = await Promise.all([
           getBlogs(),
@@ -68,6 +64,8 @@ const AdminDashboard = () => {
         });
       } catch (error) {
         console.log("Dashboard load failed", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -91,70 +89,34 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
       {loading ? (
-        <SkeletonTable />
+        <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-dim)' }}>
+          Computing Metrics...
+        </div>
       ) : (
         <>
-          <div className="summary-grid">
-            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
-            <SummaryCard
-              icon={<Cpu />}
-              label="Projects"
-              count={counts.projects}
-            />
-            <SummaryCard
-              icon={<CreditCard />}
-              label="Quotes"
-              count={counts.quotes}
-            />
-            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
-            <SummaryCard
-              icon={<Users />}
-              label="Applications"
-              count={counts.applications}
-            />
-            <SummaryCard
-              icon={<Mail />}
-              label="Newsletter"
-              count={counts.subscribers}
-            />
-            <SummaryCard
-              icon={<HelpCircle />}
-              label="Inquiry"
-              count={counts.inquiries}
-            />
-            <SummaryCard
-              icon={<Contact />}
-              label="Contact"
-              count={counts.contacts}
-            />
+          <div className="dashboard-section">
+            <h4 className="dashboard-section-title">📈 Key Metrics</h4>
+            <div className="summary-grid">
+              <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
+              <SummaryCard icon={<FolderKanban />} label="Projects" count={counts.projects} />
+              <SummaryCard icon={<Quote />} label="Quotes" count={counts.quotes} />
+              <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
+              <SummaryCard icon={<Users />} label="Applications" count={counts.applications} />
+              <SummaryCard icon={<Mail />} label="Newsletter" count={counts.subscribers} />
+              <SummaryCard icon={<HelpCircle />} label="Inquiry" count={counts.inquiries} />
+              <SummaryCard icon={<MessageSquare />} label="Contact" count={counts.contacts} />
+            </div>
           </div>
 
-          <div className="panel-card" style={{ padding: "20px" }}>
+          <div className="panel-card" style={{ padding: "20px", marginTop: '2rem' }}>
             <h3>Recent Activity</h3>
             <p className="muted-text">
-              Recent admin actions, submissions, and updates can be shown here.
+              System pulse: All modules active. Secure enterprise perimeter synchronized.
             </p>
           </div>
         </>
       )}
-=======
-      {/* Dashboard Statistics Section */}
-      <div className="dashboard-section">
-        <h4 className="dashboard-section-title">📈 Key Metrics</h4>
-        <div className="summary-grid">
-          <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
-          <SummaryCard icon={<FaProjectDiagram />} label="Projects" count={counts.projects} />
-          <SummaryCard icon={<FaFileInvoiceDollar />} label="Quotes" count={counts.quotes} />
-          <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
-          <SummaryCard icon={<FaUsers />} label="Applications" count={counts.applications} />
-          <SummaryCard icon={<FaEnvelopeOpenText />} label="Newsletter" count={counts.subscribers} />
-          <SummaryCard icon={<FaQuestionCircle />} label="Inquiry" count={counts.inquiries} />
-          <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
-        </div>
-      </div>
->>>>>>> origin/branch-backend/h
     </AdminLayout>
   );
 };
