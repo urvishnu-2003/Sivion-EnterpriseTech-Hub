@@ -38,6 +38,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
 
+import ProjectDetails from "./pages/ProjectDetails";
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -70,13 +72,7 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
-        <Route path="/book-trial" element={<BookTrial />} />
-        <Route path="/solutions" element={<Solutions />} />
-
-        {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/project-details/:id" element={<ProjectDetails />} />
       </Routes>
     </AnimatePresence>
   );
