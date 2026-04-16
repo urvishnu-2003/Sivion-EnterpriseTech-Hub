@@ -4,7 +4,7 @@ import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axiosInstance";
+import axiosInstance from "../../../api/axios";
 import {
   getBlogs,
   createBlog,

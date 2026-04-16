@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Mail, Phone, MapPin, Send, Globe, Share2, Terminal, MessageCircle, Video } from 'lucide-react';
+import './Footer.css';
 
 function Footer() {
   const currentYear = new Date().getFullYear();

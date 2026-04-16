@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Globe, Share2, Terminal } from 'lucide-react';
+import './Contact.css';
 
 const Contact = () => {
   const [formState, setFormState] = useState('idle');

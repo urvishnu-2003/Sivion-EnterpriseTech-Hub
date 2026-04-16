@@ -3,8 +3,10 @@ import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
 import { Rocket, Zap, Heart, Globe, ArrowRight, CheckCircle2, ShieldCheck, UploadCloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './Careers.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+import api from '../api/axios';
+
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
 
 const Careers = () => {
@@ -28,10 +30,10 @@ const Careers = () => {
     const fetchJobs = async () => {
       console.log('Fetching jobs...');
       try {
-        const response = await fetch(`${API_BASE_URL}/api/jobs`);
-        const data = await response.json();
+        const response = await api.get('/jobs');
+        const data = response.data;
         console.log('API response:', data);
-        if (response.ok && Array.isArray(data.data)) {
+        if (Array.isArray(data.data)) {
           setJobs(data.data);
           console.log('Jobs loaded:', data.data);
           if (data.data.length > 0) {
@@ -60,19 +62,25 @@ const Careers = () => {
 
     const script = document.createElement('script');
     script.id = id;
-    script.src = `https://www.google.com/recaptcha/api.js`;
+    script.src = `https://www.google.com/recaptcha/api.js?render=explicit`;
     script.async = true;
     script.defer = true;
     script.onload = () => {
-      setTimeout(() => {
-        if (window.grecaptcha) {
-          window.grecaptcha.render('g-recaptcha', {
-            sitekey: RECAPTCHA_SITE_KEY,
-            theme: 'dark',
-          });
-          setRecaptchaReady(true);
+      const checkGrecaptcha = setInterval(() => {
+        if (window.grecaptcha && window.grecaptcha.render) {
+          clearInterval(checkGrecaptcha);
+          try {
+            window.grecaptcha.render('g-recaptcha', {
+              sitekey: RECAPTCHA_SITE_KEY,
+              theme: 'dark',
+            });
+            setRecaptchaReady(true);
+          } catch (err) {
+            console.warn("reCAPTCHA already rendered or failed:", err);
+            setRecaptchaReady(true);
+          }
         }
-      }, 100);
+      }, 500);
     };
     document.body.appendChild(script);
   }, [RECAPTCHA_SITE_KEY]);
@@ -137,13 +145,14 @@ const Careers = () => {
       payload.append('resume', formData.resume);
       payload.append('recaptchaToken', recaptchaToken);
 
-      const response = await fetch(`${API_BASE_URL}/api/applications`, {
-        method: 'POST',
-        body: payload,
+      const response = await api.post('/applications', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      const result = await response.json();
-      if (!response.ok) {
+      const result = response.data;
+      if (!result.success) {
         throw new Error(result.message || 'Application submission failed.');
       }
 
@@ -193,7 +202,12 @@ const Careers = () => {
               Build systems that move fast, scale far, and stay secure at every layer. Our careers page brings the same precision and velocity to talent acquisition.
             </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row gap-4 mt-8">
-              <button type="button" className="bg-cyan-light hover:bg-cyan text-navy px-6 py-3 rounded-full font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" onClick={() => handleRoleApply(jobs[0]?._id || jobs[0]?.id)} disabled={jobs.length === 0}>
+              <button 
+                type="button" 
+                className="bg-[#00e0ff] hover:bg-[#00c8ff] text-[#031025] px-8 py-3.5 rounded-full font-bold transition-all duration-300 shadow-xl shadow-cyan-500/20 active:scale-95" 
+                onClick={() => handleRoleApply(jobs[0]?._id || jobs[0]?.id)} 
+                disabled={jobs.length === 0}
+              >
                 {jobs.length > 0 ? 'Apply Now' : 'No Openings'}
               </button>
               <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-cyan/20 text-gray-light bg-navy-light/80 hover:bg-navy-light transition-all duration-300">
@@ -242,7 +256,7 @@ const Careers = () => {
               <motion.div key={item.title} whileHover={{ y: -6 }} className="p-6 rounded-3xl bg-navy-light/95 border border-cyan/16 shadow-xl min-h-[190px] careers-highlight-card">
                 <h3 className="text-gray-light mb-4">{item.title}</h3>
                 <p className="text-gray-mid leading-relaxed mb-6">{item.description}</p>
-                <span className="text-cyan-light font-bold cursor-pointer">Read More</span>
+                <span className="text-[#00e0ff] font-bold cursor-pointer hover:underline">Read More</span>
               </motion.div>
             ))}
           </div>
@@ -264,7 +278,11 @@ const Careers = () => {
                     <p className="text-cyan-light mb-4">{job.department || job.dept} • {job.type}</p>
                     <p className="text-gray-mid leading-relaxed mb-6">{job.description}</p>
                   </div>
-                  <button type="button" className="self-start bg-cyan-light hover:bg-cyan text-navy px-4 py-2 rounded-full font-semibold transition-all duration-300 apply-btn" onClick={() => handleRoleApply(job._id || job.id)}>
+                  <button 
+                    type="button" 
+                    className="self-start bg-[#00e0ff] hover:bg-[#00c8ff] text-[#031025] px-6 py-2.5 rounded-full font-bold transition-all duration-300 shadow-lg shadow-cyan-500/20 active:scale-95" 
+                    onClick={() => handleRoleApply(job._id || job.id)}
+                  >
                     Apply Now
                   </button>
                 </motion.div>
@@ -357,11 +375,15 @@ const Careers = () => {
 
             <div className="flex flex-col gap-3">
               <label className="text-gray-dark text-sm font-semibold">Verify reCAPTCHA</label>
-              <div id="g-recaptcha" className="flex justify-center"></div>
+              <div id="g-recaptcha" className="flex justify-center py-4 min-h-[80px]"></div>
               {errors.recaptcha && <span className="text-red-400 text-sm text-center">{errors.recaptcha}</span>}
             </div>
 
-            <button type="submit" className="w-full justify-center px-6 py-3 bg-cyan-light hover:bg-cyan text-navy rounded-full font-semibold transition-all duration-300 disabled:opacity-50" disabled={isSubmitting}>
+            <button 
+              type="submit" 
+              className="w-full justify-center px-6 py-4 bg-[#00e0ff] hover:bg-[#00c8ff] text-[#031025] rounded-full font-bold transition-all duration-300 shadow-lg shadow-cyan-500/30 disabled:opacity-50 active:scale-[0.98]" 
+              disabled={isSubmitting}
+            >
               {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
           </motion.form>

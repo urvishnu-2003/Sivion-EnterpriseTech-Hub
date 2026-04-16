@@ -4,8 +4,8 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   Code2, Globe, Cpu, Palette, Plug, Settings, Monitor, LayoutDashboard,
   ArrowRight, ArrowLeft, CheckCircle2, Layers, Zap, Users, Shield, Rocket, Phone,
-  ChevronDown, Star, TrendingUp, Database, Server, GitBranch,
-  Coffee, Leaf, Wind, MessageSquare, FileText, Send, X,
+  ChevronDown, Star, TrendingUp,
+  Coffee, MessageSquare, FileText, Send, X,
   Award, Clock, HeartHandshake, Sparkles, BadgeCheck, CircleCheck,
 } from 'lucide-react';
 import PageWrapper from '../components/ui/PageWrapper';
@@ -88,16 +88,7 @@ const WHY_CHOOSE = [
   { icon: HeartHandshake, title: 'End-to-End Partnership', desc: 'From napkin sketch to production and beyond — your long-term dedicated technology partner, not a vendor.', color: '#10b981', stat: '98%', statLabel: 'Client retention rate' },
 ];
 
-const TECHNOLOGIES = [
-  { name: 'Java', icon: Coffee, color: '#f97316', desc: 'Backend Core', level: 98 },
-  { name: 'Spring Boot', icon: Leaf, color: '#10b981', desc: 'Microservices', level: 95 },
-  { name: 'React', icon: Wind, color: '#00c8ff', desc: 'Frontend UI', level: 97 },
-  { name: 'Node.js', icon: Server, color: '#84cc16', desc: 'Runtime', level: 92 },
-  { name: 'MySQL', icon: Database, color: '#f59e0b', desc: 'Relational DB', level: 94 },
-  { name: 'MongoDB', icon: Layers, color: '#22c55e', desc: 'NoSQL DB', level: 90 },
-  { name: 'Docker', icon: Cpu, color: '#06b6d4', desc: 'Containers', level: 88 },
-  { name: 'Git', icon: GitBranch, color: '#ec4899', desc: 'Version Control', level: 99 },
-];
+
 
 const PROCESS_STEPS = [
   { step: '01', title: 'Requirement Analysis', desc: 'Deep-dive discovery sessions to map your business objectives, technical constraints, user journeys, and success KPIs.', icon: FileText, duration: '1–2 weeks', color: '#00c8ff' },
@@ -311,7 +302,7 @@ function FormField({ label, error, children }) {
 function ServicesArc() {
   const navigate = useNavigate();
   const arcServices = SERVICES.slice(0, 5);
-  
+
   return (
     <div className="relative w-full h-[480px] lg:h-[550px] flex items-center justify-start pointer-events-none group/arc max-w-xl mx-auto lg:mx-0">
       {/* ── Signal Packets ── */}
@@ -320,14 +311,14 @@ function ServicesArc() {
           <motion.div
             key={`packet-${i}`}
             initial={{ opacity: 0 }}
-            animate={{ 
+            animate={{
               opacity: [0, 1, 0],
               x: [window.innerWidth < 1024 ? 40 : 100, (Math.cos(((-60 + (i * 115 / 4)) * Math.PI) / 180) * (window.innerWidth < 1024 ? 115 : 210) + (window.innerWidth < 1024 ? 45 : 120))],
               y: [window.innerWidth < 1024 ? 50 : 250, (Math.sin(((-60 + (i * 115 / 4)) * Math.PI) / 180) * (window.innerWidth < 1024 ? 115 : 210) + (window.innerWidth < 1024 ? 160 : 275))],
             }}
-            transition={{ 
-              duration: 3, 
-              repeat: Infinity, 
+            transition={{
+              duration: 3,
+              repeat: Infinity,
               delay: i * 0.8,
               ease: "linear"
             }}
@@ -337,10 +328,10 @@ function ServicesArc() {
       </div>
 
       {/* ── Central Hub ── */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ 
-          opacity: 1, 
+        animate={{
+          opacity: 1,
           scale: [1, 1.04, 1],
           boxShadow: [
             '0 0 40px rgba(0,200,255,0.03)',
@@ -348,7 +339,7 @@ function ServicesArc() {
             '0 0 40px rgba(0,200,255,0.03)'
           ]
         }}
-        transition={{ 
+        transition={{
           opacity: { duration: 1 },
           scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
           boxShadow: { duration: 4, repeat: Infinity, ease: "easeInOut" }
@@ -356,8 +347,8 @@ function ServicesArc() {
         className="relative z-30 ml-4 lg:ml-0"
       >
         <div className="w-28 h-28 lg:w-44 lg:h-44 rounded-full flex items-center justify-center relative overflow-hidden group/hub"
-          style={{ 
-            background: 'rgba(10,22,40,0.6)', 
+          style={{
+            background: 'rgba(10,22,40,0.6)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255,255,255,0.12)',
           }}>
@@ -371,29 +362,29 @@ function ServicesArc() {
             </div>
           </div>
         </div>
-        
+
         {/* Orbital Rings */}
         <div className="absolute inset-[-25px] rounded-full border border-white/[0.06] animate-[spin_40s_linear_infinite]" />
         <div className="absolute inset-[-50px] rounded-full border border-white/[0.03] animate-[spin_60s_linear_infinite_reverse]" />
       </motion.div>
 
       {/* ── Arched Nodes ── */}
-      <motion.div 
+      <motion.div
         animate={{ y: [-5, 5, -5] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="absolute inset-0 flex items-center justify-start pointer-events-none"
       >
         {arcServices.map((svc, idx) => {
           const total = arcServices.length;
-          const startAngle = -60; 
-          const endAngle = 55;    
+          const startAngle = -60;
+          const endAngle = 55;
           const angle = startAngle + (idx * (endAngle - startAngle) / (total - 1));
           const rad = (angle * Math.PI) / 180;
-          
-          const radius = window.innerWidth < 1024 ? 115 : 210; 
-          const x = Math.cos(rad) * radius + (window.innerWidth < 1024 ? 45 : 120); 
-          const y = Math.sin(rad) * radius + (window.innerWidth < 1024 ? 160 : 275); 
-          
+
+          const radius = window.innerWidth < 1024 ? 115 : 210;
+          const x = Math.cos(rad) * radius + (window.innerWidth < 1024 ? 45 : 120);
+          const y = Math.sin(rad) * radius + (window.innerWidth < 1024 ? 160 : 275);
+
           const rgb = hexToRgb(svc.color);
           const Icon = svc.icon;
 
@@ -415,20 +406,20 @@ function ServicesArc() {
                 </div>
 
                 {/* Node Bubble */}
-                <motion.div 
+                <motion.div
                   className="w-10 h-10 lg:w-16 lg:h-16 rounded-full flex items-center justify-center relative shadow-2xl transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(0,200,255,0.2)]"
-                  style={{ 
-                    background: `rgba(${rgb}, 0.15)`, 
+                  style={{
+                    background: `rgba(${rgb}, 0.15)`,
                     backdropFilter: 'blur(12px)',
-                    border: `1px solid rgba(${rgb}, 0.4)`, 
+                    border: `1px solid rgba(${rgb}, 0.4)`,
                   }}
                 >
                   <Icon size={18} lg:size={22} style={{ color: svc.color }} />
-                  <motion.div 
+                  <motion.div
                     animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="absolute inset-[-8px] rounded-full border border-dashed"
-                    style={{ borderColor: svc.color }} 
+                    style={{ borderColor: svc.color }}
                   />
                 </motion.div>
 
@@ -447,18 +438,18 @@ function ServicesArc() {
 
       {/* Background Floating Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-         {[...Array(6)].map((_, i) => (
-           <motion.div
-             key={i}
-             className="absolute w-1 h-1 bg-white rounded-full"
-             initial={{ x: Math.random() * 600, y: Math.random() * 600 }}
-             animate={{ 
-               y: [0, -20, 0],
-               opacity: [0.2, 0.5, 0.2]
-             }}
-             transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut" }}
-           />
-         ))}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            initial={{ x: Math.random() * 600, y: Math.random() * 600 }}
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
       </div>
     </div>
   );
@@ -525,7 +516,7 @@ const Service = () => {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
-          
+
           {/* ── LEFT: Corporate Content ── */}
           <div className="flex flex-col items-start lg:pl-6">
             <motion.div initial={{ opacity: 0, x: -25 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="mb-4">
@@ -534,12 +525,12 @@ const Service = () => {
               </span>
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
               className="font-['Space_Grotesk'] font-black text-white leading-[1.05] tracking-tighter mb-5"
               style={{ fontSize: 'clamp(2.8rem, 6vw, 4.5rem)' }}>
-              Corporate Tech<br/>
+              Corporate Tech<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00c8ff] via-[#7c3aed] to-[#00c8ff] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]">
                 Excellence
               </span>
@@ -597,7 +588,7 @@ const Service = () => {
         </div>
 
         {/* --- Infinite Marquee Wrapper --- */}
-        <div 
+        <div
           className="relative w-full overflow-hidden py-10"
           onMouseEnter={() => setIsMarqueePaused(true)}
           onMouseLeave={() => setIsMarqueePaused(false)}
@@ -605,13 +596,13 @@ const Service = () => {
           <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050d1a] to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050d1a] to-transparent z-10 pointer-events-none" />
 
-          <motion.div 
+          <motion.div
             className="flex gap-8 w-fit"
-            animate={{ x: isMarqueePaused ? undefined : [0, "-50%"] }} 
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity, 
-              ease: "linear" 
+            animate={{ x: isMarqueePaused ? undefined : [0, "-50%"] }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear"
             }}
           >
             {[...SERVICES, ...SERVICES].map((service, i) => (
@@ -671,58 +662,7 @@ const Service = () => {
         </div>
       </section>
 
-      {/* ═══ § 4  TECHNOLOGIES ═══ */}
-      <section className="pt-0 pb-12 px-5 relative overflow-hidden" id="technologies">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] pointer-events-none"
-          style={{ background: 'linear-gradient(90deg,transparent,rgba(0,200,255,0.12),transparent)' }} />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <FadeUp>
-            <div className="text-center mb-14">
-              <Badge label="Tech Stack" icon={Cpu} />
-              <h2 className="font-['Space_Grotesk'] font-black text-white tracking-tight mb-4" style={{ fontSize: 'clamp(2.2rem,4.5vw,3.2rem)' }}>
-                Technologies{' '}
-                <span style={{ background: 'linear-gradient(135deg,#00c8ff,#7c3aed)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>We Use</span>
-              </h2>
-              <p className="text-[#6b87a8] max-w-xl mx-auto text-base leading-relaxed">Battle-tested, enterprise-proven technologies forming the backbone of every solution we build.</p>
-            </div>
-          </FadeUp>
-          <div className="relative mt-8 px-4">
-            {/* Gradient Fades for the edges */}
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050d1a] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050d1a] to-transparent z-10 pointer-events-none" />
 
-            <div className="overflow-hidden py-10">
-              <motion.div
-                className="flex gap-6 w-fit"
-                animate={{ x: [0, -1632] }}
-                transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-              >
-                {[...TECHNOLOGIES, ...TECHNOLOGIES, ...TECHNOLOGIES].map((tech, i) => {
-                  const Icon = tech.icon;
-                  const rgb = hexToRgb(tech.color);
-                  return (
-                    <div key={`${tech.name}-${i}`}
-                      className="group flex flex-col items-center gap-4 p-8 rounded-2xl border border-white/[0.04] hover:border-[#00c8ff]/30 transition-all duration-500 w-[180px] flex-shrink-0"
-                      style={{ background: 'rgba(10,22,40,0.6)', backdropFilter: 'blur(8px)' }}>
-                      <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(0,200,255,0.15)]"
-                        style={{ background: `rgba(${rgb},0.08)`, border: `1px solid rgba(${rgb},0.2)` }}>
-                        <Icon size={28} style={{ color: tech.color }} />
-                      </div>
-                      <div className="text-center">
-                        <p className="text-white font-bold text-sm tracking-tight">{tech.name}</p>
-                        <p className="text-[#4a6a8a] text-[10px] uppercase tracking-widest mt-1 font-bold">{tech.desc}</p>
-                      </div>
-                      <div className="w-full h-[2px] rounded-full bg-white/[0.03] overflow-hidden mt-2">
-                        <div className="h-full rounded-full bg-[#00c8ff]/40" style={{ width: `${tech.level}%` }} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ═══ § 5  PROCESS ═══ */}
       <section className="pt-0 pb-16 px-5 relative overflow-hidden" id="process">

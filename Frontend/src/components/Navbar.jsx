@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Box, Menu, X, ArrowRight, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import './Navbar.css';
 
 const navLinks = [
   { to: '/services',     label: 'Services'     },

@@ -8,6 +8,7 @@ import {
   Code2, ChevronRight, Award, Target, Layers, Database, Activity,
 } from 'lucide-react';
 import PageWrapper from '../components/ui/PageWrapper';
+import './ServiceDetail.css';
 
 /* =============================================
    SERVICES DATABASE

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Services from '../components/sections/Services';
 import Process from '../components/sections/Process';
+import './Hero.css';
 
 /* ─────────────────────────────────────────────
    CANVAS PARTICLE CONSTELLATION  (SRS AR-01)

@@ -3,7 +3,7 @@ import PageWrapper from '../components/ui/PageWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Filter, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import '../App.css';
+import './Projects.css';
 
 const projects = [
   {

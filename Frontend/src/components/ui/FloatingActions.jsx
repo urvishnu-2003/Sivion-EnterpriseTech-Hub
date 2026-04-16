@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, Phone, CalendarDays, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import './FloatingActions.css';
 
 const actions = [
   {

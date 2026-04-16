@@ -1,0 +1,41 @@
+/* ═══════════════════════════════════════════════════════════════
+   CAREERS PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+.careers-page {
+  padding-top: 100px;
+}
+
+.job-listings {
+  padding: 4rem 5% 8rem;
+}
+
+.job-card {
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid var(--glass-border2);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.job-card:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  background: rgba(0, 25, 60, 0.7);
+  transform: translateX(6px);
+}
+
+.job-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  color: var(--cyan);
+}

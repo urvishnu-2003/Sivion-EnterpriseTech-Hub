@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════════
+   BLOG PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+.blog-page {
+  padding-top: 100px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 4rem 5% 8rem;
+}
+
+.blog-card {
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid var(--glass-border2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: var(--transition);
+}
+
+.blog-card:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.blog-image {
+  height: 200px;
+  background: linear-gradient(135deg, var(--navy-card), var(--navy-light));
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  background: rgba(0, 200, 255, 0.15);
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  color: var(--cyan);
+}
+
+.blog-content {
+  padding: 2rem;
+}
+
+.blog-date {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-title {
+  color: var(--white);
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.blog-excerpt {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.blog-read-more {
+  color: var(--cyan);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+@media (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Blog Page Horizontal Slider ──────────────────────────── */
+.blog-layout {
+  padding-bottom: 5rem;
+}
+
+/* Hide scrollbar for the blog slider */
+.blog-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.blog-grid {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+@media (max-width: 680px) {
+  .blog-hero-title {
+    font-size: 2.2rem !important;
+  }
+}
+
+/* Blog card hover glow & image zoom */
+.blog-card:hover .blog-card-img {
+  transform: scale(1.08);
+}
+
+.blog-card:hover .blog-read-now svg {
+  transform: translateX(4px);
+  transition: transform 0.25s ease;
+}
+
+.blog-read-now:hover {
+  gap: 8px;
+  color: #a5b4fc;
+}

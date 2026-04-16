@@ -3,6 +3,7 @@ import PageWrapper from '../components/ui/PageWrapper';
 import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { Cpu, Cloud, Code2, Shield, Globe, Zap, Database, Layers } from 'lucide-react';
+import './Technologies.css';
 
 const stack = [
   {

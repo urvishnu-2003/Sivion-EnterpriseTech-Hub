@@ -1,4 +1,5 @@
 import React from 'react';
+import './ServiceDetail.css';
 import PageWrapper from '../components/ui/PageWrapper';
 import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';

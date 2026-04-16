@@ -4,6 +4,7 @@ import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { LineChart, PieChart, Shield, Target, Lightbulb, Compass, Share2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './ServiceDetail.css';
 
 const StrategyService = () => {
   const lifecycle = [

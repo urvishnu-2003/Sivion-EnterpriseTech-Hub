@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+.about-page {
+  padding-top: 100px;
+}
+
+.about-hero {
+  padding: 8rem 5%;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.06) 0%, transparent 70%);
+}
+
+.about-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  border-radius: 50px;
+  color: var(--cyan);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 2rem;
+}
+
+.mission-section {
+  padding: 5rem 5%;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mission-box {
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid var(--glass-border2);
+  padding: 3.5rem;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: var(--transition);
+}
+
+.mission-box:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  background: rgba(0, 25, 60, 0.8);
+}
+
+.mission-box .icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(0, 200, 255, 0.12), rgba(0, 85, 255, 0.08));
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+}
+
+.mission-box h2 {
+  font-size: 2rem;
+  color: var(--white);
+  font-family: var(--font-main);
+}
+
+.mission-box p {
+  color: var(--text-dim);
+  line-height: 1.75;
+}
+
+/* Values */
+.values-section {
+  padding: 8rem 5%;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+}
+
+/* Team */
+.team-section {
+  padding: 8rem 5%;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+.team-card {
+  text-align: center;
+}
+
+.member-avatar {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 1.5rem;
+  padding: 4px;
+  border: 2px solid var(--glass-border);
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.team-card:hover .member-avatar {
+  border-color: var(--cyan);
+  transform: rotate(5deg);
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.2);
+}

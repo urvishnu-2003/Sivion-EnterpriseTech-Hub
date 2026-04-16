@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
+import './Blog.css';
 
 // Import local assets
 import cloudImg      from '../assets/blog/cloud.png';

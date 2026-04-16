@@ -1,0 +1,37 @@
+/* ═══════════════════════════════════════════════════════════════
+   LEGAL PAGES (Privacy / Terms)
+   ═══════════════════════════════════════════════════════════════ */
+
+.legal-header {
+  padding: 8rem 0 4rem;
+  text-align: center;
+}
+
+.legal-content {
+  padding-bottom: 6rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RECAPTCHA UI
+   ═══════════════════════════════════════════════════════════════ */
+
+.recaptcha-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border2);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+
+.recaptcha-verified {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--green);
+  font-weight: 600;
+}

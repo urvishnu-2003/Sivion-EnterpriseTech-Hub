@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
-  BookOpen,
-  FolderKanban,
-  Receipt,
+  FileText,
+  Cpu,
+  CreditCard,
   Briefcase,
   Users,
-  MailOpen,
+  Mail,
   HelpCircle,
-  BookUser,
+  Contact,
 } from "lucide-react";
 
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
-import Toast from "../components/Toast";
 import { getBlogs } from "../services/blogService";
 import { getProjects } from "../services/projectService";
 import { getQuotes } from "../services/quoteService";
@@ -81,8 +80,8 @@ const AdminDashboard = () => {
         <div className="dashboard-welcome-card">
           <h3>📊 Admin Overview</h3>
           <p>
-            Welcome to your admin dashboard! Use the left navigation to manage blogs, projects, quotes, 
-            jobs, applications, newsletter subscribers, inquiries, and contact requests. Monitor all key 
+            Welcome to your admin dashboard! Use the left navigation to manage blogs, projects, quotes,
+            jobs, applications, newsletter subscribers, inquiries, and contact requests. Monitor all key
             metrics and data from this central hub.
           </p>
         </div>
@@ -92,19 +91,39 @@ const AdminDashboard = () => {
         <SkeletonTable />
       ) : (
         <>
-          {/* Dashboard Statistics Section */}
-          <div className="dashboard-section">
-            <h4 className="dashboard-section-title">📈 Key Metrics</h4>
-            <div className="summary-grid">
-              <SummaryCard icon={<BookOpen />} label="Blogs" count={counts.blogs} />
-              <SummaryCard icon={<FolderKanban />} label="Projects" count={counts.projects} />
-              <SummaryCard icon={<Receipt />} label="Quotes" count={counts.quotes} />
-              <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
-              <SummaryCard icon={<Users />} label="Applications" count={counts.applications} />
-              <SummaryCard icon={<MailOpen />} label="Newsletter" count={counts.subscribers} />
-              <SummaryCard icon={<HelpCircle />} label="Inquiry" count={counts.inquiries} />
-              <SummaryCard icon={<BookUser />} label="Contact" count={counts.contacts} />
-            </div>
+          <div className="summary-grid">
+            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
+            <SummaryCard
+              icon={<Cpu />}
+              label="Projects"
+              count={counts.projects}
+            />
+            <SummaryCard
+              icon={<CreditCard />}
+              label="Quotes"
+              count={counts.quotes}
+            />
+            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
+            <SummaryCard
+              icon={<Users />}
+              label="Applications"
+              count={counts.applications}
+            />
+            <SummaryCard
+              icon={<Mail />}
+              label="Newsletter"
+              count={counts.subscribers}
+            />
+            <SummaryCard
+              icon={<HelpCircle />}
+              label="Inquiry"
+              count={counts.inquiries}
+            />
+            <SummaryCard
+              icon={<Contact />}
+              label="Contact"
+              count={counts.contacts}
+            />
           </div>
 
           <div className="panel-card" style={{ padding: "20px" }}>

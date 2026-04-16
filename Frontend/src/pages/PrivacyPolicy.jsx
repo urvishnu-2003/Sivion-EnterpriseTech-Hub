@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Shield } from 'lucide-react';
 import PageWrapper from '../components/ui/PageWrapper';
+import './Legal.css';
 
 const PrivacyPolicy = () => {
   return (

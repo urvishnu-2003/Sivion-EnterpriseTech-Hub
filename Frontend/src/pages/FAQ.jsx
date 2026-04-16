@@ -3,6 +3,7 @@ import PageWrapper from '../components/ui/PageWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './FAQ.css';
 
 const faqs = [
   {
@@ -47,13 +48,15 @@ const FAQ = () => {
         <div className="container max-w-3xl">
           <div className="faq-list">
             {faqs.map((faq, i) => (
-              <div key={i} className={`faq-item ${openIndex === i ? 'open' : ''}`}>
+              <div key={i} className={`faq-item ${openIndex === i ? 'active' : ''}`}>
                 <button 
-                  className="faq-question" 
+                  className="faq-trigger" 
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className="arrow" size={20} />
+                  <div className="faq-icon">
+                    <ChevronDown size={20} />
+                  </div>
                 </button>
                 <AnimatePresence>
                   {openIndex === i && (
@@ -63,7 +66,7 @@ const FAQ = () => {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-                      className="faq-answer-wrapper"
+                      className="faq-body"
                     >
                       <div className="faq-answer">
                         <p>{faq.a}</p>

@@ -3,6 +3,7 @@ import PageWrapper from '../components/ui/PageWrapper';
 import TiltCard from '../components/ui/TiltCard';
 import { motion } from 'framer-motion';
 import { Target, Eye, Globe, Zap, Users } from 'lucide-react';
+import './Aboutus.css';
 
 const Aboutus = () => {
   const team = [

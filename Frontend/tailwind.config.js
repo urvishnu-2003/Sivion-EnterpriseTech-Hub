@@ -17,6 +17,7 @@ export default {
         cyan: {
           DEFAULT: '#00c8ff',
           dim: '#0099cc',
+          light: '#67e8f9',
           400: '#22d3ee',
         },
         enterprise: {

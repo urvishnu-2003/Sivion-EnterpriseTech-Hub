@@ -1,0 +1,138 @@
+/* ═══════════════════════════════════════════════════════════════
+   CASE STUDIES (PROJECTS)
+   ═══════════════════════════════════════════════════════════════ */
+
+.projects-page {
+  padding-top: 100px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 4rem 5% 8rem;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--navy-card);
+  border: 1px solid var(--glass-border2);
+  transition: var(--transition);
+  text-decoration: none;
+  display: block;
+}
+
+.project-card:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 200, 255, 0.06);
+}
+
+.project-image {
+  height: 280px;
+  background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grayscale → Color effect */
+.project-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #333 0%, #666 50%, #444 100%);
+  filter: saturate(0);
+  transition: filter 0.5s ease;
+}
+
+.project-card:hover .project-image::before {
+  filter: saturate(1);
+}
+
+/* Info overlay slides up */
+.project-info-overlay {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(5, 13, 26, 0.98), transparent);
+  transition: bottom 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card:hover .project-info-overlay {
+  bottom: 0;
+}
+
+.project-info {
+  padding: 2rem;
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.project-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  color: var(--cyan);
+  transition: var(--transition-sm);
+}
+
+.project-tag:hover {
+  background: rgba(0, 200, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.filter-section {
+  padding: 2rem 5% 4rem;
+  border-bottom: 1px solid var(--glass-border2);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border2);
+  color: var(--text-dim);
+  padding: 0.55rem 1.3rem;
+  border-radius: 50px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  border-color: var(--cyan);
+  color: var(--white);
+}
+
+.filter-btn.active {
+  background: var(--cyan);
+  color: var(--navy);
+  border-color: var(--cyan);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

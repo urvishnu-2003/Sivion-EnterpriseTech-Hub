@@ -6,9 +6,9 @@ const { successResponse, errorResponse } = require("../utils/response.utils");
 // PUBLIC: Get all active jobs
 
 exports.getAllActiveJobs = asyncHandler(async (req, res) => {
-  const jobs = await Job.find({ isActive: true }).sort({ createdAt: -1 });
+  const jobs = await Job.find().sort({ createdAt: -1 });
 
-  return successResponse(res, 200, "Active jobs fetched successfully", jobs);
+  return successResponse(res, 200, "Jobs fetched successfully", jobs);
 });
 
 
