@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import axiosInstance from "../../../api/axios";
 import { useAdminAuth } from "../context/AdminAuthContext";
-import "../styles/admin.css";
-=======
-import { useAdminAuth } from "../context/AdminAuthContext";
->>>>>>> origin/branch-backend/h
+import ForgotPasswordModal from "../components/ForgotPasswordModal";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { login, loading } = useAdminAuth();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -61,7 +57,22 @@ const AdminLogin = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div className="login-footer">
+          <button
+            type="button"
+            className="forgot-password-link"
+            onClick={() => setShowForgotPassword(true)}
+          >
+            Forgot Password?
+          </button>
+        </div>
       </div>
+
+      <ForgotPasswordModal
+        isOpen={showForgotPassword}
+        onClose={() => setShowForgotPassword(false)}
+      />
     </div>
   );
 };
