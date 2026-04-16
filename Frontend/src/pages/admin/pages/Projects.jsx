@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-=======
 import {
   getProjects,
   createProject,
   updateProject,
   deleteProject,
 } from "../services/projectService";
->>>>>>> origin/branch-backend/h
 
 const initialForm = {
   title: "",

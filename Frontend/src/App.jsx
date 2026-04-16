@@ -31,8 +31,9 @@ import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from './pages/admin/pages/AdminLogin';
+import AdminDashboard from './pages/admin/pages/AdminDashboard';
+import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
@@ -69,8 +70,16 @@ function AnimatedRoutes() {
         <Route path="/terms" element={<TermsConditions />} />
         {/* Admin */}
         <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/login" element={
+          <AdminAuthProvider>
+            <AdminLogin />
+          </AdminAuthProvider>
+        } />
+        <Route path="/admin/dashboard" element={
+          <AdminAuthProvider>
+            <AdminDashboard />
+          </AdminAuthProvider>
+        } />
       </Routes>
     </AnimatePresence>
   );
