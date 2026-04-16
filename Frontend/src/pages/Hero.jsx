@@ -320,47 +320,8 @@ const CTABanner = () => (
 /* ─────────────────────────────────────────────
    TECHNOLOGIES TICKER SECTION
    ───────────────────────────────────────────── */
-const techRow1 = [
-  { name: 'Java', slug: 'openjdk' },
-  { name: 'Spring Boot', slug: 'spring' },
-  { name: 'React', slug: 'react' },
-  { name: 'Node.js', slug: 'nodedotjs' },
-  { name: 'TypeScript', slug: 'typescript' },
-  { name: 'AWS', slug: 'amazon-aws' },
-  { name: 'Docker', slug: 'docker' },
-  { name: 'Kubernetes', slug: 'kubernetes' },
-  { name: 'PostgreSQL', slug: 'postgresql' },
-  { name: 'MongoDB', slug: 'mongodb' }
-];
-
-const techRow2 = [
-  { name: 'GraphQL', slug: 'graphql' },
-  { name: 'Redis', slug: 'redis' },
-  { name: 'Kafka', slug: 'apachekafka' },
-  { name: 'Next.js', slug: 'nextdotjs' },
-  { name: 'Jenkins', slug: 'jenkins' },
-  { name: 'Terraform', slug: 'terraform' },
-  { name: 'Python', slug: 'python' },
-  { name: 'Angular', slug: 'angular' },
-  { name: 'Azure', slug: 'microsoft-azure' },
-  { name: 'Git', slug: 'git' }
-];
-
-const TechLogo = ({ slug, name }) => (
-  <img
-    src={`https://cdn.simpleicons.org/${slug}/00F5FF`}
-    alt={name}
-    style={{
-      width: 18,
-      height: 18,
-      objectFit: 'contain',
-      filter: 'brightness(0) invert(1)',
-      opacity: 0.9,
-      marginRight: '0.25rem'
-    }}
-    onError={(e) => { e.target.style.display = 'none'; }}
-  />
-);
+const techRow1 = ['Java', 'Spring Boot', 'React', 'Node.js', 'TypeScript', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB'];
+const techRow2 = ['GraphQL', 'Microservices', 'Redis', 'Kafka', 'Next.js', 'Jenkins', 'Terraform', 'Python', 'Angular', 'Azure'];
 
 const TechTicker = () => (
   <section className="technologies-ticker-section">
@@ -375,8 +336,8 @@ const TechTicker = () => (
         <div className={`ticker-track ticker-${dir}`}>
           {[...items, ...items].map((tech, i) => (
             <div key={i} className="tech-badge">
-              <TechLogo slug={tech.slug} name={tech.name} />
-              {tech.name}
+              <Layers size={16} aria-hidden="true" />
+              {tech}
             </div>
           ))}
         </div>
@@ -451,6 +412,7 @@ function Hero() {
       {/* ── HERO BANNER ── */}
       <section className="hero-section" aria-label="Hero banner">
         <ParticleCanvas />
+        <div className="hex-grid-overlay" aria-hidden="true" />
 
         <div className="hero-content">
           <motion.h1 className="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }}>

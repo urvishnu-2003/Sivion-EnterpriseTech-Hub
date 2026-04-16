@@ -77,7 +77,7 @@ const AdminHeader = ({ title, subtitle }) => {
             <p style={{ margin: 0, fontSize: '0.7rem', color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: '1px' }}>Full Access</p>
           </div>
         </div>
-=======
+
     <header className="admin-header">
       <div>
         <h1>{title}</h1>

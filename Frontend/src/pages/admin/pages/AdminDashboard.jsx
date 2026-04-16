@@ -92,7 +92,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-
       {loading ? (
         <SkeletonTable />
       ) : (
@@ -140,7 +139,6 @@ const AdminDashboard = () => {
           </div>
         </>
       )}
-=======
       {/* Dashboard Statistics Section */}
       <div className="dashboard-section">
         <h4 className="dashboard-section-title">📈 Key Metrics</h4>
@@ -155,7 +153,6 @@ const AdminDashboard = () => {
           <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
         </div>
       </div>
->>>>>>> origin/branch-backend/h
     </AdminLayout>
   );
 };

@@ -1,13 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Users, 
-  FileText, 
-  Settings,
-  LogOut 
-} from "lucide-react";
 
 /**
  * Modernized Admin Sidebar — Neo-Holographic Design
@@ -42,7 +34,6 @@ const AdminSidebar = () => {
         <SidebarLink to="/admin/blogs" icon={<FileText size={20} />} label="Intelligence Hub" />
         <div style={{ height: '1px', background: 'var(--glass-border)', margin: '1.5rem 0' }} />
         <SidebarLink to="/admin/settings" icon={<Settings size={20} />} label="Configurations" />
-=======
 const navItems = [
   { label: "Dashboard", to: "/admin/dashboard" },
   { label: "Blogs", to: "/admin/blogs" },
