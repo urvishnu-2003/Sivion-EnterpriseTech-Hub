@@ -4359,3 +4359,192 @@ h5,
     font-size: 1.5rem;
   }
 }
+/* ===== FRAME ===== */
+.diagram-frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px 0;
+}
+
+/* ===== WRAPPER ===== */
+.diagram-wrapper {
+  position: relative;
+  width: 600px;
+}
+
+/* ===== SVG CONNECTIONS (BACKGROUND) ===== */
+.connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0; /* 👈 ALWAYS BEHIND */
+}
+
+/* ===== GRID ===== */
+.diagram-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  gap: 40px;
+  justify-content: center;
+
+  position: relative;
+  z-index: 2; /* 👈 ABOVE SVG */
+}
+
+/* ===== NODE ===== */
+.node {
+  width: 120px;
+  height: 120px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  backdrop-filter: blur(10px);
+
+  position: relative;
+  z-index: 3;
+
+  transition: all 0.3s ease;
+}
+
+/* ===== NODE TEXT ===== */
+.node span {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ===== HOVER EFFECT ===== */
+.node:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 25px rgba(0,255,255,0.6);
+  background: rgba(0,255,255,0.08);
+  z-index: 10; /* 👈 prevents overlap issues */
+}
+
+/* ===== ACTIVE NODE ===== */
+.node.active {
+  box-shadow: 0 0 30px rgba(0,255,255,0.5);
+}
+
+/* ===== LINE STYLE ===== */
+.connections line {
+  stroke: rgba(0, 245, 255, 0.7);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(0,245,255,0.6));
+}
+
+/* ===== OPTIONAL ANIMATION ===== */
+.flow-line {
+  stroke-dasharray: 6 4;
+  animation: flow 2s linear infinite;
+}
+
+@keyframes flow {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+/* NODE (outer container) */
+.node {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  z-index: 3;
+}
+
+/* INNER (visual layer with blur) */
+.node-inner {
+  width: 100%;
+  height: 100%;
+
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  backdrop-filter: blur(10px); /* 👈 moved here */
+
+  transition: all 0.3s ease;
+}
+
+/* hover */
+.node-inner:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 25px rgba(0,255,255,0.6);
+  background: rgba(0,255,255,0.08);
+}
+.connections {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.diagram-wrapper {
+  position: relative;
+}
+
+.connections {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.diagram-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.node {
+  position: relative;
+  z-index: 3;
+}
+.flow-line {
+  stroke: #00F5FF;
+  stroke-width: 2;
+
+  stroke-dasharray: 6 6;   /* 👈 dotted line */
+  stroke-dashoffset: 0;
+
+  animation: flow 2s linear infinite;
+
+  filter: drop-shadow(0 0 6px #00F5FF);
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 20;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tech-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+
+  margin-top: -40px;   /* 👈 move UP */
+  margin-bottom: 40px;
+
+  background: linear-gradient(135deg, #00F5FF, #7C3AED);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  letter-spacing: 2px;
+}

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
 import { Server, Layout, Cloud, Database, ArrowRight, Zap, Shield } from 'lucide-react';
+import { useEffect } from "react";
+
 
 // ── Tech logos via img tags ──────────────────────────────
 const Logo = ({ src, alt }) => (
   <img
     src={src} alt={alt}
-    style={{ width: 22, height: 22, objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9, flexShrink: 0 }}
+    style={{ width: 40, height: 40, objectFit: 'contain', opacity: 0.9, flexShrink: 0 }}
     onError={e => { e.target.style.display = 'none'; }}
   />
 );
@@ -88,6 +90,84 @@ const Technologies = () => {
   const [hoveredPod, setHoveredPod] = useState(null);
   const [activePod, setActivePod] = useState(null);
 
+  useEffect(() => {
+  const svg = document.querySelector(".connections");
+  if (!svg) return;
+
+  svg.innerHTML = ""; // clear old lines
+
+  const drawLine = (id1, id2) => {
+    const el1 = document.getElementById(id1);
+    const el2 = document.getElementById(id2);
+
+    if (!el1 || !el2) return;
+
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    const parentRect = svg.parentElement.getBoundingClientRect();
+
+  const getEdgePoint = (r1, r2) => {
+  const dx = r2.left + r2.width / 2 - (r1.left + r1.width / 2);
+  const dy = r2.top + r2.height / 2 - (r1.top + r1.height / 2);
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    // horizontal connection
+    return {
+      x: dx > 0 ? r1.right : r1.left,
+      y: r1.top + r1.height / 2
+    };
+  } else {
+    // vertical connection
+    return {
+      x: r1.left + r1.width / 2,
+      y: dy > 0 ? r1.bottom : r1.top
+    };
+  }
+};
+
+const p1 = getEdgePoint(rect1, rect2);
+const p2 = getEdgePoint(rect2, rect1);
+
+const x1 = p1.x - parentRect.left;
+const y1 = p1.y - parentRect.top;
+
+const x2 = p2.x - parentRect.left;
+const y2 = p2.y - parentRect.top;
+
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+    line.setAttribute("x1", x1);
+    line.setAttribute("y1", y1);
+    line.setAttribute("x2", x2);
+    line.setAttribute("y2", y2);
+
+    line.setAttribute("class", "flow-line");
+
+    svg.appendChild(line);
+  };
+
+  // 🔗 CONNECT NODES HERE
+  drawLine("aws", "spring");
+  drawLine("spring", "angular");
+  drawLine("angular", "rust");
+
+  drawLine("redis", "node");
+  drawLine("rust", "postgres");
+  drawLine("react", "pytorch");
+  
+
+  
+  drawLine("redis", "postgres");
+
+
+  drawLine("docker", "tensorflow");
+  drawLine("node", "react");
+  drawLine("pytorch", "docker");
+
+}, []);
+
+
   return (
     <PageWrapper className="tech-page">
       <style>{`
@@ -148,117 +228,112 @@ const Technologies = () => {
         </motion.p>
       </section>
 
-      {/* ── FLOWCHART ARCHITECTURE ─────────────── */}
-      <section style={{ padding: '0 5% 6rem' }}>
-        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-          {/* SVG connecting lines - Hidden on 2-row layout as it's meant for 4-col */}
+      
+
+      <PageWrapper>
+
+        
+
+        
+
+      {/* ===== DIAGRAM ===== */}
+      <div className="diagram-frame">
+        <div className="diagram-wrapper" style={{ position: "relative" }}>
+          <h2 className="tech-title">Technologies We Use</h2> 
+           <svg className="connections"></svg>
+    
           
-          {/* Two-row grid (2 columns each) */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', 
-            gap: '2.5rem', 
-            position: 'relative' 
-          }}>
-              {pods.map((pod, idx) => (
-                <motion.div
-                  key={pod.id}
-                  className="pod-card"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  onMouseEnter={() => setHoveredPod(pod.id)}
-                  onMouseLeave={() => setHoveredPod(null)}
-                  onClick={() => setActivePod(activePod === pod.id ? null : pod.id)}
-                  style={{
-                    background: 'rgba(17,34,64,0.8)',
-                    backdropFilter: 'blur(20px)',
-                    border: `1px solid ${hoveredPod === pod.id ? pod.color : 'rgba(255,255,255,0.08)'}`,
-                    borderRadius: 20,
-                    padding: '2rem',
-                    cursor: 'pointer',
-                    boxShadow: hoveredPod === pod.id
-                      ? `0 20px 50px ${pod.glow}, 0 0 0 1px ${pod.color}40`
-                      : '0 8px 30px rgba(0,0,0,0.3)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}
-                >
-                  {/* Top glow */}
-                  <div style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-                    background: `linear-gradient(90deg, transparent, ${pod.color}, transparent)`,
-                    opacity: hoveredPod === pod.id ? 1 : 0.4,
-                    transition: 'opacity 0.3s'
-                  }} />
 
-                  {/* Icon badge */}
-                  <div style={{
-                    width: 56, height: 56, borderRadius: 14,
-                    background: `linear-gradient(135deg, ${pod.color}22, ${pod.color}08)`,
-                    border: `1px solid ${pod.color}40`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: pod.color, marginBottom: '1.25rem',
-                    boxShadow: hoveredPod === pod.id ? `0 0 20px ${pod.glow}` : 'none',
-                    transition: 'box-shadow 0.3s'
-                  }}>
-                    {pod.icon}
-                  </div>
+          {/* GRID */}
+         <div className="diagram-grid">
 
-                  {/* Label */}
-                  <div style={{
-                    fontFamily: '"JetBrains Mono", monospace',
-                    fontSize: '0.75rem', fontWeight: 700, letterSpacing: '2px',
-                    color: pod.color, marginBottom: '0.5rem', textTransform: 'uppercase'
-                  }}>
-                    {pod.label}
-                  </div>
+            {/* TOP */}
+            <div className="node" id="aws">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=33039&format=png&color=000000" />
+              <span>AWS</span>
+              </div>
+            </div>
 
-                  {/* Annotation tags */}
-                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-                    <span className="annotation-tag" style={{
-                      fontFamily: '"JetBrains Mono", monospace', fontSize: '0.7rem',
-                      background: `${pod.color}18`, border: `1px solid ${pod.color}35`,
-                      color: pod.color, padding: '0.2rem 0.6rem', borderRadius: 20
-                    }}>
-                      Expertise: {pod.expertise}
-                    </span>
-                    <span className="annotation-tag" style={{
-                      fontFamily: '"JetBrains Mono", monospace', fontSize: '0.7rem',
-                      background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                      color: '#94a3b8', padding: '0.2rem 0.6rem', borderRadius: 20,
-                      animationDelay: '1s'
-                    }}>
-                      {pod.yearsExp}
-                    </span>
-                  </div>
+            <div className="node" id="spring">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=90519&format=png&color=000000" />
+              <span>Spring Boot</span>
+              </div>
+            </div>
 
-                  {/* Tech chips grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                    {pod.stack.map((tech, i) => (
-                      <div
-                        key={i}
-                        className="tech-chip"
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: '0.75rem',
-                          padding: '0.6rem 0.8rem',
-                          background: 'rgba(255,255,255,0.035)',
-                          border: '1px solid rgba(255,255,255,0.07)',
-                          borderRadius: 10, cursor: 'default',
-                          minHeight: '44px'
-                        }}
-                      >
-                        <Logo src={tech.logo} alt={tech.name} />
-                        <span style={{ color: '#cbd5e1', fontSize: '0.82rem', fontWeight: 600, lineHeight: 1 }}>{tech.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-          </div>
+            <div className="node" id="angular">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=71257&format=png&color=000000" />
+              <span>Angular</span>
+              </div>
+            </div>
+
+            <div className="node" id="rust">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=NAL2lztANaO6&format=png&color=000000" />
+              <span>Rust</span>
+              </div>
+            </div>
+
+            {/* MIDDLE */}
+            <div className="node" id="react">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=bzf0DqjXFHIW&format=png&color=000000" />
+              <span>React</span>
+              </div>
+            </div>
+
+            <div className="node" id="node">
+              <div className="node-inner">
+              <Logo src="https://cdn.simpleicons.org/nodedotjs" />
+              <span>Node</span>
+              </div>
+            </div>
+
+            <div className="node" id="redis">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=pHS3eRpynIRQ&format=png&color=000000" />
+              <span>Redis</span>
+              </div>
+            </div>
+
+            <div className="node" id="postgres">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=Pv4IGT0TSpt8&format=png&color=000000" />
+              <span>PostgreSQL</span>
+              </div>
+            </div>
+
+            {/* BOTTOM */}
+            <div className="node" id="pytorch">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=jH4BpkMnRrU5&format=png&color=000000" />
+              <span>PyTorch</span>
+              </div>
+            </div>
+
+            <div className="node" id="docker">
+              <div className="node-inner">
+              <Logo src="https://cdn.simpleicons.org/docker" />
+              <span>Docker</span>
+              </div>
+            </div>
+
+            <div className="node" id="tensorflow">
+              <div className="node-inner">
+              <Logo src="https://img.icons8.com/?size=100&id=n3QRpDA7KZ7P&format=png&color=000000" />
+              <span>TensorFlow</span>
+              </div>
+            </div>
+          
+
         </div>
-      </section>
+
+        </div>
+      </div>
+
+    </PageWrapper>
 
       {/* ── STATS BAR ─────────────────────────── */}
       <section style={{
