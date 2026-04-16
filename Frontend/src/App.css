@@ -3596,12 +3596,9 @@ body::before {
   transition: transform 0.25s ease;
 }
 
-.blog-read-now:hover {
+..blog-read-now:hover {
   gap: 8px;
   color: #a5b4fc;
-<<<<<<< HEAD
-}
-=======
 }
 
 @media (max-width: 768px) {
@@ -3609,4 +3606,4 @@ body::before {
     grid-template-columns: 1fr !important;
   }
 }
->>>>>>> bcc74dd (technologies page modifies)
+
