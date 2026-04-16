@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
 
-const careerSchema = new mongoose.Schema(
+const applicationSchema = new mongoose.Schema(
   {
+    jobId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+      required: true,
+    },
     fullName: {
       type: String,
       required: true,
@@ -14,11 +19,6 @@ const careerSchema = new mongoose.Schema(
       lowercase: true,
     },
     phone: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    roleApplied: {
       type: String,
       required: true,
       trim: true,
@@ -37,18 +37,17 @@ const careerSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
-    coverLetter: {
+    status: {
       type: String,
-      default: "",
-      trim: true,
+      enum: ["pending", "reviewed", "rejected", "hired"],
+      default: "pending",
     },
-    submittedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+    appliedAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Career", careerSchema);
+module.exports = mongoose.model("Application", applicationSchema);

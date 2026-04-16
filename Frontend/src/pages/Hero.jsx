@@ -7,7 +7,6 @@ import {
   ChevronDown, ChevronUp, MessageSquare
 } from 'lucide-react';
 import Services from '../components/sections/Services';
-import Stats from '../components/sections/Stats';
 import Process from '../components/sections/Process';
 
 /* ─────────────────────────────────────────────
@@ -30,7 +29,7 @@ const ParticleCanvas = () => {
     const particles = [];
 
     const resize = () => {
-      W = canvas.width  = canvas.offsetWidth;
+      W = canvas.width = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
     };
     resize();
@@ -45,11 +44,11 @@ const ParticleCanvas = () => {
     class Particle {
       constructor() { this.reset(true); }
       reset(init = false) {
-        this.x  = Math.random() * W;
-        this.y  = Math.random() * H;
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
         this.vx = (Math.random() - 0.5) * 0.35;
         this.vy = (Math.random() - 0.5) * 0.35;
-        this.r  = Math.random() * 2 + 1.2;
+        this.r = Math.random() * 2 + 1.2;
         this.alpha = Math.random() * 0.5 + 0.3;
       }
       update() {
@@ -93,7 +92,7 @@ const ParticleCanvas = () => {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const d  = Math.sqrt(dx * dx + dy * dy);
+          const d = Math.sqrt(dx * dx + dy * dy);
           if (d < LINK_DIST) {
             const opacity = (1 - d / LINK_DIST) * 0.3;
             ctx.beginPath();
@@ -130,9 +129,9 @@ const ParticleCanvas = () => {
    TYPEWRITER EFFECT  (SRS AR-01)
    ───────────────────────────────────────────── */
 const useTypewriter = (phrases, typingSpeed = 80, pauseMs = 2000) => {
-  const [display, setDisplay]   = useState('');
+  const [display, setDisplay] = useState('');
   const [phraseIdx, setPhraseIdx] = useState(0);
-  const [charIdx, setCharIdx]   = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
@@ -321,8 +320,47 @@ const CTABanner = () => (
 /* ─────────────────────────────────────────────
    TECHNOLOGIES TICKER SECTION
    ───────────────────────────────────────────── */
-const techRow1 = ['Java', 'Spring Boot', 'React', 'Node.js', 'TypeScript', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB'];
-const techRow2 = ['GraphQL', 'Microservices', 'Redis', 'Kafka', 'Next.js', 'Jenkins', 'Terraform', 'Python', 'Angular', 'Azure'];
+const techRow1 = [
+  { name: 'Java', slug: 'openjdk' },
+  { name: 'Spring Boot', slug: 'spring' },
+  { name: 'React', slug: 'react' },
+  { name: 'Node.js', slug: 'nodedotjs' },
+  { name: 'TypeScript', slug: 'typescript' },
+  { name: 'AWS', slug: 'amazon-aws' },
+  { name: 'Docker', slug: 'docker' },
+  { name: 'Kubernetes', slug: 'kubernetes' },
+  { name: 'PostgreSQL', slug: 'postgresql' },
+  { name: 'MongoDB', slug: 'mongodb' }
+];
+
+const techRow2 = [
+  { name: 'GraphQL', slug: 'graphql' },
+  { name: 'Redis', slug: 'redis' },
+  { name: 'Kafka', slug: 'apachekafka' },
+  { name: 'Next.js', slug: 'nextdotjs' },
+  { name: 'Jenkins', slug: 'jenkins' },
+  { name: 'Terraform', slug: 'terraform' },
+  { name: 'Python', slug: 'python' },
+  { name: 'Angular', slug: 'angular' },
+  { name: 'Azure', slug: 'microsoft-azure' },
+  { name: 'Git', slug: 'git' }
+];
+
+const TechLogo = ({ slug, name }) => (
+  <img
+    src={`https://cdn.simpleicons.org/${slug}/00F5FF`}
+    alt={name}
+    style={{
+      width: 18,
+      height: 18,
+      objectFit: 'contain',
+      filter: 'brightness(0) invert(1)',
+      opacity: 0.9,
+      marginRight: '0.25rem'
+    }}
+    onError={(e) => { e.target.style.display = 'none'; }}
+  />
+);
 
 const TechTicker = () => (
   <section className="technologies-ticker-section">
@@ -337,8 +375,8 @@ const TechTicker = () => (
         <div className={`ticker-track ticker-${dir}`}>
           {[...items, ...items].map((tech, i) => (
             <div key={i} className="tech-badge">
-              <Layers size={16} aria-hidden="true" />
-              {tech}
+              <TechLogo slug={tech.slug} name={tech.name} />
+              {tech.name}
             </div>
           ))}
         </div>
@@ -351,12 +389,12 @@ const TechTicker = () => (
    INDUSTRIES TAB SECTION
    ───────────────────────────────────────────── */
 const industries = [
-  { label: 'FinTech',     content: 'Core banking systems, payment gateways, trading platforms, and regulatory compliance automation.' },
-  { label: 'HealthTech',  content: 'Patient portals, HIPAA-compliant EHRs, telemedicine platforms, and clinical data analytics pipelines.' },
-  { label: 'E-Commerce',  content: 'Multi-vendor marketplaces, real-time inventory systems, personalized recommendation engines.' },
-  { label: 'Logistics',   content: 'Fleet tracking, warehouse management systems, last-mile delivery optimization with ML routing.' },
-  { label: 'SaaS',        content: 'Multi-tenant architectures, subscription billing, usage analytics, and white-label platform development.' },
-  { label: 'Government',  content: 'Secure citizen portals, digital identity management, and interoperability platforms for public services.' },
+  { label: 'FinTech', content: 'Core banking systems, payment gateways, trading platforms, and regulatory compliance automation.' },
+  { label: 'HealthTech', content: 'Patient portals, HIPAA-compliant EHRs, telemedicine platforms, and clinical data analytics pipelines.' },
+  { label: 'E-Commerce', content: 'Multi-vendor marketplaces, real-time inventory systems, personalized recommendation engines.' },
+  { label: 'Logistics', content: 'Fleet tracking, warehouse management systems, last-mile delivery optimization with ML routing.' },
+  { label: 'SaaS', content: 'Multi-tenant architectures, subscription billing, usage analytics, and white-label platform development.' },
+  { label: 'Government', content: 'Secure citizen portals, digital identity management, and interoperability platforms for public services.' },
 ];
 
 const Industries = () => {
@@ -416,11 +454,6 @@ function Hero() {
         <div className="hex-grid-overlay" aria-hidden="true" />
 
         <div className="hero-content">
-          <motion.div className="hero-label" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <span className="hero-label-dot" aria-hidden="true" />
-            Next-Generation Enterprise Solutions
-          </motion.div>
-
           <motion.h1 className="hero-title" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }}>
             Architecting the<br />
             <span className="gradient-text">Future of Enterprise Tech</span>
@@ -451,11 +484,11 @@ function Hero() {
             {[
               { value: '450+', label: 'Projects Delivered' },
               null,
-              { value: '120+', label: 'Global Clients'     },
+              { value: '120+', label: 'Global Clients' },
               null,
-              { value: '99%',  label: 'Success Rate'       },
+              { value: '99%', label: 'Success Rate' },
               null,
-              { value: '10+',  label: 'Years Experience'   },
+              { value: '10+', label: 'Years Experience' },
             ].map((item, i) => item === null
               ? <div key={i} className="stat-separator" aria-hidden="true" />
               : (
@@ -476,15 +509,16 @@ function Hero() {
       </section>
 
       {/* ── HOMEPAGE SECTIONS ── */}
-      <Stats />
-      <WhyUs />
-      <Services />
-      <TechTicker />
-      <Industries />
-      <Process />
-      <Testimonials />
-      <FAQ />
-      <CTABanner />
+      <section className="home-sections">
+        <WhyUs />
+        <Services />
+        <TechTicker />
+        <Industries />
+        <Process />
+        <Testimonials />
+        <FAQ />
+        <CTABanner />
+      </section>
     </div>
   );
 }
