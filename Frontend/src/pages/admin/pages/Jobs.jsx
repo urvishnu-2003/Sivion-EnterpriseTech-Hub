@@ -81,7 +81,7 @@ const Jobs = () => {
     }
   };
 
- const handleDelete = async () => {
+  const handleDelete = async () => {
     try {
       await deleteJob(deleteId);
       setDeleteId(null);
@@ -113,7 +113,7 @@ const Jobs = () => {
     },
   ];
 
-   return (
+  return (
     <AdminLayout title="Manage Jobs" subtitle="Create, update, and remove job openings.">
       <div
         style={{
@@ -262,8 +262,8 @@ const Jobs = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Job"
-                    : "Create Job"}
+                      ? "Update Job"
+                      : "Create Job"}
                 </button>
               </div>
             </form>

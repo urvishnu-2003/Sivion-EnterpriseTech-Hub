@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../style/status-selector.css";
+import "../styles/status-selector.css";
 
 const statusOptions = [
   { label: "Pending", value: "pending", icon: "⏳", colorClass: "status-option-pending" },

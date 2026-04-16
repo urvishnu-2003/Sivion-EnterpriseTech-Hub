@@ -33,10 +33,10 @@ const Blogs = () => {
       const blogList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.blogs)
-        ? data.blogs
-        : Array.isArray(data)
-        ? data
-        : [];
+          ? data.blogs
+          : Array.isArray(data)
+            ? data
+            : [];
 
       setBlogs(blogList);
     } catch (error) {
@@ -259,8 +259,8 @@ const Blogs = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Blog"
-                    : "Create Blog"}
+                      ? "Update Blog"
+                      : "Create Blog"}
                 </button>
               </div>
             </form>
