@@ -103,11 +103,28 @@ const CloudService = () => {
         <div className="container">
           <p className="stack-label">Ecosystem Partners</p>
           <div className="stack-icons">
-            <div className="stack-item">AWS</div>
-            <div className="stack-item">Azure</div>
-            <div className="stack-item">GCP</div>
-            <div className="stack-item">Kubernetes</div>
-            <div className="stack-item">Terraform</div>
+            {[
+              { name: 'AWS', slug: 'amazon-aws' },
+              { name: 'Azure', slug: 'microsoft-azure' },
+              { name: 'GCP', slug: 'google-cloud' },
+              { name: 'Kubernetes', slug: 'kubernetes' },
+              { name: 'Terraform', slug: 'terraform' }
+            ].map((tech) => (
+              <div key={tech.slug} className="stack-item">
+                <img 
+                  src={`https://cdn.simpleicons.org/${tech.slug}/00F5FF`} 
+                  alt={tech.name} 
+                  style={{ 
+                    width: 14, 
+                    height: 14, 
+                    marginRight: '8px', 
+                    filter: 'brightness(0) invert(1)',
+                    opacity: 0.8
+                  }} 
+                />
+                {tech.name}
+              </div>
+            ))}
           </div>
         </div>
       </section>

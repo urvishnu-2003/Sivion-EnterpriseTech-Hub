@@ -29,7 +29,11 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
-
+import BookTrial from './pages/BookTrial';
+import Solutions from './pages/Solutions';
+import Admin from './pages/admin/Admin';
+import AdminLogin from './pages/admin/pages/AdminLogin';
+import AdminDashboard from './pages/admin/pages/AdminDashboard';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';

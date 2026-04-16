@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Filter, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Settings, Code2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import { projects } from "../data";
@@ -134,12 +134,7 @@ const filteredProjects =
 
               </div>
             </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </motion.div>
-  </div>
-</section>
+          </div>
 
       
       {/* 🔥 IMPACT STRIP */}
@@ -163,6 +158,7 @@ const filteredProjects =
               <p>Support</p>
             </div>
           </div>
+
         </div>
       </section>
 
