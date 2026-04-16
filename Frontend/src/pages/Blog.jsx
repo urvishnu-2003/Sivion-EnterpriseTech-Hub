@@ -270,6 +270,7 @@ export default function Blog() {
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="blog-hero">
+        <div className="blog-hero__glow-dot" />
         <span className="blog-hero__badge animate-fade-in">INSIGHTS &amp; PERSPECTIVES</span>
         <h1 className="blog-hero__title">
           The Sivion<br />
