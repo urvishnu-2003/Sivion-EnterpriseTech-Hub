@@ -1,34 +1,19 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-
-const PAGE_SIZE = 5;
+import { getQuotes, deleteQuote } from "../services/quoteService";
 
 const Quotes = () => {
   const [quotes, setQuotes] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [selectedView, setSelectedView] = useState(null);
-  const [selectedDelete, setSelectedDelete] = useState(null);
-  const [toast, setToast] = useState({ message: "", type: "" });
+  const [deleteId, setDeleteId] = useState(null);
 
   const loadQuotes = async () => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.get("/quotes");
-      setQuotes(response.data?.data || []);
+      const { data } = await getQuotes();
+      setQuotes(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load quotes", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -36,119 +21,42 @@ const Quotes = () => {
     loadQuotes();
   }, []);
 
-  const filteredQuotes = useMemo(() => {
-    return quotes.filter((quote) =>
-      `${quote.fullName || ""} ${quote.email || ""} ${quote.serviceType || quote.service || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [quotes, search]);
-
-  const totalPages = Math.ceil(filteredQuotes.length / PAGE_SIZE) || 1;
-  const paginatedQuotes = filteredQuotes.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/quotes/${selectedDelete._id}`);
-      setToast({ message: "Quote deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteQuote(deleteId);
+      setDeleteId(null);
       loadQuotes();
     } catch (error) {
-      setToast({ message: "Failed to delete quote", type: "error" });
+      console.log(error);
     }
   };
 
   const columns = [
+    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
+    { header: "Name", key: "name" },
+    { header: "Email", key: "email" },
+    { header: "Service", key: "service" },
     {
-      key: "name",
-      label: "Name",
-      render: (row) => row.fullName || "-",
-    },
-    { key: "email", label: "Email" },
-    {
-      key: "service",
-      label: "Service",
-      render: (row) => row.serviceType || row.service || "-",
-    },
-    {
-      key: "budget",
-      label: "Budget",
-      render: (row) => row.budget || "-",
-    },
-    {
-      key: "date",
-      label: "Date",
-      render: (row) => new Date(row.createdAt).toLocaleDateString(),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn" onClick={() => setSelectedView(row)}>
-            View
-          </button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
-            Delete
-          </button>
-        </div>
+        <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+          Delete
+        </button>
       ),
     },
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <Modal
-        open={!!selectedView}
-        onClose={() => setSelectedView(null)}
-        title="Quote Details"
-      >
-        {selectedView && (
-          <div className="details-grid">
-            <p><strong>Name:</strong> {selectedView.fullName}</p>
-            <p><strong>Email:</strong> {selectedView.email}</p>
-            <p><strong>Phone:</strong> {selectedView.phone}</p>
-            <p><strong>Company:</strong> {selectedView.company}</p>
-            <p><strong>Service:</strong> {selectedView.serviceType || selectedView.service}</p>
-            <p><strong>Budget:</strong> {selectedView.budget}</p>
-            <p><strong>Timeline:</strong> {selectedView.timeline}</p>
-            <p><strong>Project Details:</strong> {selectedView.projectDetails}</p>
-          </div>
-        )}
-      </Modal>
-
+    <AdminLayout title="Manage Quotes" subtitle="Review quote requests submitted from the website.">
+      <DataTable columns={columns} rows={quotes} emptyText="No quote requests available" />
       <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
+        open={!!deleteId}
+        title="Delete Quote Request"
+        message="Are you sure you want to delete this quote request?"
         onConfirm={handleDelete}
-        message={`Delete quote of ${selectedDelete?.fullName}?`}
+        onClose={() => setDeleteId(null)}
       />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search quotes..."
-        />
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedQuotes} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
     </AdminLayout>
   );
 };

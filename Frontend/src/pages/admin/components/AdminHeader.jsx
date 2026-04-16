@@ -1,17 +1,19 @@
-import React from 'react';
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, Bell, Shield, Activity } from "lucide-react";
+import { useAdminAuth } from "../context/AdminAuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 /**
  * Modernized Admin Header — Neo-Holographic Design
  * Features system status indicators and premium profile controls.
  */
-const AdminHeader = () => {
+const AdminHeader = ({ title, subtitle }) => {
   const navigate = useNavigate();
+  const { admin, logout } = useAdminAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminUser");
+    logout();
     navigate("/admin/login");
   };
 
@@ -30,8 +32,9 @@ const AdminHeader = () => {
     }}>
       <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
         <h1 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0, color: 'var(--white)' }}>
-          Command Center
+          {title || "Command Center"}
         </h1>
+        {subtitle && <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-dim)' }}>{subtitle}</p>}
         <div className="system-status" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-dim)', fontSize: '0.85rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Activity size={14} className="text-cyan" />
@@ -45,6 +48,7 @@ const AdminHeader = () => {
       </div>
 
       <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        <ThemeToggle />
         <button className="icon-btn" style={{ background: 'transparent', border: 'none', color: 'var(--text-dim)', cursor: 'pointer' }}>
           <Bell size={20} />
         </button>
@@ -62,13 +66,29 @@ const AdminHeader = () => {
             color: 'white',
             fontWeight: 700
           }}>
-            A
+            {admin?.email?.[0].toUpperCase() || "A"}
           </div>
           <div className="profile-info">
-            <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'var(--white)' }}>SysAdmin</p>
+            <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'var(--white)' }}>{admin?.email || "SysAdmin"}</p>
             <p style={{ margin: 0, fontSize: '0.7rem', color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: '1px' }}>Full Access</p>
           </div>
         </div>
+
+        <button 
+          onClick={handleLogout}
+          style={{ 
+            background: 'rgba(239, 68, 68, 0.1)', 
+            border: '1px solid rgba(239, 68, 68, 0.2)', 
+            color: '#f87171',
+            padding: '0.4rem 1rem',
+            borderRadius: '8px',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            cursor: 'pointer'
+          }}
+        >
+          Logout
+        </button>
       </div>
     </header>
   );

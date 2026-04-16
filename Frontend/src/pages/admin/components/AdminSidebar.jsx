@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { 
   LayoutDashboard, 
@@ -6,14 +6,34 @@ import {
   Users, 
   FileText, 
   Settings,
-  LogOut 
+  LogOut,
+  FolderKanban,
+  Quote,
+  Mail,
+  HelpCircle,
+  MessageSquare
 } from "lucide-react";
+import { useAdminAuth } from "../context/AdminAuthContext";
 
 /**
  * Modernized Admin Sidebar — Neo-Holographic Design
  * Uses brand design tokens and glassmorphism for a premium enterprise feel.
  */
 const AdminSidebar = () => {
+  const { logout } = useAdminAuth();
+
+  const navItems = [
+    { label: "Dashboard", to: "/admin/dashboard", icon: <LayoutDashboard size={20} /> },
+    { label: "Intelligence Hub", to: "/admin/blogs", icon: <FileText size={20} /> },
+    { label: "Projects", to: "/admin/projects", icon: <FolderKanban size={20} /> },
+    { label: "Quotes", to: "/admin/quotes", icon: <Quote size={20} /> },
+    { label: "Global Careers", to: "/admin/jobs", icon: <Briefcase size={20} /> },
+    { label: "Talent Pipeline", to: "/admin/applications", icon: <Users size={20} /> },
+    { label: "Newsletter", to: "/admin/newsletter", icon: <Mail size={20} /> },
+    { label: "Inquiry", to: "/admin/inquiry", icon: <HelpCircle size={20} /> },
+    { label: "Contact", to: "/admin/contact", icon: <MessageSquare size={20} /> },
+  ];
+
   return (
     <aside className="admin-sidebar glass" style={{ 
       width: '280px', 
@@ -24,7 +44,8 @@ const AdminSidebar = () => {
       flexDirection: 'column',
       padding: '2rem 1.5rem',
       borderRight: '1px solid var(--glass-border)',
-      background: 'rgba(5, 13, 26, 0.5)'
+      background: 'rgba(5, 13, 26, 0.5)',
+      overflowY: 'auto'
     }}>
       <div className="sidebar-brand" style={{ marginBottom: '3rem', padding: '0 0.5rem' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--white)', letterSpacing: '-0.5px' }}>
@@ -36,17 +57,16 @@ const AdminSidebar = () => {
       </div>
 
       <nav className="admin-nav" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
-        <SidebarLink to="/admin/dashboard" icon={<LayoutDashboard size={20} />} label="Dashboard" />
-        <SidebarLink to="/admin/jobs" icon={<Briefcase size={20} />} label="Global Careers" />
-        <SidebarLink to="/admin/applications" icon={<Users size={20} />} label="Talent Pipeline" />
-        <SidebarLink to="/admin/blogs" icon={<FileText size={20} />} label="Intelligence Hub" />
+        {navItems.map((item) => (
+          <SidebarLink key={item.to} to={item.to} icon={item.icon} label={item.label} />
+        ))}
         <div style={{ height: '1px', background: 'var(--glass-border)', margin: '1.5rem 0' }} />
         <SidebarLink to="/admin/settings" icon={<Settings size={20} />} label="Configurations" />
       </nav>
 
       <div className="sidebar-footer" style={{ marginTop: 'auto' }}>
         <button 
-          onClick={() => { localStorage.removeItem("adminToken"); window.location.href = "/admin/login"; }}
+          onClick={() => { logout(); window.location.href = "/admin/login"; }}
           className="admin-link danger" 
           style={{ 
             display: 'flex', 
