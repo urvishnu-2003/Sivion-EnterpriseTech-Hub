@@ -6,23 +6,22 @@ import { Cloud, Shield, Zap, Server, ShieldCheck, RefreshCw, Layers, ArrowRight 
 import { Link } from 'react-router-dom';
 import './CloudService.css';
 
-
 const CloudService = () => {
   const pillars = [
-    { 
-      icon: <ShieldCheck className="cyan-text" />, 
-      title: "Security-First Core", 
-      desc: "Architecting zero-trust environments with advanced encryption and identity perimeter security." 
+    {
+      icon: <ShieldCheck className="cyan-text" />,
+      title: "Security-First Core",
+      desc: "Architecting zero-trust environments with advanced encryption and identity perimeter security."
     },
-    { 
-      icon: <RefreshCw className="cyan-text" />, 
-      title: "Seamless Migration", 
-      desc: "Zero-downtime transition of legacy enterprise systems into modern multi-cloud ecosystems." 
+    {
+      icon: <RefreshCw className="cyan-text" />,
+      title: "Seamless Migration",
+      desc: "Zero-downtime transition of legacy enterprise systems into modern multi-cloud ecosystems."
     },
-    { 
-      icon: <Layers className="cyan-text" />, 
-      title: "Hybrid-Cloud Flow", 
-      desc: "Synchronizing on-premise power with cloud agility through specialized middleware." 
+    {
+      icon: <Layers className="cyan-text" />,
+      title: "Hybrid-Cloud Flow",
+      desc: "Synchronizing on-premise power with cloud agility through specialized middleware."
     }
   ];
 
@@ -37,7 +36,7 @@ const CloudService = () => {
           </motion.div>
           <h1 className="hero-title">Cloud & <span className="gradient-text">Infrastructure</span></h1>
           <p className="hero-subtitle">
-            Engineering resilient, elastic, and high-performance cloud environments 
+            Engineering resilient, elastic, and high-performance cloud environments
             powering the world's most ambitious enterprises.
           </p>
         </div>
@@ -48,8 +47,8 @@ const CloudService = () => {
         <div className="container">
           <div className="pillars-grid">
             {pillars.map((pillar, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="pillar-card"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -72,8 +71,8 @@ const CloudService = () => {
             <div className="view-text">
               <h2 className="section-title">Infinite <span className="gradient-text">Scalability</span></h2>
               <p className="section-desc">
-                Our infrastructure designs utilize serverless clusters and 
-                containerized microservices to ensure your enterprise can handle 
+                Our infrastructure designs utilize serverless clusters and
+                containerized microservices to ensure your enterprise can handle
                 sudden traffic surges with sub-millisecond latency.
               </p>
               <ul className="tech-list">
@@ -105,28 +104,11 @@ const CloudService = () => {
         <div className="container">
           <p className="stack-label">Ecosystem Partners</p>
           <div className="stack-icons">
-            {[
-              { name: 'AWS', slug: 'amazon-aws' },
-              { name: 'Azure', slug: 'microsoft-azure' },
-              { name: 'GCP', slug: 'google-cloud' },
-              { name: 'Kubernetes', slug: 'kubernetes' },
-              { name: 'Terraform', slug: 'terraform' }
-            ].map((tech) => (
-              <div key={tech.slug} className="stack-item">
-                <img 
-                  src={`https://cdn.simpleicons.org/${tech.slug}/00F5FF`} 
-                  alt={tech.name} 
-                  style={{ 
-                    width: 14, 
-                    height: 14, 
-                    marginRight: '8px', 
-                    filter: 'brightness(0) invert(1)',
-                    opacity: 0.8
-                  }} 
-                />
-                {tech.name}
-              </div>
-            ))}
+            <div className="stack-item">AWS</div>
+            <div className="stack-item">Azure</div>
+            <div className="stack-item">GCP</div>
+            <div className="stack-item">Kubernetes</div>
+            <div className="stack-item">Terraform</div>
           </div>
         </div>
       </section>

@@ -1,60 +1,62 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import API from "../../../api/axios";
 
 const AdminAuthContext = createContext();
 
 export const AdminAuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("adminToken") || "");
   const [admin, setAdmin] = useState(() => {
-    const savedAdmin = localStorage.getItem("adminUser");
-    return savedAdmin ? JSON.parse(savedAdmin) : null;
+    const saved = localStorage.getItem("adminInfo");
+    return saved ? JSON.parse(saved) : null;
   });
+  const [loading, setLoading] = useState(false);
+
+  const isAuthenticated = !!admin?.token;
 
   useEffect(() => {
-    if (token) {
-      localStorage.setItem("adminToken", token);
+    if (admin?.token) {
+      API.defaults.headers.common.Authorization = `Bearer ${admin.token}`;
     } else {
-      localStorage.removeItem("adminToken");
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (admin) {
-      localStorage.setItem("adminUser", JSON.stringify(admin));
-    } else {
-      localStorage.removeItem("adminUser");
+      delete API.defaults.headers.common.Authorization;
     }
   }, [admin]);
 
-  const login = (adminData) => {
-    setToken(adminData.token);
-    setAdmin({
-      _id: adminData._id,
-      fullName: adminData.fullName,
-      email: adminData.email,
-      role: adminData.role,
-    });
+  const login = async (formData) => {
+    setLoading(true);
+    try {
+      const { data } = await API.post("/auth/admin/login", formData);
+
+      const payload = {
+        token: data?.token || data?.data?.token,
+        user: data?.user || data?.data?.user || data?.admin || null,
+        email: data?.user?.email || data?.data?.user?.email || formData.email,
+        role: data?.user?.role || data?.data?.user?.role || "admin",
+      };
+
+      localStorage.setItem("adminInfo", JSON.stringify(payload));
+      setAdmin(payload);
+      return { success: true, data };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || "Login failed",
+      };
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = () => {
-    setToken("");
+    localStorage.removeItem("adminInfo");
     setAdmin(null);
+    delete API.defaults.headers.common.Authorization;
   };
 
-  const value = useMemo(() => {
-    return {
-      token,
-      admin,
-      isAuthenticated: Boolean(token),
-      login,
-      logout,
-    };
-  }, [token, admin]);
-
-  return (
-    <AdminAuthContext.Provider value={value}>
-      {children}
-    </AdminAuthContext.Provider>
+  const value = useMemo(
+    () => ({ admin, setAdmin, isAuthenticated, loading, login, logout }),
+    [admin, isAuthenticated, loading]
   );
+
+  return <AdminAuthContext.Provider value={value}>{children}</AdminAuthContext.Provider>;
 };
 
 export const useAdminAuth = () => useContext(AdminAuthContext);

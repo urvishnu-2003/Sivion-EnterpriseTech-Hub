@@ -1,20 +1,73 @@
-@import './ServiceDetail.css';
+/* ═══════════════════════════════════════════════════════════════
+   CLOUD SERVICE PAGE STYLES
+   ═══════════════════════════════════════════════════════════════ */
 
-/* ══ CLOUD THEME ══ */
-.cloud-theme .gradient-text {
-  background: linear-gradient(135deg, #3B82F6, #06B6D4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.service-detail-page {
+  padding-top: 100px;
+}
+
+.service-hero {
+  padding: 10rem 5% 7rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.12) 0%, transparent 70%);
 }
 
 .cloud-glow-effect {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 200, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0, 200, 255, 0.03) 0%, transparent 50%);
   pointer-events: none;
+  z-index: 0;
+}
+
+.service-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  border-radius: 50px;
+  color: #00c8ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.pillars-section {
+  padding: 6rem 5%;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+}
+
+.pillar-card {
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.pillar-card:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  background: rgba(0, 25, 60, 0.8);
+  transform: translateY(-4px);
 }
 
 .tech-deep-dive {
@@ -24,53 +77,54 @@
 .split-view {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  gap: 4rem;
   align-items: center;
 }
 
-.split-view.invert {
-  direction: rtl;
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
 }
 
-.split-view.invert > * {
-  direction: ltr;
+.section-desc {
+  color: #6b87a8;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
 .tech-list {
   list-style: none;
-  padding: 0;
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
 .tech-list li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--text-dim);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: #6b87a8;
   font-weight: 500;
 }
 
 .mockup-container {
-  background: rgba(10, 22, 40, 0.8);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  background: #0a1628;
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
 .mockup-header {
   background: rgba(255, 255, 255, 0.05);
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  border-bottom: 1px solid var(--glass-border2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #64748b;
+  color: #6b87a8;
 }
 
 .mockup-header .dots {
@@ -82,102 +136,107 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #334155;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .mockup-body {
   padding: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .graph-bar {
   height: 12px;
-  background: rgba(0, 245, 255, 0.1);
+  background: linear-gradient(90deg, #00c8ff, transparent);
   border-radius: 6px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+  width: 80%;
+  animation: slideIn 1.5s ease-out forwards;
 }
-
-.graph-bar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 70%;
-  background: var(--cyan);
-  box-shadow: 0 0 10px var(--cyan);
-  animation: graphFlow 2s ease-in-out infinite alternate;
-}
-
-.graph-bar.delay-1::after { width: 45%; animation-delay: 0.5s; }
-.graph-bar.delay-2::after { width: 85%; animation-delay: 1s; }
 
 .status-indicator {
-  margin-top: 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  color: #10B981;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.status-indicator::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 8px #10B981;
-  animation: pulseGreen 2s infinite;
-}
-
-@keyframes graphFlow {
-  from { opacity: 0.5; transform: translateX(-10%); }
-  to { opacity: 1; transform: translateX(5%); }
+  color: #00e5a0;
+  letter-spacing: 1px;
 }
 
 .stack-section {
-  padding: 4rem 5% 8rem;
+  padding: 4rem 5%;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   text-align: center;
 }
 
 .stack-label {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #64748b;
+  color: #3d5a7a;
   margin-bottom: 2rem;
 }
 
 .stack-icons {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 3rem;
+  flex-wrap: wrap;
 }
 
 .stack-item {
-  display: flex;
-  align-items: center;
-  color: var(--text-dim);
-  font-weight: 600;
-  font-size: 0.85rem;
-  opacity: 0.6;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: #6b87a8;
+  opacity: 0.5;
   transition: opacity 0.3s;
 }
 
 .stack-item:hover {
   opacity: 1;
+  color: #00c8ff;
+}
+
+.service-cta {
+  padding: 8rem 5%;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, rgba(0, 200, 255, 0.1), rgba(10, 22, 40, 0.9));
+  padding: 5rem;
+  border-radius: 40px;
+  border: 1px solid rgba(0, 200, 255, 0.2);
+  text-align: center;
 }
 
 @media (max-width: 1024px) {
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .split-view {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-card {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

@@ -327,7 +327,7 @@ const techRow1 = [
   { name: 'React', slug: 'react' },
   { name: 'Node.js', slug: 'nodedotjs' },
   { name: 'TypeScript', slug: 'typescript' },
-  { name: 'AWS', slug: 'amazon-aws' },
+  { name: 'AWS', slug: 'amazonwebservices' },
   { name: 'Docker', slug: 'docker' },
   { name: 'Kubernetes', slug: 'kubernetes' },
   { name: 'PostgreSQL', slug: 'postgresql' },
@@ -343,7 +343,7 @@ const techRow2 = [
   { name: 'Terraform', slug: 'terraform' },
   { name: 'Python', slug: 'python' },
   { name: 'Angular', slug: 'angular' },
-  { name: 'Azure', slug: 'microsoft-azure' },
+  { name: 'Azure', slug: 'azure' },
   { name: 'Git', slug: 'git' }
 ];
 

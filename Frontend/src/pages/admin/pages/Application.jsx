@@ -1,33 +1,25 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-
-const PAGE_SIZE = 5;
+import StatusSelector from "../components/StatusSelector";
+import {
+  getApplications,
+  updateApplicationStatus,
+  deleteApplication,
+} from "../services/applicationService";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
-  const [selectedDelete, setSelectedDelete] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState(null);
 
   const loadApplications = async () => {
     try {
-      setLoading(true);
-      const res = await axiosInstance.get("/applications");
-      setApplications(res.data?.data || []);
+      const { data } = await getApplications();
+      setApplications(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load applications", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log("Error loading applications:", error);
     }
   };
 
@@ -35,90 +27,151 @@ const Applications = () => {
     loadApplications();
   }, []);
 
-  const filteredApplications = useMemo(() => {
-    return applications.filter((item) =>
-      `${item.fullName} ${item.email} ${item.jobId?.title || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [applications, search]);
-
-  const totalPages = Math.ceil(filteredApplications.length / PAGE_SIZE) || 1;
-  const paginatedApplications = filteredApplications.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
   const handleStatusChange = async (id, status) => {
+    const previousApplications = [...applications];
+
+    setApplications((prev) =>
+      prev.map((application) =>
+        application._id === id ? { ...application, status } : application
+      )
+    );
+
+    setUpdatingStatusId(id);
+
     try {
-      await axiosInstance.patch(`/applications/${id}/status`, { status });
-      setToast({ message: "Status updated successfully", type: "success" });
-      loadApplications();
+      const response = await updateApplicationStatus(id, { status });
+      const updatedApplication = response?.data?.data;
+
+      if (updatedApplication) {
+        setApplications((prev) =>
+          prev.map((application) =>
+            application._id === id ? updatedApplication : application
+          )
+        );
+      }
     } catch (error) {
-      setToast({ message: "Failed to update status", type: "error" });
+      console.log("Error updating application status:", error);
+      setApplications(previousApplications);
+    } finally {
+      setUpdatingStatusId(null);
     }
   };
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/applications/${selectedDelete._id}`);
-      setToast({ message: "Application deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteApplication(deleteId);
+      setDeleteId(null);
       loadApplications();
     } catch (error) {
-      setToast({ message: "Failed to delete application", type: "error" });
+      console.log("Error deleting application:", error);
     }
   };
 
+  const getResumeViewerUrl = (resumeUrl) => {
+    if (!resumeUrl) return "#";
+
+    return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
+      resumeUrl
+    )}`;
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills || !Array.isArray(skills) || skills.length === 0) {
+      return "-";
+    }
+    return skills.join(", ");
+  };
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "-";
+
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "-";
+
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   const columns = [
-    { key: "fullName", label: "Applicant Name" },
-    { key: "email", label: "Email" },
     {
-      key: "job",
-      label: "Job Applied",
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Candidate",
+      key: "fullName",
+      render: (row) => row.fullName || "-",
+    },
+    {
+      header: "Email",
+      key: "email",
+      render: (row) => row.email || "-",
+    },
+    {
+      header: "Phone",
+      key: "phone",
+      render: (row) => row.phone || "-",
+    },
+    {
+      header: "Job",
+      key: "jobId",
       render: (row) => row.jobId?.title || "-",
     },
     {
-      key: "status",
-      label: "Status",
-      render: (row) => (
-        <div className="status-cell">
-          <StatusBadge status={row.status} />
-          <select
-            value={row.status}
-            onChange={(e) => handleStatusChange(row._id, e.target.value)}
-          >
-            <option value="pending">pending</option>
-            <option value="reviewed">reviewed</option>
-            <option value="rejected">rejected</option>
-            <option value="hired">hired</option>
-          </select>
-        </div>
-      ),
+      header: "Experience",
+      key: "experience",
+      render: (row) => row.experience || "-",
     },
     {
-      key: "date",
-      label: "Date",
-      render: (row) =>
-        new Date(row.createdAt || row.appliedAt).toLocaleDateString(),
+      header: "Skills",
+      key: "skills",
+      render: (row) => formatSkills(row.skills),
     },
     {
-      key: "resume",
-      label: "Resume",
+      header: "Applied On",
+      key: "appliedAt",
+      render: (row) => formatDate(row.appliedAt),
+    },
+    {
+      header: "Resume",
+      key: "resumeUrl",
       render: (row) =>
         row.resumeUrl ? (
-          <a href={row.resumeUrl} target="_blank" rel="noreferrer">
+          <a
+            href={getResumeViewerUrl(row.resumeUrl)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+          >
             View Resume
           </a>
         ) : (
-          "-"
+          <span>-</span>
         ),
     },
     {
-      key: "actions",
-      label: "Actions",
+      header: "Status",
+      key: "status",
       render: (row) => (
-        <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
+        <StatusSelector
+          value={row.status || "pending"}
+          onSave={(newStatus) => handleStatusChange(row._id, newStatus)}
+          disabled={updatingStatusId === row._id}
+        />
+      ),
+    },
+    {
+      header: "Actions",
+      key: "actions",
+      render: (row) => (
+        <button
+          className="admin-btn admin-btn-danger"
+          onClick={() => setDeleteId(row._id)}
+        >
           Delete
         </button>
       ),
@@ -126,36 +179,23 @@ const Applications = () => {
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
-        onConfirm={handleDelete}
-        message={`Are you sure you want to delete application of ${selectedDelete?.fullName}?`}
+    <AdminLayout
+      title="Manage Applications"
+      subtitle="Review candidate applications, resumes, and status updates."
+    >
+      <DataTable
+        columns={columns}
+        rows={applications}
+        emptyText="No applications available"
       />
 
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search applications..."
-        />
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedApplications} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
+      <ConfirmModal
+        open={!!deleteId}
+        title="Delete Application"
+        message="Are you sure you want to delete this application?"
+        onConfirm={handleDelete}
+        onClose={() => setDeleteId(null)}
+      />
     </AdminLayout>
   );
 };

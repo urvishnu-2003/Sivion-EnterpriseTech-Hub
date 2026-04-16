@@ -1,277 +1,380 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PageWrapper from '../components/ui/PageWrapper';
-import TiltCard from '../components/ui/TiltCard';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Monitor, Settings, List, ChevronRight, ChevronLeft, User, Upload, CheckCircle2, ArrowRight } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Rocket, Zap, Heart, Globe, ArrowRight, CheckCircle2, ShieldCheck, UploadCloud } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Careers.css';
 
-/* ── Form Components ── */
-const Float = ({ label, type = 'text', required, children, ...props }) => (
-  <div className="form-field-wrapper">
-    <label className="form-label">
-      {label}{required ? ' *' : ''}
-    </label>
-    {children || (
-      <input
-        type={type} required={required}
-        className="form-input"
-        {...props}
-      />
-    )}
-  </div>
-);
 
-const SelectField = ({ label, required, options, ...props }) => (
-  <div className="form-field-wrapper">
-    <label className="form-label">
-      {label}{required ? ' *' : ''}
-    </label>
-    <select className="form-select" {...props}>
-      <option value="">Select...</option>
-      {options.map(o => <option key={o}>{o}</option>)}
-    </select>
-  </div>
-);
-
-const TextArea = ({ label, required, rows = 4, ...props }) => (
-  <div className="form-field-wrapper">
-    <label className="form-label">
-      {label}{required ? ' *' : ''}
-    </label>
-    <textarea
-      rows={rows} required={required}
-      className="form-textarea"
-      {...props}
-    />
-  </div>
-);
-
-const FileUpload = ({ onFile, uploaded }) => {
-  const ref = useRef();
-  return (
-    <div style={{ marginBottom: '1.5rem' }}>
-      <input type="file" ref={ref} style={{ display: 'none' }} accept=".pdf,.doc,.docx" onChange={e => onFile(e.target.files[0])} />
-      <button
-        type="button"
-        onClick={() => ref.current.click()}
-        className={`file-upload-btn ${uploaded ? 'success' : 'pending'}`}
-      >
-        {uploaded
-          ? <><CheckCircle2 size={18} /> {uploaded.name} — Uploaded ✓</>
-          : <><Upload size={18} /> Upload CV / Portfolio (PDF, DOC)</>
-        }
-      </button>
-    </div>
-  );
-};
-
-const FormCard = ({ title, icon, accent, children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-    className="form-card-container"
-    style={{ border: `1px solid ${accent}30`, boxShadow: `0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px ${accent}10` }}
-  >
-    <div className="form-card-header" style={{ borderBottom: `1px solid ${accent}20`, background: `linear-gradient(135deg, ${accent}10, transparent)` }}>
-      <div className="form-card-icon" style={{ background: `${accent}18`, border: `1px solid ${accent}35`, color: accent }}>
-        {icon}
-      </div>
-      <h2 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 800, letterSpacing: '1px', textTransform: 'uppercase' }}>
-        {title}
-      </h2>
-    </div>
-    <div className="form-card-body">{children}</div>
-  </motion.div>
-);
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
 
 const Careers = () => {
-  const navigate = useNavigate();
+  const [jobs, setJobs] = useState([]);
+  const [formData, setFormData] = useState({
+    jobId: '',
+    fullName: '',
+    email: '',
+    phone: '',
+    experience: '',
+    skills: '',
+    resume: null,
+  });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState({ success: '', error: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaReady, setRecaptchaReady] = useState(false);
   const formRef = useRef(null);
-  const [showForm, setShowForm] = useState(false);
-  const [cvFile, setCvFile] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
 
-  const handleApply = () => {
-    setShowForm(true);
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      console.log('Fetching jobs...');
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/jobs`);
+        const data = await response.json();
+        console.log('API response:', data);
+        if (response.ok && Array.isArray(data.data)) {
+          setJobs(data.data);
+          console.log('Jobs loaded:', data.data);
+          if (data.data.length > 0) {
+            setFormData((prev) => ({ ...prev, jobId: data.data[0]._id }));
+          }
+        }
+      } catch (error) {
+        console.warn('Unable to load jobs:', error.message);
+        setJobs([]);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) return;
+
+    const id = 'recaptcha-script';
+    if (document.getElementById(id)) {
+      if (window.grecaptcha) {
+        setRecaptchaReady(true);
+      }
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = id;
+    script.src = `https://www.google.com/recaptcha/api.js`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      setTimeout(() => {
+        if (window.grecaptcha) {
+          window.grecaptcha.render('g-recaptcha', {
+            sitekey: RECAPTCHA_SITE_KEY,
+            theme: 'dark',
+          });
+          setRecaptchaReady(true);
+        }
+      }, 100);
+    };
+    document.body.appendChild(script);
+  }, [RECAPTCHA_SITE_KEY]);
+
+  const selectedJob = jobs.find((job) => job._id === formData.jobId || job.id === formData.jobId) || (jobs.length > 0 ? jobs[0] : null);
+
+  const validateForm = () => {
+    const nextErrors = {};
+    if (!formData.fullName.trim()) nextErrors.fullName = 'Your full name is required.';
+    if (!formData.email.trim()) nextErrors.email = 'Your email is required.';
+    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) nextErrors.email = 'Enter a valid email address.';
+    if (!formData.phone.trim()) nextErrors.phone = 'Your phone number is required.';
+    if (!formData.experience.trim()) nextErrors.experience = 'Tell us about your experience.';
+    if (!formData.resume) nextErrors.resume = 'Please attach your resume.';
+    if (!formData.jobId) nextErrors.jobId = 'Please choose a role to apply for.';
+    return nextErrors;
   };
 
-  const submitCareer = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1200));
-    navigate('/thank-you');
+  const getRecaptchaToken = () => {
+    if (!window.grecaptcha) {
+      return Promise.reject(new Error('reCAPTCHA is not loaded yet.'));
+    }
+    const token = window.grecaptcha.getResponse();
+    if (!token) {
+      return Promise.reject(new Error('Please complete the reCAPTCHA verification.'));
+    }
+    return Promise.resolve(token);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setStatus({ success: '', error: '' });
+    const nextErrors = validateForm();
+
+    if (Object.keys(nextErrors).length) {
+      setErrors(nextErrors);
+      return;
+    }
+
+    if (!RECAPTCHA_SITE_KEY) {
+      setStatus({ error: 'reCAPTCHA is not configured. Set VITE_RECAPTCHA_SITE_KEY in your Frontend environment.' });
+      return;
+    }
+
+    if (!recaptchaReady) {
+      setStatus({ error: 'Waiting for reCAPTCHA to load. Please try again in a moment.' });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const recaptchaToken = await getRecaptchaToken();
+      const payload = new FormData();
+
+      payload.append('jobId', formData.jobId);
+      payload.append('fullName', formData.fullName.trim());
+      payload.append('email', formData.email.trim());
+      payload.append('phone', formData.phone.trim());
+      payload.append('experience', formData.experience.trim());
+      payload.append('skills', formData.skills.trim());
+      payload.append('resume', formData.resume);
+      payload.append('recaptchaToken', recaptchaToken);
+
+      const response = await fetch(`${API_BASE_URL}/api/applications`, {
+        method: 'POST',
+        body: payload,
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Application submission failed.');
+      }
+
+      setStatus({ success: result.message || 'Application submitted successfully.' });
+      setErrors({});
+      setFormData((prev) => ({
+        ...prev,
+        fullName: '',
+        email: '',
+        phone: '',
+        experience: '',
+        skills: '',
+        resume: null,
+      }));
+      if (window.grecaptcha) {
+        window.grecaptcha.reset();
+      }
+    } catch (error) {
+      setStatus({ error: error.message || 'Unable to submit application at this time.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInput = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: '' }));
+  };
+
+  const handleRoleApply = (jobId) => {
+    setFormData((prev) => ({ ...prev, jobId }));
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
     <PageWrapper className="careers-page">
-      {/* Hero Section */}
       <section className="careers-hero">
-        <div className="careers-hero-bloom" />
-        
-        <div className="careers-container">
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="hero-label-plain" 
-          >
-            <span className="dot-cyan" />
-            CAREER HUB &nbsp;&bull;&nbsp; OPEN ROLES
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.1 }}
-            className="careers-hero-title"
-          >
-            Life at <span className="gradient-text">Sivion</span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            transition={{ delay: 0.2 }}
-            className="careers-hero-subtitle"
-          >
-            Engineering resilient architectures and high-performance solutions. 
-            Join us in defining the next decade of enterprise infrastructure.
-          </motion.p>
+        <div className="careers-hero-grid">
+          <div>
+            <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="role-badge">
+              Life at Sivion
+            </motion.span>
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="careers-hero-title">
+              Soliable, Secure, High-Performance solutions & <span className="bg-gradient-to-r from-cyan-light to-purple-400 bg-clip-text text-transparent">IT realisations</span>
+            </motion.h1>
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="careers-hero-subtitle">
+              Build systems that move fast, scale far, and stay secure at every layer. Our careers page brings the same precision and velocity to talent acquisition.
+            </motion.p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row gap-4 mt-8">
+              <button type="button" className="premium-btn px-6 py-3 rounded-full font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" onClick={() => handleRoleApply(jobs[0]?._id || jobs[0]?.id)} disabled={jobs.length === 0}>
+                {jobs.length > 0 ? 'Apply Now' : 'No Openings'}
+              </button>
+              <Link to="/contact" className="outline-btn px-6 py-3 rounded-full">
+                Book Consultation
+              </Link>
+            </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-            style={{ marginBottom: '4rem' }}
-          >
-            <button onClick={handleApply} className="premium-btn">
-              Join the Core Team
-            </button>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="careers-hero-image-wrapper"
-          >
-            <img 
-              src="https://img.freepik.com/premium-photo/isometric-illustration-futuristic-server-room-data-center-network-infrastructure_1033103-102.jpg" 
-              alt="Life at Sivion Tech Stack" 
-              className="careers-hero-image"
-            />
+          <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.25 }} className="hero-stats-panel">
+            <div className="space-y-6">
+              <div className="role-tag-box">
+                <span>Open Roles</span>
+                <span>{jobs.length}</span>
+              </div>
+              <div className="text-white text-lg leading-relaxed">
+                High-performance engineering for enterprise systems, built with clarity and scale.
+              </div>
+              <div className="stats-grid-mini">
+                <div className="stat-item-card">
+                  <span className="stat-val">80%</span>
+                  <p className="stat-desc">Remote roles</p>
+                </div>
+                <div className="stat-item-card">
+                  <span className="stat-val">24/7</span>
+                  <p className="stat-desc">Global hiring support</p>
+                </div>
+                <div className="stat-item-card">
+                  <span className="stat-val">100%</span>
+                  <p className="stat-desc">Growth-focused culture</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Life at Sivion Cards */}
-      <section className="life-section">
-        <div className="life-container">
-          <div className="section-header-flex">
-             <h2>LIFE AT SIVION</h2>
-             <div className="slider-controls">
-               <button className="slider-arrow"><ChevronLeft size={16}/></button>
-               <button className="slider-arrow"><ChevronRight size={16}/></button>
-             </div>
-          </div>
-
-          <div className="life-grid">
-             {[
-               { icon: <Code2/>, title: "Modern Stack", desc: "Work with the latest technologies including React, Go, and Rust." },
-               { icon: <Monitor/>, title: "Elite Hardware", desc: "Premium workstations and tools optimized for maximum developer flow." },
-               { icon: <Settings/>, title: "Autonomous Flex", desc: "Flexible working hours with a focus on outcome-based performance." },
-               { icon: <List/>, title: "Growth Path", desc: "Structured career progression with dedicated mentoring and certifications." }
-             ].map((card, idx) => (
-                <TiltCard key={idx} className="life-card">
-                  <div className="life-card-icon">
-                    {card.icon}
-                  </div>
-                  <h3>{card.title}</h3>
-                  <p>{card.desc}</p>
-                  <Link to="#" className="link-arrow">
-                    Gallery <ChevronRight size={14} />
-                  </Link>
-                </TiltCard>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Open Roles Grid */}
-      <section className="roles-section">
-        <div className="life-container">
-          <div className="section-header-flex">
-             <h2>OPEN ROLES</h2>
-             <div className="slider-controls">
-               <button className="slider-arrow"><ChevronLeft size={16}/></button>
-               <button className="slider-arrow"><ChevronRight size={16}/></button>
-             </div>
-          </div>
-
-          <div className="roles-grid">
+      <section className="careers-highlights-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-               { title: "JAVA ENGINEER", desc: "Build scalable microservices and high-performance Java cores." },
-               { title: "UI/UX DESIGNER", desc: "Design futuristic, data-driven interfaces for enterprise platforms." },
-               { title: "BACKEND LEAD", desc: "Lead the architectural vision for our cloud-native infrastructure." },
-               { title: "FRONTEND EXPERT", desc: "Craft pixel-perfect React applications with high-fidelity visuals." },
-               { title: "CLOUD ARCHITECT", desc: "Optimize multi-cloud environments and CI/CD pipelines." },
-               { title: "PRODUCT MANAGER", desc: "Strategize and roadmap the next-gen tech products." }
-            ].map((role, idx) => (
-               <TiltCard key={idx} className="role-card">
-                 <h3>{role.title}</h3>
-                 <p>{role.desc}</p>
-                 <button onClick={handleApply} className="glass-button-primary">
-                   APPLY NOW
-                 </button>
-               </TiltCard>
+              { title: 'Company Culture', description: 'Developer-first structure, fresh tooling and low friction decision-making.' },
+              { title: 'Company Presentation', description: 'Clean narratives, polished delivery, and cohesive brand impact.' },
+              { title: 'Open Roles', description: 'Flexible work styles combined with enterprise-grade accountability.' },
+              { title: 'FAQ', description: 'Fast answers on benefits, equity, and growth expectations.' },
+            ].map((item) => (
+              <motion.div key={item.title} whileHover={{ y: -6 }} className="careers-highlight-card">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <span className="read-more">Read More</span>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Application Form Section */}
-      <AnimatePresence>
-        {showForm && (
-          <motion.section 
-            ref={formRef}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            style={{ padding: '0 5% 7rem' }}
-          >
-            <div style={{ maxWidth: '650px', margin: '0 auto' }}>
-              <FormCard title="Career Application Form" icon={<User size={20} />} accent="#00F5FF">
-                <form onSubmit={submitCareer}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
-                    <Float label="First Name" required />
-                    <Float label="Last Name" required />
+      <section className="careers-jobs-section">
+        <div className="container mx-auto max-w-7xl">
+          <div className="mb-12 text-center lg:text-left">
+            <h2 className="job-section-title">Open <span className="bg-gradient-to-r from-cyan-light to-purple-400 bg-clip-text text-transparent">Roles</span></h2>
+            <p className="job-section-subtitle">Apply to roles designed for high-impact technical teams.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {jobs.length > 0 ? (
+              jobs.map((job) => (
+                <motion.div key={job._id || job.id} whileHover={{ y: -8 }} className="careers-job-card">
+                  <div>
+                    <h3>{job.title}</h3>
+                    <p className="job-meta">{job.department || job.dept} • {job.type}</p>
+                    <p className="job-desc">{job.description}</p>
                   </div>
-                  <Float label="Email Address" type="email" required />
-                  <SelectField label="Role Selection" required options={[
-                    'Java Engineer', 'UI/UX Designer', 'Backend Developer',
-                    'Cloud Architect', 'Frontend Developer', 'Project Manager',
-                  ]} />
-                  <Float label="Portfolio URL" type="url" placeholder="https://yourportfolio.com" />
-                  <FileUpload onFile={setCvFile} uploaded={cvFile} />
-                  <TextArea label="Why Sivion? Tell us about yourself" required rows={4} />
-                  <button
-                    type="submit"
-                    className="submit-btn"
-                  >
-                    {submitting ? 'Processing...' : 'Apply Now'} <ArrowRight size={18} />
+                  <button type="button" className="apply-btn bg-cyan-light hover:bg-cyan text-navy px-6 py-2.5 rounded-full font-bold transition-all duration-300" onClick={() => handleRoleApply(job._id || job.id)}>
+                    Apply Now
                   </button>
-                </form>
-              </FormCard>
-            </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-16 px-6 text-gray-mid bg-navy-light/95 border border-cyan/16 rounded-3xl">
+                <p className="text-lg">No open positions available at the moment. Check back soon!</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
+      <section className="careers-form-section" ref={formRef}>
+        <div className="application-grid">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="application-form-intro">
+            <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 rounded-full bg-cyan/10 border border-cyan/20 text-cyan-light font-bold">
+              <ShieldCheck size={18} />
+              <span>Secure Application</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl mb-4 text-white">Submit your application</h2>
+            <p className="text-[#c7d9f8] leading-relaxed mb-8">Complete the form below to share your profile and resume with our hiring team. Submissions are protected by Google reCAPTCHA.</p>
+            <div className="role-info-card">
+              <div>
+                <h4>Selected role</h4>
+                <p>{selectedJob?.title || 'Choose a role'}</p>
+              </div>
+              <div>
+                <h4>Response time</h4>
+                <p>We review applications within 48 hours.</p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.form initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="application-form-box" onSubmit={handleSubmit}>
+            {status.success && <div className="p-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400 text-sm">{status.success}</div>}
+            {status.error && <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">{status.error}</div>}
+
+            <div className="flex flex-col gap-1.5">
+              <label className="careers-form-label">Open Role</label>
+              <select value={formData.jobId} className="careers-input appearance-none" onChange={(e) => handleInput('jobId', e.target.value)} disabled={jobs.length === 0}>
+                <option value="" disabled className="text-gray-mid">{jobs.length > 0 ? 'Select a role' : 'No roles available'}</option>
+                {jobs.map((job) => (
+                  <option key={job._id || job.id} className="bg-navy text-white" value={job._id || job.id}>{job.title}</option>
+                ))}
+              </select>
+              {errors.jobId && <span className="text-red-400 text-sm">{errors.jobId}</span>}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="careers-form-label">Full Name</label>
+                <input className="careers-input" type="text" value={formData.fullName} onChange={(e) => handleInput('fullName', e.target.value)} placeholder="Enter full name" />
+                {errors.fullName && <span className="text-red-400 text-sm">{errors.fullName}</span>}
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="careers-form-label">Email</label>
+                <input className="careers-input" type="email" value={formData.email} onChange={(e) => handleInput('email', e.target.value)} placeholder="Enter email" />
+                {errors.email && <span className="text-red-400 text-sm">{errors.email}</span>}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="careers-form-label">Phone</label>
+                <input className="careers-input" type="tel" value={formData.phone} onChange={(e) => handleInput('phone', e.target.value)} placeholder="XXXXXXXXXX" />
+                {errors.phone && <span className="text-red-400 text-sm">{errors.phone}</span>}
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="careers-form-label">Experience</label>
+                <input className="careers-input" type="text" value={formData.experience} onChange={(e) => handleInput('experience', e.target.value)} placeholder="Years of experience" />
+                {errors.experience && <span className="text-red-400 text-sm">{errors.experience}</span>}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="careers-form-label">Key Skills</label>
+              <input className="careers-input" type="text" value={formData.skills} onChange={(e) => handleInput('skills', e.target.value)} placeholder="Technical skills" />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="careers-form-label">Upload Resume</label>
+              <label className="resume-upload-label">
+                <UploadCloud size={18} />
+                <span>{formData.resume ? formData.resume.name : 'Select PDF or DOCX'}</span>
+                <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={(e) => handleInput('resume', e.target.files?.[0] || null)} />
+              </label>
+              {errors.resume && <span className="text-red-400 text-sm">{errors.resume}</span>}
+            </div>
+
+            <div className="flex flex-col gap-3 items-center">
+              <label className="careers-form-label self-start">Verify reCAPTCHA</label>
+              <div className="recaptcha-themed-badge">
+                <div id="g-recaptcha"></div>
+              </div>
+              {errors.recaptcha && <span className="text-red-400 text-sm text-center">{errors.recaptcha}</span>}
+            </div>
+
+            <button type="submit" className="premium-btn w-full justify-center px-6 py-4 rounded-full font-bold transition-all duration-300 disabled:opacity-50" disabled={isSubmitting}>
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
+            </button>
+          </motion.form>
+        </div>
+      </section>
     </PageWrapper>
   );
 };
+
 
 
 export default Careers;

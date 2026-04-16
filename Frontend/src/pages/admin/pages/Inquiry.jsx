@@ -1,34 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
-import Toast from "../components/Toast";
-import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axios";
-
-const PAGE_SIZE = 5;
+import { getInquiries, updateInquiryStatus, deleteInquiry } from "../services/inquiryService";
 
 const Inquiry = () => {
   const [inquiries, setInquiries] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [selectedView, setSelectedView] = useState(null);
-  const [selectedDelete, setSelectedDelete] = useState(null);
-  const [toast, setToast] = useState({ message: "", type: "" });
+  const [deleteId, setDeleteId] = useState(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState(null);
 
   const loadInquiries = async () => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.get("/inquiries");
-      setInquiries(response.data?.data || []);
+      const { data } = await getInquiries();
+      setInquiries(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load inquiries", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log("Error loading inquiries:", error);
+      setInquiries([]);
     }
   };
 
@@ -36,106 +23,120 @@ const Inquiry = () => {
     loadInquiries();
   }, []);
 
-  const filteredInquiries = useMemo(() => {
-    return inquiries.filter((item) =>
-      `${item.fullName || ""} ${item.email || ""} ${item.subject || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [inquiries, search]);
+  const handleStatusChange = async (id, status) => {
+    const previousInquiries = [...inquiries];
 
-  const totalPages = Math.ceil(filteredInquiries.length / PAGE_SIZE) || 1;
-  const paginatedInquiries = filteredInquiries.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
+    setInquiries((prev) =>
+      prev.map((inquiry) =>
+        inquiry._id === id ? { ...inquiry, status } : inquiry
+      )
+    );
+
+    setUpdatingStatusId(id);
+
+    try {
+      const response = await updateInquiryStatus(id, { status });
+      const updatedInquiry = response?.data?.data;
+
+      if (updatedInquiry) {
+        setInquiries((prev) =>
+          prev.map((inquiry) =>
+            inquiry._id === id ? updatedInquiry : inquiry
+          )
+        );
+      }
+    } catch (error) {
+      console.log("Error updating inquiry status:", error);
+      setInquiries(previousInquiries);
+    } finally {
+      setUpdatingStatusId(null);
+    }
+  };
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/inquiries/${selectedDelete._id}`);
-      setToast({ message: "Inquiry deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteInquiry(deleteId);
+      setDeleteId(null);
       loadInquiries();
     } catch (error) {
-      setToast({ message: "Failed to delete inquiry", type: "error" });
+      console.log("Error deleting inquiry:", error);
     }
   };
 
   const columns = [
     {
-      key: "name",
-      label: "Name",
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Full Name",
+      key: "fullName",
       render: (row) => row.fullName || "-",
     },
-    { key: "email", label: "Email" },
-    { key: "subject", label: "Subject" },
     {
-      key: "date",
-      label: "Date",
-      render: (row) => new Date(row.createdAt).toLocaleDateString(),
+      header: "Email",
+      key: "email",
+      render: (row) => row.email || "-",
     },
     {
-      key: "actions",
-      label: "Actions",
+      header: "Subject",
+      key: "subject",
+      render: (row) => row.subject || "-",
+    },
+    {
+      header: "Message",
+      key: "message",
+      render: (row) => row.message || "-",
+    },
+    {
+      header: "Status",
+      key: "status",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn" onClick={() => setSelectedView(row)}>
-            View
-          </button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
-            Delete
-          </button>
-        </div>
+        <select
+          value={row.status || "pending"}
+          onChange={(e) => handleStatusChange(row._id, e.target.value)}
+          disabled={updatingStatusId === row._id}
+          className="admin-select"
+        >
+          <option value="pending">Pending</option>
+          <option value="resolved">Resolved</option>
+        </select>
+      ),
+    },
+    {
+      header: "Actions",
+      key: "actions",
+      render: (row) => (
+        <button
+          className="admin-btn admin-btn-danger"
+          onClick={() => setDeleteId(row._id)}
+          type="button"
+        >
+          Delete
+        </button>
       ),
     },
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <Modal
-        open={!!selectedView}
-        onClose={() => setSelectedView(null)}
-        title="Inquiry Details"
-      >
-        {selectedView && (
-          <div className="details-grid">
-            <p><strong>Name:</strong> {selectedView.fullName}</p>
-            <p><strong>Email:</strong> {selectedView.email}</p>
-            <p><strong>Subject:</strong> {selectedView.subject}</p>
-            <p><strong>Message:</strong> {selectedView.message}</p>
-          </div>
-        )}
-      </Modal>
-
-      <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
-        onConfirm={handleDelete}
-        message={`Delete inquiry of ${selectedDelete?.fullName}?`}
+    <AdminLayout
+      title="Manage Inquiries"
+      subtitle="Handle website inquiry submissions."
+    >
+      <DataTable
+        columns={columns}
+        rows={inquiries}
+        emptyText="No inquiries available"
       />
 
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search inquiries..."
-        />
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedInquiries} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
+      <ConfirmModal
+        open={!!deleteId}
+        title="Delete Inquiry"
+        message="Are you sure you want to delete this inquiry?"
+        onConfirm={handleDelete}
+        onClose={() => setDeleteId(null)}
+      />
     </AdminLayout>
   );
 };

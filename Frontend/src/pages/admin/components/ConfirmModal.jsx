@@ -1,27 +1,23 @@
 import React from "react";
-import Modal from "./Modal";
 
-const ConfirmModal = ({
-  open,
-  onClose,
-  onConfirm,
-  title = "Confirm Delete",
-  message = "Are you sure?",
-}) => {
+const ConfirmModal = ({ open, title, message, onConfirm, onClose }) => {
+  if (!open) return null;
+
   return (
-    <Modal open={open} onClose={onClose} title={title}>
-      <p>{message}</p>
-
-      <div className="modal-actions">
-        <button className="secondary-btn" onClick={onClose}>
-          Cancel
-        </button>
-
-        <button className="danger-btn" onClick={onConfirm}>
-          Delete
-        </button>
+    <div className="admin-modal-backdrop">
+      <div className="admin-modal">
+        <h3>{title}</h3>
+        <p>{message}</p>
+        <div className="admin-modal-actions">
+          <button className="admin-btn admin-btn-secondary" onClick={onClose}>
+            Cancel
+          </button>
+          <button className="admin-btn admin-btn-danger" onClick={onConfirm}>
+            Confirm
+          </button>
+        </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 

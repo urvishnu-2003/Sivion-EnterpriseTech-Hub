@@ -33,14 +33,25 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import BookTrial from './pages/BookTrial';
 import Solutions from './pages/Solutions';
+// Pillar 4: Administration Panel
 import Admin from './pages/admin/Admin';
 import AdminLogin from './pages/admin/pages/AdminLogin';
 import AdminDashboard from './pages/admin/pages/AdminDashboard';
+import AdminBlogs from './pages/admin/pages/Blogs';
+import AdminJobs from './pages/admin/pages/Jobs';
+import AdminApplications from './pages/admin/pages/Application';
+import AdminQuotes from './pages/admin/pages/Quotes';
+import AdminInquiries from './pages/admin/pages/Inquiry';
+import AdminContact from './pages/admin/pages/Contact';
+import AdminNewsletter from './pages/admin/pages/Newsletter';
+import AdminProjects from './pages/admin/pages/Projects';
+import AdminSettings from './pages/admin/pages/Settings';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
 
 import ProjectDetails from "./pages/ProjectDetails";
+import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -68,6 +79,15 @@ function AnimatedRoutes() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/blogs" element={<AdminBlogs />} />
+        <Route path="/admin/jobs" element={<AdminJobs />} />
+        <Route path="/admin/applications" element={<AdminApplications />} />
+        <Route path="/admin/quotes" element={<AdminQuotes />} />
+        <Route path="/admin/inquiry" element={<AdminInquiries />} />
+        <Route path="/admin/contact" element={<AdminContact />} />
+        <Route path="/admin/newsletter" element={<AdminNewsletter />} />
+        <Route path="/admin/projects" element={<AdminProjects />} />
+        <Route path="/admin/settings" element={<AdminSettings />} />
 
         {/* Community */}
         <Route path="/blog" element={<Blog />} />
@@ -148,14 +168,16 @@ function App() {
       <div id="cursor-dot" aria-hidden="true" />
       <div id="cursor-ring" aria-hidden="true" />
 
-      <div className="app-container">
-        <Navbar />
-        <main className="app-main">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <FloatingActions />
-      </div>
+      <AdminAuthProvider>
+        <div className="app-container">
+          <Navbar />
+          <main className="app-main">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+          <FloatingActions />
+        </div>
+      </AdminAuthProvider>
     </BrowserRouter>
   );
 }

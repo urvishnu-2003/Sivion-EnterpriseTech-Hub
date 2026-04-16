@@ -6,7 +6,6 @@ import { LineChart, PieChart, Shield, Target, Lightbulb, Compass, Share2, ArrowR
 import { Link } from 'react-router-dom';
 import './StrategyService.css';
 
-
 const StrategyService = () => {
   const lifecycle = [
     { title: "Digital Audit", desc: "Evaluating current technical debt and innovation opportunities." },
@@ -32,7 +31,7 @@ const StrategyService = () => {
           </motion.div>
           <h1 className="hero-title">Digital <span className="gradient-text">Transformation</span></h1>
           <p className="hero-subtitle">
-            We align your business objectives with high-performance technical 
+            We align your business objectives with high-performance technical
             strategies to ensure sustained market dominance and operational agility.
           </p>
         </div>
@@ -59,8 +58,8 @@ const StrategyService = () => {
           <h2 className="section-title">Transformation <span className="gradient-text">Roadmap</span></h2>
           <div className="lifecycle-timeline">
             {lifecycle.map((step, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="lifecycle-step"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -84,8 +83,8 @@ const StrategyService = () => {
             <div className="view-text">
               <h2 className="section-title">Data-Driven <span className="gradient-text">Decisioning</span></h2>
               <p className="section-desc">
-                Strategy at Sivion is backed by deep analytics. We use AI models 
-                to simulate market shifts and predict technical ROI before a single 
+                Strategy at Sivion is backed by deep analytics. We use AI models
+                to simulate market shifts and predict technical ROI before a single
                 dollar is committed.
               </p>
               <ul className="tech-list">

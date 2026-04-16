@@ -59,11 +59,11 @@ const pods = [
     expertise: 'Expert',
     yearsExp: '7+ Yrs',
     stack: [
-      { name: 'AWS', logo: 'https://cdn.simpleicons.org/amazon-aws/10B981' },
+      { name: 'AWS', logo: 'https://cdn.simpleicons.org/amazonwebservices/10B981' },
       { name: 'Kubernetes', logo: 'https://cdn.simpleicons.org/kubernetes/10B981' },
       { name: 'Docker', logo: 'https://cdn.simpleicons.org/docker/10B981' },
       { name: 'Terraform', logo: 'https://cdn.simpleicons.org/terraform/10B981' },
-      { name: 'Azure', logo: 'https://cdn.simpleicons.org/microsoft-azure/10B981' },
+      { name: 'Azure', logo: 'https://cdn.simpleicons.org/azure/10B981' },
       { name: 'CI/CD', logo: 'https://cdn.simpleicons.org/githubactions/10B981' },
     ]
   },

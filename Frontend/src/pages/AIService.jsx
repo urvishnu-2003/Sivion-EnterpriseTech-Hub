@@ -32,7 +32,7 @@ const AIService = () => {
           </motion.div>
           <h1 className="hero-title">AI & <span className="gradient-text">Data Solutions</span></h1>
           <p className="hero-subtitle">
-            Leveraging neural architectures to transform enterprise data into 
+            Leveraging neural architectures to transform enterprise data into
             autonomous intelligence and predictive power.
           </p>
         </div>
@@ -59,8 +59,8 @@ const AIService = () => {
           <h2 className="section-title">Technical <span className="gradient-text">Lifecycle</span></h2>
           <div className="lifecycle-timeline">
             {lifecycle.map((step, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="lifecycle-step"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}

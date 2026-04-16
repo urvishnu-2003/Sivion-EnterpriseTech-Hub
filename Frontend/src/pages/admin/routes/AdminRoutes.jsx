@@ -9,7 +9,7 @@ import Projects from "../pages/Projects";
 import Quotes from "../pages/Quotes";
 import Jobs from "../pages/Jobs";
 import Applications from "../pages/Application";
-import Newsletter from "../pages/Newsettler";
+import Newsletter from "../pages/Newsletter";
 import Inquiry from "../pages/Inquiry";
 import Contact from "../pages/Contact";
 

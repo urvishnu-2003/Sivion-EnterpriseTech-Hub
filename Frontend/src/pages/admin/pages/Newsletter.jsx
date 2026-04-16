@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import { getSubscribers } from "../services/newsettlerService";
+import { getSubscribers } from "../services/newsletterService";
 
 const Newsletter = () => {
   const [subscribers, setSubscribers] = useState([]);

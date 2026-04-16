@@ -1,0 +1,38 @@
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.dashboard-welcome-card {
+  width: 100%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid var(--accent-primary);
+  border-radius: 18px;
+  padding: 28px;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-light);
+  margin-bottom: 24px;
+}
+
+.dashboard-welcome-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dashboard-welcome-card p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.dashboard-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}

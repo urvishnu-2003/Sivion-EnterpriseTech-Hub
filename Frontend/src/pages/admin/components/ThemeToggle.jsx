@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "../context/ThemeContext";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { Sun, Moon } from "lucide-react";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -13,9 +13,9 @@ const ThemeToggle = () => {
       aria-label={`Toggle ${theme} mode`}
     >
       {theme === "dark" ? (
-        <FaSun className="theme-icon" />
+        <Sun className="theme-icon" size={20} />
       ) : (
-        <FaMoon className="theme-icon" />
+        <Moon className="theme-icon" size={20} />
       )}
     </button>
   );

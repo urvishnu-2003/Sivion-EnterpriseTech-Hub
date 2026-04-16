@@ -6,7 +6,6 @@ import { Code2, Cpu, Zap, Terminal, GitBranch, ShieldCheck, Box, ArrowRight } fr
 import { Link } from 'react-router-dom';
 import './SoftwareService.css';
 
-
 const SoftwareService = () => {
   const lifecycle = [
     { title: "Architectural Blueprinting", desc: "Crafting robust system designs before the first line of code is written." },
@@ -32,7 +31,7 @@ const SoftwareService = () => {
           </motion.div>
           <h1 className="hero-title">Custom <span className="gradient-text">Engineering</span></h1>
           <p className="hero-subtitle">
-            We don't just write code; we architect performance-first software ecosystems 
+            We don't just write code; we architect performance-first software ecosystems
             designed to scale with your enterprise ambition.
           </p>
         </div>
@@ -59,8 +58,8 @@ const SoftwareService = () => {
           <h2 className="section-title">Development <span className="gradient-text">Protocol</span></h2>
           <div className="lifecycle-timeline">
             {lifecycle.map((step, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className="lifecycle-step"
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -81,7 +80,7 @@ const SoftwareService = () => {
       <section className="stack-showcase">
         <div className="container">
           <div className="split-view invert">
-             <div className="view-graphic">
+            <div className="view-graphic">
               <div className="terminal-mockup">
                 <div className="mockup-header">
                   <div className="dots"><span></span><span></span><span></span></div>
@@ -98,7 +97,7 @@ const SoftwareService = () => {
             <div className="view-text">
               <h2 className="section-title">Performance <span className="gradient-text">Obsessed</span></h2>
               <p className="section-desc">
-                Our engineering team focuses on sub-100ms response times and 
+                Our engineering team focuses on sub-100ms response times and
                 99.99% availability by utilizing the most robust modern stacks.
               </p>
               <ul className="tech-list">
