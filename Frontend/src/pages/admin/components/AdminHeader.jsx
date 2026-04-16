@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { LogOut, Bell, Shield, Activity } from "lucide-react";
@@ -7,15 +8,29 @@ import { LogOut, Bell, Shield, Activity } from "lucide-react";
  * Features system status indicators and premium profile controls.
  */
 const AdminHeader = () => {
+=======
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAdminAuth } from "../context/AdminAuthContext";
+import ThemeToggle from "./ThemeToggle";
+
+const AdminHeader = ({ title, subtitle }) => {
+>>>>>>> origin/branch-backend/h
   const navigate = useNavigate();
+  const { admin, logout } = useAdminAuth();
 
   const handleLogout = () => {
+<<<<<<< HEAD
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminUser");
+=======
+    logout();
+>>>>>>> origin/branch-backend/h
     navigate("/admin/login");
   };
 
   return (
+<<<<<<< HEAD
     <header className="admin-header glass" style={{ 
       display: 'flex', 
       justifyContent: 'space-between', 
@@ -69,6 +84,20 @@ const AdminHeader = () => {
             <p style={{ margin: 0, fontSize: '0.7rem', color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: '1px' }}>Full Access</p>
           </div>
         </div>
+=======
+    <header className="admin-header">
+      <div>
+        <h1>{title}</h1>
+        {subtitle ? <p>{subtitle}</p> : null}
+      </div>
+
+      <div className="admin-header-right">
+        <ThemeToggle />
+        <span className="admin-user-pill">{admin?.email || "Admin"}</span>
+        <button className="admin-btn admin-btn-danger" onClick={handleLogout}>
+          Logout
+        </button>
+>>>>>>> origin/branch-backend/h
       </div>
     </header>
   );

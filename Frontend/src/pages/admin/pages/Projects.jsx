@@ -1,33 +1,53 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import StatusBadge from "../components/StatusBadge";
 import ConfirmModal from "../components/ConfirmModal";
+<<<<<<< HEAD
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
 import axiosInstance from "../../../api/axios";
+=======
+import {
+  getProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+} from "../services/projectService";
+>>>>>>> origin/branch-backend/h
 
-const PAGE_SIZE = 5;
+const initialForm = {
+  title: "",
+  category: "",
+  techStack: "",
+  description: "",
+};
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "" });
-  const [selectedDelete, setSelectedDelete] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const [openForm, setOpenForm] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const [formData, setFormData] = useState(initialForm);
+  const [loading, setLoading] = useState(false);
 
   const loadProjects = async () => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.get("/projects/admin/all");
-      setProjects(response.data?.data || []);
+      const response = await getProjects();
+      const data = response.data;
+
+      const projectList = Array.isArray(data?.data)
+        ? data.data
+        : Array.isArray(data?.projects)
+        ? data.projects
+        : Array.isArray(data)
+        ? data
+        : [];
+
+      setProjects(projectList);
     } catch (error) {
-      setToast({ message: "Failed to load projects", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log("Load Projects Error:", error);
+      setProjects([]);
     }
   };
 
@@ -35,55 +55,121 @@ const Projects = () => {
     loadProjects();
   }, []);
 
-  const filteredProjects = useMemo(() => {
-    return projects.filter((project) =>
-      `${project.title} ${(project.technologies || []).join(" ")} ${project.status || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [projects, search]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-  const totalPages = Math.ceil(filteredProjects.length / PAGE_SIZE) || 1;
-  const paginatedProjects = filteredProjects.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
+  const handleOpenCreate = () => {
+    setEditId(null);
+    setFormData(initialForm);
+    setOpenForm(true);
+  };
+
+  const handleOpenEdit = (project) => {
+    setEditId(project._id);
+
+    setFormData({
+      title: project.title || "",
+      category: project.category || "",
+      techStack: Array.isArray(project.techStack)
+        ? project.techStack.join(", ")
+        : project.techStack || "",
+      description: project.description || "",
+    });
+
+    setOpenForm(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const payload = {
+        ...formData,
+        techStack: formData.techStack
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean),
+      };
+
+      if (editId) {
+        await updateProject(editId, payload);
+      } else {
+        await createProject(payload);
+      }
+
+      setOpenForm(false);
+      setEditId(null);
+      setFormData(initialForm);
+      loadProjects();
+    } catch (error) {
+      console.log("Submit Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/projects/${selectedDelete._id}`);
-      setToast({ message: "Project deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteProject(deleteId);
+      setDeleteId(null);
       loadProjects();
     } catch (error) {
-      setToast({ message: "Failed to delete project", type: "error" });
+      console.log("Delete Error:", error);
     }
   };
 
   const columns = [
-    { key: "title", label: "Title" },
     {
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Project Name",
+      key: "title",
+    },
+    {
+      header: "Category",
+      key: "category",
+    },
+    {
+      header: "Tech Stack",
       key: "techStack",
-      label: "Tech Stack",
-      render: (row) => (row.technologies || []).join(", "),
+      render: (row) =>
+        Array.isArray(row.techStack)
+          ? row.techStack.join(", ")
+          : row.techStack || "-",
     },
     {
-      key: "status",
-      label: "Status",
-      render: (row) => <StatusBadge status={row.status || "Active"} />,
+      header: "Description",
+      key: "description",
+      render: (row) => row.description || "-",
     },
     {
-      key: "date",
-      label: "Date",
-      render: (row) => new Date(row.createdAt).toLocaleDateString(),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn">Edit</button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <button
+            className="admin-btn"
+            onClick={() => handleOpenEdit(row)}
+            type="button"
+          >
+            Edit
+          </button>
+
+          <button
+            className="admin-btn admin-btn-danger"
+            onClick={() => setDeleteId(row._id)}
+            type="button"
+          >
             Delete
           </button>
         </div>
@@ -92,36 +178,134 @@ const Projects = () => {
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
-        onConfirm={handleDelete}
-        message={`Delete project "${selectedDelete?.title}"?`}
-      />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search projects..."
-        />
-        <button className="primary-btn">Add New Project</button>
+    <AdminLayout
+      title="Manage Projects"
+      subtitle="Track and manage project showcase items."
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "20px",
+        }}
+      >
+        <button className="admin-btn admin-btn-primary" onClick={handleOpenCreate} type="button">
+          Add Project
+        </button>
       </div>
 
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedProjects} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
+      <DataTable
+        columns={columns}
+        rows={projects}
+        emptyText="No projects available"
+      />
+
+      <ConfirmModal
+        open={!!deleteId}
+        title="Delete Project"
+        message="Are you sure you want to delete this project?"
+        onConfirm={handleDelete}
+        onClose={() => setDeleteId(null)}
+      />
+
+      {openForm && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal">
+            <div className="admin-modal-header">
+              <h3>{editId ? "Update Project" : "Create Project"}</h3>
+              <button
+                className="admin-modal-close"
+                onClick={() => {
+                  setOpenForm(false);
+                  setEditId(null);
+                  setFormData(initialForm);
+                }}
+                type="button"
+              >
+                ×
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="admin-form">
+              <div className="admin-form-group">
+                <label>Project Name</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="Enter project title"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Category</label>
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  placeholder="Enter category"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Tech Stack</label>
+                <input
+                  type="text"
+                  name="techStack"
+                  value={formData.techStack}
+                  onChange={handleChange}
+                  placeholder="React, Node.js, MongoDB"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Enter project description"
+                  rows="4"
+                />
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "10px",
+                  marginTop: "20px",
+                }}
+              >
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-secondary"
+                  onClick={() => {
+                    setOpenForm(false);
+                    setEditId(null);
+                    setFormData(initialForm);
+                  }}
+                >
+                  Cancel
+                </button>
+
+                <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+                  {loading
+                    ? editId
+                      ? "Updating..."
+                      : "Creating..."
+                    : editId
+                    ? "Update Project"
+                    : "Create Project"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
     </AdminLayout>
   );

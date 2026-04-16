@@ -1,34 +1,27 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import Modal from "../components/Modal";
 import ConfirmModal from "../components/ConfirmModal";
+<<<<<<< HEAD
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
 import axiosInstance from "../../../api/axios";
 
 const PAGE_SIZE = 5;
+=======
+import { getContacts, deleteContact } from "../services/contactService";
+>>>>>>> origin/branch-backend/h
 
 const Contact = () => {
   const [contacts, setContacts] = useState([]);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [selectedView, setSelectedView] = useState(null);
-  const [selectedDelete, setSelectedDelete] = useState(null);
-  const [toast, setToast] = useState({ message: "", type: "" });
+  const [deleteId, setDeleteId] = useState(null);
 
   const loadContacts = async () => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.get("/contacts");
-      setContacts(response.data?.data || []);
+      const { data } = await getContacts();
+      setContacts(data?.data || data || []);
     } catch (error) {
-      setToast({ message: "Failed to load contacts", type: "error" });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -36,115 +29,42 @@ const Contact = () => {
     loadContacts();
   }, []);
 
-  const filteredContacts = useMemo(() => {
-    return contacts.filter((item) =>
-      `${item.fullName || ""} ${item.email || ""} ${item.phone || ""}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
-    );
-  }, [contacts, search]);
-
-  const totalPages = Math.ceil(filteredContacts.length / PAGE_SIZE) || 1;
-  const paginatedContacts = filteredContacts.slice(
-    (page - 1) * PAGE_SIZE,
-    page * PAGE_SIZE
-  );
-
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/contacts/${selectedDelete._id}`);
-      setToast({ message: "Contact deleted successfully", type: "success" });
-      setSelectedDelete(null);
+      await deleteContact(deleteId);
+      setDeleteId(null);
       loadContacts();
     } catch (error) {
-      setToast({ message: "Failed to delete contact", type: "error" });
+      console.log(error);
     }
   };
 
   const columns = [
+    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
+    { header: "Name", key: "name" },
+    { header: "Email", key: "email" },
+    { header: "Phone", key: "phone" },
     {
-      key: "name",
-      label: "Name",
-      render: (row) => row.fullName || "-",
-    },
-    { key: "email", label: "Email" },
-    {
-      key: "phone",
-      label: "Phone",
-      render: (row) => row.phone || "-",
-    },
-    {
-      key: "preview",
-      label: "Message Preview",
-      render: (row) => (row.message ? `${row.message.slice(0, 40)}...` : "-"),
-    },
-    {
-      key: "date",
-      label: "Date",
-      render: (row) => new Date(row.createdAt).toLocaleDateString(),
-    },
-    {
+      header: "Actions",
       key: "actions",
-      label: "Actions",
       render: (row) => (
-        <div className="action-group">
-          <button className="secondary-btn" onClick={() => setSelectedView(row)}>
-            View
-          </button>
-          <button className="danger-btn" onClick={() => setSelectedDelete(row)}>
-            Delete
-          </button>
-        </div>
+        <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+          Delete
+        </button>
       ),
     },
   ];
 
   return (
-    <AdminLayout>
-      <Toast toast={toast} onClose={() => setToast({ message: "", type: "" })} />
-
-      <Modal
-        open={!!selectedView}
-        onClose={() => setSelectedView(null)}
-        title="Contact Details"
-      >
-        {selectedView && (
-          <div className="details-grid">
-            <p><strong>Name:</strong> {selectedView.fullName}</p>
-            <p><strong>Email:</strong> {selectedView.email}</p>
-            <p><strong>Phone:</strong> {selectedView.phone}</p>
-            <p><strong>Message:</strong> {selectedView.message}</p>
-          </div>
-        )}
-      </Modal>
-
+    <AdminLayout title="Manage Contact Requests" subtitle="Review contact submissions from the website.">
+      <DataTable columns={columns} rows={contacts} emptyText="No contact requests available" />
       <ConfirmModal
-        open={!!selectedDelete}
-        onClose={() => setSelectedDelete(null)}
+        open={!!deleteId}
+        title="Delete Contact Request"
+        message="Are you sure you want to delete this contact request?"
         onConfirm={handleDelete}
-        message={`Delete contact of ${selectedDelete?.fullName}?`}
+        onClose={() => setDeleteId(null)}
       />
-
-      <div className="page-tools">
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Search contacts..."
-        />
-      </div>
-
-      {loading ? (
-        <SkeletonTable />
-      ) : (
-        <>
-          <DataTable columns={columns} rows={paginatedContacts} />
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />
-        </>
-      )}
     </AdminLayout>
   );
 };
