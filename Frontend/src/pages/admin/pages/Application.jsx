@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-import axiosInstance from "../../../api/axios";
 import StatusSelector from "../components/StatusSelector";
-import { getApplications, updateApplication, deleteApplication } from "../services/applicationService";
-
-const PAGE_SIZE = 5;
+import {
+  getApplications,
+  updateApplicationStatus,
+  deleteApplication,
+} from "../services/applicationService";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
@@ -18,7 +19,7 @@ const Applications = () => {
       const { data } = await getApplications();
       setApplications(data?.data || data || []);
     } catch (error) {
-      console.log(error);
+      console.log("Error loading applications:", error);
     }
   };
 
@@ -27,7 +28,7 @@ const Applications = () => {
   }, []);
 
   const handleStatusChange = async (id, status) => {
-    const previousApplications = applications;
+    const previousApplications = [...applications];
 
     setApplications((prev) =>
       prev.map((application) =>
@@ -38,9 +39,18 @@ const Applications = () => {
     setUpdatingStatusId(id);
 
     try {
-      await updateApplication(id, { status });
+      const response = await updateApplicationStatus(id, { status });
+      const updatedApplication = response?.data?.data;
+
+      if (updatedApplication) {
+        setApplications((prev) =>
+          prev.map((application) =>
+            application._id === id ? updatedApplication : application
+          )
+        );
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Error updating application status:", error);
       setApplications(previousApplications);
     } finally {
       setUpdatingStatusId(null);
@@ -53,14 +63,96 @@ const Applications = () => {
       setDeleteId(null);
       loadApplications();
     } catch (error) {
-      console.log(error);
+      console.log("Error deleting application:", error);
     }
   };
+
+  const getResumeViewerUrl = (resumeUrl) => {
+    if (!resumeUrl) return "#";
+
+    return `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(
+      resumeUrl
+    )}`;
+  };
+
+  const formatSkills = (skills) => {
+    if (!skills || !Array.isArray(skills) || skills.length === 0) {
+      return "-";
+    }
+    return skills.join(", ");
+  };
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "-";
+
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "-";
+
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   const columns = [
-    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
-    { header: "Candidate", key: "name" },
-    { header: "Email", key: "email" },
-    { header: "Job", key: "jobTitle", render: (row) => row.jobTitle || row.job?.title || "-" },
+    {
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Candidate",
+      key: "fullName",
+      render: (row) => row.fullName || "-",
+    },
+    {
+      header: "Email",
+      key: "email",
+      render: (row) => row.email || "-",
+    },
+    {
+      header: "Phone",
+      key: "phone",
+      render: (row) => row.phone || "-",
+    },
+    {
+      header: "Job",
+      key: "jobId",
+      render: (row) => row.jobId?.title || "-",
+    },
+    {
+      header: "Experience",
+      key: "experience",
+      render: (row) => row.experience || "-",
+    },
+    {
+      header: "Skills",
+      key: "skills",
+      render: (row) => formatSkills(row.skills),
+    },
+    {
+      header: "Applied On",
+      key: "appliedAt",
+      render: (row) => formatDate(row.appliedAt),
+    },
+    {
+      header: "Resume",
+      key: "resumeUrl",
+      render: (row) =>
+        row.resumeUrl ? (
+          <a
+            href={getResumeViewerUrl(row.resumeUrl)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="admin-btn admin-btn-secondary"
+          >
+            View Resume
+          </a>
+        ) : (
+          <span>-</span>
+        ),
+    },
     {
       header: "Status",
       key: "status",
@@ -76,7 +168,10 @@ const Applications = () => {
       header: "Actions",
       key: "actions",
       render: (row) => (
-        <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+        <button
+          className="admin-btn admin-btn-danger"
+          onClick={() => setDeleteId(row._id)}
+        >
           Delete
         </button>
       ),
@@ -84,8 +179,16 @@ const Applications = () => {
   ];
 
   return (
-    <AdminLayout title="Manage Applications" subtitle="Review candidate applications and update their status.">
-      <DataTable columns={columns} rows={applications} emptyText="No applications available" />
+    <AdminLayout
+      title="Manage Applications"
+      subtitle="Review candidate applications, resumes, and status updates."
+    >
+      <DataTable
+        columns={columns}
+        rows={applications}
+        emptyText="No applications available"
+      />
+
       <ConfirmModal
         open={!!deleteId}
         title="Delete Application"

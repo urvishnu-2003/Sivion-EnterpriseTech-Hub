@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    background: #050d1a;
+    color: #e8f0fe;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .glass {
+    background: rgba(10, 22, 40, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 200, 255, 0.12);
+  }
+
+  .careers-highlight-card {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .careers-highlight-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .careers-job-card {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .careers-job-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .apply-btn {
+    transition: all 0.3s ease;
+  }
+
+  .apply-btn:hover {
+    background: #00c8ff;
+  }
+}

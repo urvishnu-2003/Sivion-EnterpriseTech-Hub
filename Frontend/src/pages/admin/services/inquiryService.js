@@ -1,4 +1,13 @@
 import API from "../../../api/axios";
 
-export const getInquiries = () => API.get("/inquiries");
-export const deleteInquiry = (id) => API.delete(`/inquiries/${id}`);
+export const getInquiries = () => {
+  return API.get("/inquiries");
+};
+
+export const updateInquiryStatus = (id, payload) => {
+  return API.put(`/inquiries/${id}`, payload);
+};
+
+export const deleteInquiry = (id) => {
+  return API.delete(`/inquiries/${id}`);
+};

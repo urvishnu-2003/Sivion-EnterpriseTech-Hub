@@ -1,5 +1,13 @@
 import API from "../../../api/axios";
 
-export const getApplications = () => API.get("/applications");
-export const updateApplication = (id, payload) => API.put(`/applications/${id}`, payload);
-export const deleteApplication = (id) => API.delete(`/applications/${id}`);
+export const getApplications = () => {
+  return API.get("/applications");
+};
+
+export const updateApplicationStatus = (id, payload) => {
+  return API.patch(`/applications/${id}/status`, payload);
+};
+
+export const deleteApplication = (id) => {
+  return API.delete(`/applications/${id}`);
+};

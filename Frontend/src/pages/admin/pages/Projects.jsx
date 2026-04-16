@@ -11,9 +11,19 @@ import {
 
 const initialForm = {
   title: "",
-  category: "",
-  techStack: "",
-  description: "",
+  slug: "",
+  shortDescription: "",
+  fullDescription: "",
+  clientName: "",
+  industry: "",
+  technologies: "",
+  projectUrl: "",
+  githubUrl: "",
+  coverImage: "",
+  galleryImages: "",
+  status: "published",
+  featured: false,
+  completionDate: "",
 };
 
 const Projects = () => {
@@ -33,10 +43,10 @@ const Projects = () => {
       const projectList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.projects)
-          ? data.projects
-          : Array.isArray(data)
-            ? data
-            : [];
+        ? data.projects
+        : Array.isArray(data)
+        ? data
+        : [];
 
       setProjects(projectList);
     } catch (error) {
@@ -49,12 +59,30 @@ const Projects = () => {
     loadProjects();
   }, []);
 
+  const generateSlug = (value) => {
+    return value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  };
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => {
+      const updatedData = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      if (name === "title" && !editId) {
+        updatedData.slug = generateSlug(value);
+      }
+
+      return updatedData;
+    });
   };
 
   const handleOpenCreate = () => {
@@ -68,14 +96,34 @@ const Projects = () => {
 
     setFormData({
       title: project.title || "",
-      category: project.category || "",
-      techStack: Array.isArray(project.techStack)
-        ? project.techStack.join(", ")
-        : project.techStack || "",
-      description: project.description || "",
+      slug: project.slug || "",
+      shortDescription: project.shortDescription || "",
+      fullDescription: project.fullDescription || "",
+      clientName: project.clientName || "",
+      industry: project.industry || "",
+      technologies: Array.isArray(project.technologies)
+        ? project.technologies.join(", ")
+        : "",
+      projectUrl: project.projectUrl || "",
+      githubUrl: project.githubUrl || "",
+      coverImage: project.coverImage || "",
+      galleryImages: Array.isArray(project.galleryImages)
+        ? project.galleryImages.join(", ")
+        : "",
+      status: project.status || "published",
+      featured: typeof project.featured === "boolean" ? project.featured : false,
+      completionDate: project.completionDate
+        ? new Date(project.completionDate).toISOString().split("T")[0]
+        : "",
     });
 
     setOpenForm(true);
+  };
+
+  const resetForm = () => {
+    setOpenForm(false);
+    setEditId(null);
+    setFormData(initialForm);
   };
 
   const handleSubmit = async (e) => {
@@ -85,11 +133,26 @@ const Projects = () => {
       setLoading(true);
 
       const payload = {
-        ...formData,
-        techStack: formData.techStack
+        title: formData.title.trim(),
+        slug: formData.slug.trim(),
+        shortDescription: formData.shortDescription.trim(),
+        fullDescription: formData.fullDescription.trim(),
+        clientName: formData.clientName.trim(),
+        industry: formData.industry.trim(),
+        technologies: formData.technologies
           .split(",")
           .map((item) => item.trim())
           .filter(Boolean),
+        projectUrl: formData.projectUrl.trim(),
+        githubUrl: formData.githubUrl.trim(),
+        coverImage: formData.coverImage.trim(),
+        galleryImages: formData.galleryImages
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean),
+        status: formData.status,
+        featured: formData.featured,
+        completionDate: formData.completionDate || null,
       };
 
       if (editId) {
@@ -98,9 +161,7 @@ const Projects = () => {
         await createProject(payload);
       }
 
-      setOpenForm(false);
-      setEditId(null);
-      setFormData(initialForm);
+      resetForm();
       loadProjects();
     } catch (error) {
       console.log("Submit Error:", error);
@@ -119,6 +180,26 @@ const Projects = () => {
     }
   };
 
+  const formatArray = (items) => {
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return "-";
+    }
+    return items.join(", ");
+  };
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "-";
+
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "-";
+
+    return date.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   const columns = [
     {
       header: "S.No",
@@ -126,25 +207,44 @@ const Projects = () => {
       render: (_, i) => i + 1,
     },
     {
-      header: "Project Name",
+      header: "Title",
       key: "title",
+      render: (row) => row.title || "-",
     },
     {
-      header: "Category",
-      key: "category",
+      header: "Slug",
+      key: "slug",
+      render: (row) => row.slug || "-",
     },
     {
-      header: "Tech Stack",
-      key: "techStack",
-      render: (row) =>
-        Array.isArray(row.techStack)
-          ? row.techStack.join(", ")
-          : row.techStack || "-",
+      header: "Client",
+      key: "clientName",
+      render: (row) => row.clientName || "-",
     },
     {
-      header: "Description",
-      key: "description",
-      render: (row) => row.description || "-",
+      header: "Industry",
+      key: "industry",
+      render: (row) => row.industry || "-",
+    },
+    {
+      header: "Technologies",
+      key: "technologies",
+      render: (row) => formatArray(row.technologies),
+    },
+    {
+      header: "Status",
+      key: "status",
+      render: (row) => row.status || "-",
+    },
+    {
+      header: "Featured",
+      key: "featured",
+      render: (row) => (row.featured ? "Yes" : "No"),
+    },
+    {
+      header: "Completion Date",
+      key: "completionDate",
+      render: (row) => formatDate(row.completionDate),
     },
     {
       header: "Actions",
@@ -183,7 +283,11 @@ const Projects = () => {
           marginBottom: "20px",
         }}
       >
-        <button className="admin-btn admin-btn-primary" onClick={handleOpenCreate} type="button">
+        <button
+          className="admin-btn admin-btn-primary"
+          onClick={handleOpenCreate}
+          type="button"
+        >
           Add Project
         </button>
       </div>
@@ -209,11 +313,7 @@ const Projects = () => {
               <h3>{editId ? "Update Project" : "Create Project"}</h3>
               <button
                 className="admin-modal-close"
-                onClick={() => {
-                  setOpenForm(false);
-                  setEditId(null);
-                  setFormData(initialForm);
-                }}
+                onClick={resetForm}
                 type="button"
               >
                 ×
@@ -222,7 +322,7 @@ const Projects = () => {
 
             <form onSubmit={handleSubmit} className="admin-form">
               <div className="admin-form-group">
-                <label>Project Name</label>
+                <label>Title</label>
                 <input
                   type="text"
                   name="title"
@@ -234,37 +334,152 @@ const Projects = () => {
               </div>
 
               <div className="admin-form-group">
-                <label>Category</label>
+                <label>Slug</label>
                 <input
                   type="text"
-                  name="category"
-                  value={formData.category}
+                  name="slug"
+                  value={formData.slug}
                   onChange={handleChange}
-                  placeholder="Enter category"
+                  placeholder="enter-project-slug"
                   required
                 />
               </div>
 
               <div className="admin-form-group">
-                <label>Tech Stack</label>
+                <label>Short Description</label>
+                <textarea
+                  name="shortDescription"
+                  value={formData.shortDescription}
+                  onChange={handleChange}
+                  placeholder="Enter short description"
+                  rows="3"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Full Description</label>
+                <textarea
+                  name="fullDescription"
+                  value={formData.fullDescription}
+                  onChange={handleChange}
+                  placeholder="Enter full project description"
+                  rows="5"
+                  required
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Client Name</label>
                 <input
                   type="text"
-                  name="techStack"
-                  value={formData.techStack}
+                  name="clientName"
+                  value={formData.clientName}
+                  onChange={handleChange}
+                  placeholder="Enter client name"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Industry</label>
+                <input
+                  type="text"
+                  name="industry"
+                  value={formData.industry}
+                  onChange={handleChange}
+                  placeholder="Enter industry"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Technologies</label>
+                <input
+                  type="text"
+                  name="technologies"
+                  value={formData.technologies}
                   onChange={handleChange}
                   placeholder="React, Node.js, MongoDB"
                 />
               </div>
 
               <div className="admin-form-group">
-                <label>Description</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
+                <label>Project URL</label>
+                <input
+                  type="text"
+                  name="projectUrl"
+                  value={formData.projectUrl}
                   onChange={handleChange}
-                  placeholder="Enter project description"
-                  rows="4"
+                  placeholder="Enter live project URL"
                 />
+              </div>
+
+              <div className="admin-form-group">
+                <label>GitHub URL</label>
+                <input
+                  type="text"
+                  name="githubUrl"
+                  value={formData.githubUrl}
+                  onChange={handleChange}
+                  placeholder="Enter GitHub URL"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Cover Image URL</label>
+                <input
+                  type="text"
+                  name="coverImage"
+                  value={formData.coverImage}
+                  onChange={handleChange}
+                  placeholder="Enter cover image URL"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Gallery Images</label>
+                <input
+                  type="text"
+                  name="galleryImages"
+                  value={formData.galleryImages}
+                  onChange={handleChange}
+                  placeholder="Image1 URL, Image2 URL"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Status</label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="draft">Draft</option>
+                  <option value="published">Published</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </div>
+
+              <div className="admin-form-group">
+                <label>Completion Date</label>
+                <input
+                  type="date"
+                  name="completionDate"
+                  value={formData.completionDate}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <input
+                    type="checkbox"
+                    name="featured"
+                    checked={formData.featured}
+                    onChange={handleChange}
+                  />
+                  Featured Project
+                </label>
               </div>
 
               <div
@@ -278,23 +493,23 @@ const Projects = () => {
                 <button
                   type="button"
                   className="admin-btn admin-btn-secondary"
-                  onClick={() => {
-                    setOpenForm(false);
-                    setEditId(null);
-                    setFormData(initialForm);
-                  }}
+                  onClick={resetForm}
                 >
                   Cancel
                 </button>
 
-                <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+                <button
+                  type="submit"
+                  className="admin-btn admin-btn-primary"
+                  disabled={loading}
+                >
                   {loading
                     ? editId
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                      ? "Update Project"
-                      : "Create Project"}
+                    ? "Update Project"
+                    : "Create Project"}
                 </button>
               </div>
             </form>

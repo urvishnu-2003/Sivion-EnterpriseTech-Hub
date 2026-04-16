@@ -11,9 +11,13 @@ import {
 
 const initialForm = {
   title: "",
-  category: "",
-  status: "draft",
+  slug: "",
+  summary: "",
   content: "",
+  authorName: "Sivion Team",
+  coverImage: "",
+  category: "Technology",
+  isPublished: true,
 };
 
 const Blogs = () => {
@@ -33,10 +37,10 @@ const Blogs = () => {
       const blogList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.blogs)
-          ? data.blogs
-          : Array.isArray(data)
-            ? data
-            : [];
+        ? data.blogs
+        : Array.isArray(data)
+        ? data
+        : [];
 
       setBlogs(blogList);
     } catch (error) {
@@ -49,13 +53,30 @@ const Blogs = () => {
     loadBlogs();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const generateSlug = (value) => {
+    return value
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+  };
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => {
+      const updatedData = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      if (name === "title" && !editId) {
+        updatedData.slug = generateSlug(value);
+      }
+
+      return updatedData;
+    });
   };
 
   const handleOpenCreate = () => {
@@ -68,9 +89,14 @@ const Blogs = () => {
     setEditId(blog._id);
     setFormData({
       title: blog.title || "",
-      category: blog.category || "",
-      status: blog.status || "draft",
+      slug: blog.slug || "",
+      summary: blog.summary || "",
       content: blog.content || "",
+      authorName: blog.authorName || "Sivion Team",
+      coverImage: blog.coverImage || "",
+      category: blog.category || "Technology",
+      isPublished:
+        typeof blog.isPublished === "boolean" ? blog.isPublished : true,
     });
     setOpenForm(true);
   };
@@ -81,10 +107,21 @@ const Blogs = () => {
     try {
       setLoading(true);
 
+      const payload = {
+        ...formData,
+        title: formData.title.trim(),
+        slug: formData.slug.trim(),
+        summary: formData.summary.trim(),
+        content: formData.content.trim(),
+        authorName: formData.authorName.trim(),
+        coverImage: formData.coverImage.trim(),
+        category: formData.category.trim(),
+      };
+
       if (editId) {
-        await updateBlog(editId, formData);
+        await updateBlog(editId, payload);
       } else {
-        await createBlog(formData);
+        await createBlog(payload);
       }
 
       setOpenForm(false);
@@ -109,10 +146,36 @@ const Blogs = () => {
   };
 
   const columns = [
-    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
-    { header: "Title", key: "title" },
-    { header: "Category", key: "category" },
-    { header: "Status", key: "status" },
+    {
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Title",
+      key: "title",
+      render: (row) => row.title || "-",
+    },
+    {
+      header: "Slug",
+      key: "slug",
+      render: (row) => row.slug || "-",
+    },
+    {
+      header: "Category",
+      key: "category",
+      render: (row) => row.category || "-",
+    },
+    {
+      header: "Author",
+      key: "authorName",
+      render: (row) => row.authorName || "Sivion Team",
+    },
+    {
+      header: "Published",
+      key: "isPublished",
+      render: (row) => (row.isPublished ? "Yes" : "No"),
+    },
     {
       header: "Actions",
       key: "actions",
@@ -141,7 +204,7 @@ const Blogs = () => {
   return (
     <AdminLayout
       title="Manage Blogs"
-      subtitle="View and manage all blog content."
+      subtitle="Create, edit, publish, and manage blog content."
     >
       <div
         style={{
@@ -150,7 +213,11 @@ const Blogs = () => {
           marginBottom: "20px",
         }}
       >
-        <button className="admin-btn admin-btn-primary" onClick={handleOpenCreate} type="button">
+        <button
+          className="admin-btn admin-btn-primary"
+          onClick={handleOpenCreate}
+          type="button"
+        >
           Add Blog
         </button>
       </div>
@@ -197,29 +264,27 @@ const Blogs = () => {
               </div>
 
               <div className="admin-form-group">
-                <label>Category</label>
+                <label>Slug</label>
                 <input
                   type="text"
-                  name="category"
-                  value={formData.category}
+                  name="slug"
+                  value={formData.slug}
                   onChange={handleChange}
-                  placeholder="Enter blog category"
+                  placeholder="enter-blog-slug"
                   required
                 />
               </div>
 
               <div className="admin-form-group">
-                <label>Status</label>
-                <select
-                  name="status"
-                  value={formData.status}
+                <label>Summary</label>
+                <textarea
+                  name="summary"
+                  value={formData.summary}
                   onChange={handleChange}
+                  placeholder="Enter short blog summary"
+                  rows="3"
                   required
-                >
-                  <option value="draft">Draft</option>
-                  <option value="published">Published</option>
-                  <option value="archived">Archived</option>
-                </select>
+                />
               </div>
 
               <div className="admin-form-group">
@@ -228,9 +293,55 @@ const Blogs = () => {
                   name="content"
                   value={formData.content}
                   onChange={handleChange}
-                  placeholder="Enter blog content"
-                  rows="5"
+                  placeholder="Enter full blog content"
+                  rows="6"
+                  required
                 />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Author Name</label>
+                <input
+                  type="text"
+                  name="authorName"
+                  value={formData.authorName}
+                  onChange={handleChange}
+                  placeholder="Enter author name"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Cover Image URL</label>
+                <input
+                  type="text"
+                  name="coverImage"
+                  value={formData.coverImage}
+                  onChange={handleChange}
+                  placeholder="Enter cover image URL"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Category</label>
+                <input
+                  type="text"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  placeholder="Enter blog category"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <input
+                    type="checkbox"
+                    name="isPublished"
+                    checked={formData.isPublished}
+                    onChange={handleChange}
+                  />
+                  Publish this blog
+                </label>
               </div>
 
               <div
@@ -253,14 +364,18 @@ const Blogs = () => {
                   Cancel
                 </button>
 
-                <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+                <button
+                  type="submit"
+                  className="admin-btn admin-btn-primary"
+                  disabled={loading}
+                >
                   {loading
                     ? editId
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                      ? "Update Blog"
-                      : "Create Blog"}
+                    ? "Update Blog"
+                    : "Create Blog"}
                 </button>
               </div>
             </form>

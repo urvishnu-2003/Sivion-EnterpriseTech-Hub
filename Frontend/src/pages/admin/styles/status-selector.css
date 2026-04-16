@@ -2,11 +2,13 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  max-width: 160px;
+  min-width: 140px;
+  max-width: 180px;
 }
 
 .status-selector-trigger {
   width: 100%;
+  min-height: 42px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,7 +21,6 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
   box-shadow: var(--shadow-light);
   text-transform: uppercase;
   letter-spacing: 0.35px;
@@ -40,6 +41,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .status-selector-icon {
@@ -50,11 +52,13 @@
   height: 26px;
   border-radius: 10px;
   background: rgba(14, 165, 233, 0.12);
+  flex-shrink: 0;
 }
 
 .status-selector-arrow {
   font-size: 12px;
   opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .status-selector-backdrop {
@@ -70,7 +74,7 @@
 }
 
 .status-selector-modal {
-  width: min(420px, 100%);
+  width: min(440px, 100%);
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 20px;
@@ -81,16 +85,19 @@
 
 .status-selector-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .status-selector-header h3 {
   margin: 0;
   font-size: 18px;
   font-weight: 700;
+  line-height: 1.25;
   color: var(--text-primary);
 }
 
@@ -101,6 +108,7 @@
 
 .status-option-item {
   width: 100%;
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,7 +122,6 @@
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .status-option-item:hover:not(:disabled) {
@@ -142,10 +149,12 @@
   height: 28px;
   border-radius: 12px;
   font-size: 14px;
+  flex-shrink: 0;
 }
 
 .status-option-item .status-option-text {
   flex: 1;
+  min-width: 0;
 }
 
 .status-option-current {
@@ -154,6 +163,7 @@
   border-radius: 999px;
   background: rgba(14, 165, 233, 0.12);
   color: var(--accent-primary);
+  white-space: nowrap;
 }
 
 .status-option-item.status-option-pending,
@@ -196,21 +206,30 @@
 }
 
 .status-selector-note {
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 13px;
+  line-height: 1.5;
   color: var(--text-tertiary);
 }
 
 @media (max-width: 640px) {
   .status-selector-root {
+    min-width: 120px;
     max-width: 100%;
   }
 
   .status-selector-modal {
     padding: 20px;
+    border-radius: 18px;
+  }
+
+  .status-selector-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
   }
 
   .status-option-item {
     padding: 12px 14px;
+    min-height: 48px;
   }
 }

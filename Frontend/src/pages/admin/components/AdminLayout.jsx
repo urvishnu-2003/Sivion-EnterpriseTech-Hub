@@ -11,8 +11,10 @@ const AdminLayout = ({ title, subtitle, children, actions }) => {
 
         <div className="admin-content-wrapper">
           <AdminHeader title={title} subtitle={subtitle} />
-          {actions ? <div className="admin-page-actions">{actions}</div> : null}
-          <div className="admin-page-content">{children}</div>
+          <main className="admin-main-area">
+            {actions ? <div className="admin-page-actions">{actions}</div> : null}
+            <div className="admin-page-content">{children}</div>
+          </main>
         </div>
       </div>
     </ThemeProvider>

@@ -4,10 +4,14 @@ const Job = require("../models/job.model");
 const cloudinary = require("../config/cloudinary");
 const asyncHandler = require("../utils/asyncHandler");
 const { successResponse, errorResponse } = require("../utils/response.utils");
+const sendEmail = require("../utils/sendEmail");
 
+const getAdminEmail = () =>
+  process.env.ADMIN_NOTIFICATION_EMAIL ||
+  process.env.DEFAULT_ADMIN_EMAIL ||
+  process.env.EMAIL_FROM;
 
 // HELPER: Upload resume to Cloudinary
-
 const uploadResumeToCloudinary = (fileBuffer, originalname) => {
   return new Promise((resolve, reject) => {
     const safeBaseName = originalname
@@ -30,9 +34,131 @@ const uploadResumeToCloudinary = (fileBuffer, originalname) => {
   });
 };
 
+// HELPER: send emails safely
+const sendApplicationEmails = async ({
+  fullName,
+  email,
+  phone,
+  jobTitle,
+  resumeUrl,
+  status,
+  type,
+}) => {
+  const adminEmail = getAdminEmail();
+
+  const tasks = [];
+
+  if (type === "submitted") {
+    tasks.push(
+      sendEmail({
+        to: email,
+        subject: "Application Received - Sivion EnterpriseTech Hub",
+        text: `Hello ${fullName}, your application for ${jobTitle} has been received successfully. Our team will review it and get back to you soon.`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px;">
+            <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;">
+              <h2 style="margin: 0 0 12px; color: #0f172a;">Application Received</h2>
+              <p style="color: #334155; font-size: 15px;">Hello <strong>${fullName}</strong>,</p>
+              <p style="color: #334155; font-size: 15px;">
+                Thank you for applying for <strong>${jobTitle}</strong>.
+              </p>
+              <p style="color: #334155; font-size: 15px;">
+                We have received your application successfully. Our hiring team will review it and contact you if your profile matches our requirements.
+              </p>
+              <p style="color: #334155; font-size: 15px; margin-top: 24px;">
+                Regards,<br />
+                Sivion EnterpriseTech Hub
+              </p>
+            </div>
+          </div>
+        `,
+      })
+    );
+
+    tasks.push(
+      sendEmail({
+        to: adminEmail,
+        subject: `New Job Application - ${jobTitle}`,
+        text: `A new application was submitted.\n\nCandidate: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nJob: ${jobTitle}\nResume: ${resumeUrl || "Not uploaded"}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px;">
+            <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;">
+              <h2 style="margin: 0 0 12px; color: #0f172a;">New Job Application</h2>
+              <p style="color: #334155; font-size: 15px;"><strong>Candidate:</strong> ${fullName}</p>
+              <p style="color: #334155; font-size: 15px;"><strong>Email:</strong> ${email}</p>
+              <p style="color: #334155; font-size: 15px;"><strong>Phone:</strong> ${phone}</p>
+              <p style="color: #334155; font-size: 15px;"><strong>Job:</strong> ${jobTitle}</p>
+              <p style="color: #334155; font-size: 15px;">
+                <strong>Resume:</strong>
+                ${
+                  resumeUrl
+                    ? `<a href="${resumeUrl}" target="_blank" rel="noopener noreferrer">View Resume</a>`
+                    : "Not uploaded"
+                }
+              </p>
+            </div>
+          </div>
+        `,
+      })
+    );
+  }
+
+  if (type === "status-updated") {
+    tasks.push(
+      sendEmail({
+        to: email,
+        subject: `Application Status Updated - ${jobTitle}`,
+        text: `Hello ${fullName}, your application status for ${jobTitle} has been updated to ${status}.`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px;">
+            <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;">
+              <h2 style="margin: 0 0 12px; color: #0f172a;">Application Status Updated</h2>
+              <p style="color: #334155; font-size: 15px;">Hello <strong>${fullName}</strong>,</p>
+              <p style="color: #334155; font-size: 15px;">
+                Your application for <strong>${jobTitle}</strong> has been updated to:
+              </p>
+              <p style="font-size: 20px; font-weight: 700; color: #0891b2; text-transform: capitalize;">
+                ${status}
+              </p>
+              <p style="color: #334155; font-size: 15px; margin-top: 24px;">
+                Regards,<br />
+                Sivion EnterpriseTech Hub
+              </p>
+            </div>
+          </div>
+        `,
+      })
+    );
+
+    tasks.push(
+      sendEmail({
+        to: adminEmail,
+        subject: `Application Status Changed - ${jobTitle}`,
+        text: `Application status updated.\n\nCandidate: ${fullName}\nEmail: ${email}\nJob: ${jobTitle}\nNew Status: ${status}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; background: #f8fafc; padding: 24px;">
+            <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 32px;">
+              <h2 style="margin: 0 0 12px; color: #0f172a;">Application Status Changed</h2>
+              <p style="color: #334155; font-size: 15px;"><strong>Candidate:</strong> ${fullName}</p>
+              <p style="color: #334155; font-size: 15px;"><strong>Email:</strong> ${email}</p>
+              <p style="color: #334155; font-size: 15px;"><strong>Job:</strong> ${jobTitle}</p>
+              <p style="color: #334155; font-size: 15px; text-transform: capitalize;"><strong>New Status:</strong> ${status}</p>
+            </div>
+          </div>
+        `,
+      })
+    );
+  }
+
+  const results = await Promise.allSettled(tasks);
+  results.forEach((result) => {
+    if (result.status === "rejected") {
+      console.error("Application email error:", result.reason?.message || result.reason);
+    }
+  });
+};
 
 // PUBLIC: Submit application
-
 exports.submitApplication = asyncHandler(async (req, res) => {
   const { jobId, fullName, email, phone, experience, skills } = req.body;
 
@@ -81,6 +207,16 @@ exports.submitApplication = asyncHandler(async (req, res) => {
     "title department location type"
   );
 
+  await sendApplicationEmails({
+    fullName,
+    email,
+    phone,
+    jobTitle: populatedApplication?.jobId?.title || "the selected role",
+    resumeUrl,
+    status: "pending",
+    type: "submitted",
+  });
+
   return successResponse(
     res,
     201,
@@ -89,9 +225,7 @@ exports.submitApplication = asyncHandler(async (req, res) => {
   );
 });
 
-
 // PUBLIC: Get single application by id
-
 exports.getApplicationById = asyncHandler(async (req, res) => {
   const application = await Application.findById(req.params.id).populate(
     "jobId",
@@ -110,11 +244,7 @@ exports.getApplicationById = asyncHandler(async (req, res) => {
   );
 });
 
-
 // PUBLIC: Update application
-// - allowed only when status = pending
-// - email must match existing application email
-
 exports.updateOwnApplication = asyncHandler(async (req, res) => {
   const application = await Application.findById(req.params.id);
 
@@ -178,9 +308,7 @@ exports.updateOwnApplication = asyncHandler(async (req, res) => {
   );
 });
 
-
 // ADMIN ONLY: Get all applications
-
 exports.getAllApplications = asyncHandler(async (req, res) => {
   const applications = await Application.find()
     .populate("jobId", "title department location type isActive")
@@ -194,9 +322,7 @@ exports.getAllApplications = asyncHandler(async (req, res) => {
   );
 });
 
-
 // ADMIN ONLY: Update application status
-
 exports.updateApplicationStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
 
@@ -210,7 +336,10 @@ exports.updateApplicationStatus = asyncHandler(async (req, res) => {
     );
   }
 
-  const application = await Application.findById(req.params.id);
+  const application = await Application.findById(req.params.id).populate(
+    "jobId",
+    "title"
+  );
 
   if (!application) {
     return errorResponse(res, 404, "Application not found");
@@ -220,6 +349,16 @@ exports.updateApplicationStatus = asyncHandler(async (req, res) => {
 
   const updatedApplication = await application.save();
 
+  await sendApplicationEmails({
+    fullName: application.fullName,
+    email: application.email,
+    phone: application.phone,
+    jobTitle: application?.jobId?.title || "the selected role",
+    resumeUrl: application.resumeUrl,
+    status,
+    type: "status-updated",
+  });
+
   return successResponse(
     res,
     200,
@@ -228,9 +367,7 @@ exports.updateApplicationStatus = asyncHandler(async (req, res) => {
   );
 });
 
-
 // ADMIN ONLY: Delete application
-
 exports.deleteApplication = asyncHandler(async (req, res) => {
   const application = await Application.findById(req.params.id);
 

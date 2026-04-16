@@ -16,25 +16,13 @@ const navItems = [
 
 const AdminSidebar = () => {
   return (
-    <aside className="admin-sidebar glass" style={{
-      width: "260px",
-      minHeight: "100vh",
-      padding: "2rem 1.5rem",
-      display: "flex",
-      flexDirection: "column",
-      background: "rgba(5, 13, 26, 0.8)",
-      borderRight: "1px solid var(--glass-border)",
-    }}>
-      <div className="sidebar-brand" style={{ marginBottom: "2.5rem" }}>
-        <h2 style={{ margin: 0, color: "var(--white)", fontSize: "1.5rem" }}>
-          SIVION<span style={{ color: "var(--cyan)" }}>.OS</span>
-        </h2>
-        <p style={{ margin: "0.5rem 0 0", color: "var(--text-dim)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1px" }}>
-          Enterprise Hub
-        </p>
+    <aside className="admin-sidebar">
+      <div className="admin-brand">
+        <h2>SIVION<span>.OS</span></h2>
+        <p>Enterprise Hub</p>
       </div>
 
-      <nav className="admin-nav" style={{ display: "flex", flexDirection: "column", gap: "0.75rem", flex: 1 }}>
+      <nav className="admin-nav">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -42,15 +30,6 @@ const AdminSidebar = () => {
             className={({ isActive }) =>
               isActive ? "admin-nav-link active" : "admin-nav-link"
             }
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.85rem",
-              padding: "0.95rem 1rem",
-              borderRadius: "12px",
-              color: "var(--white)",
-              textDecoration: "none",
-            }}
           >
             {item.icon}
             <span>{item.label}</span>
@@ -58,28 +37,18 @@ const AdminSidebar = () => {
         ))}
       </nav>
 
-      <div className="sidebar-footer" style={{ marginTop: "auto" }}>
+      <div className="sidebar-footer" style={{ marginTop: "32px" }}>
         <button
+          className="admin-nav-link"
+          style={{ width: "100%", background: "rgba(239, 68, 68, 0.1)", color: "#f87171", border: "none", cursor: "pointer" }}
           type="button"
           onClick={() => {
             localStorage.removeItem("adminInfo");
             window.location.href = "/admin/login";
           }}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            padding: "0.95rem 1rem",
-            borderRadius: "12px",
-            background: "rgba(239, 68, 68, 0.1)",
-            color: "#f87171",
-            border: "1px solid rgba(239, 68, 68, 0.2)",
-            cursor: "pointer",
-          }}
         >
           <LogOut size={18} />
-          Secure Sign Out
+          <span>Sign Out</span>
         </button>
       </div>
     </aside>

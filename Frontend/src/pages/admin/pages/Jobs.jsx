@@ -6,12 +6,12 @@ import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService
 
 const initialForm = {
   title: "",
-  company: "Sivion Global Technologies",
+  department: "",
   location: "",
-  type: "",
-  experience: "",
+  type: "full-time",
   description: "",
-  status: "active",
+  requirements: "",
+  isActive: true,
 };
 
 const Jobs = () => {
@@ -27,15 +27,22 @@ const Jobs = () => {
       const { data } = await getJobs();
       setJobs(data?.data || data || []);
     } catch (error) {
-      console.log(error);
+      console.log("Error loading jobs:", error);
+      setJobs([]);
     }
   };
+
   useEffect(() => {
     loadJobs();
   }, []);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleOpenCreate = () => {
@@ -48,12 +55,14 @@ const Jobs = () => {
     setEditId(job._id);
     setFormData({
       title: job.title || "",
-      company: job.company || "Sivion Global Technologies",
+      department: job.department || "",
       location: job.location || "",
-      type: job.type || "",
-      experience: job.experience || "",
+      type: job.type || "full-time",
       description: job.description || "",
-      status: job.status || "active",
+      requirements: Array.isArray(job.requirements)
+        ? job.requirements.join(", ")
+        : "",
+      isActive: typeof job.isActive === "boolean" ? job.isActive : true,
     });
     setOpenForm(true);
   };
@@ -63,19 +72,33 @@ const Jobs = () => {
     setEditId(null);
     setOpenForm(false);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
+
+      const payload = {
+        title: formData.title.trim(),
+        department: formData.department.trim(),
+        location: formData.location.trim(),
+        type: formData.type,
+        description: formData.description.trim(),
+        requirements: formData.requirements,
+        isActive: formData.isActive,
+      };
+
       if (editId) {
-        await updateJob(editId, formData);
+        await updateJob(editId, payload);
       } else {
-        await createJob(formData);
+        await createJob(payload);
       }
+
       resetForm();
       loadJobs();
     } catch (error) {
-      console.log(error);
+      console.log("Error submitting job:", error);
     } finally {
       setLoading(false);
     }
@@ -87,25 +110,70 @@ const Jobs = () => {
       setDeleteId(null);
       loadJobs();
     } catch (error) {
-      console.log(error);
+      console.log("Error deleting job:", error);
     }
   };
 
+  const formatRequirements = (requirements) => {
+    if (!requirements || !Array.isArray(requirements) || requirements.length === 0) {
+      return "-";
+    }
+    return requirements.join(", ");
+  };
+
   const columns = [
-    { header: "S.No", key: "serial", render: (_, i) => i + 1 },
-    { header: "Title", key: "title" },
-    { header: "Location", key: "location" },
-    { header: "Type", key: "type" },
-    { header: "Status", key: "status" },
+    {
+      header: "S.No",
+      key: "serial",
+      render: (_, i) => i + 1,
+    },
+    {
+      header: "Title",
+      key: "title",
+      render: (row) => row.title || "-",
+    },
+    {
+      header: "Department",
+      key: "department",
+      render: (row) => row.department || "-",
+    },
+    {
+      header: "Location",
+      key: "location",
+      render: (row) => row.location || "-",
+    },
+    {
+      header: "Type",
+      key: "type",
+      render: (row) => row.type || "-",
+    },
+    {
+      header: "Requirements",
+      key: "requirements",
+      render: (row) => formatRequirements(row.requirements),
+    },
+    {
+      header: "Status",
+      key: "isActive",
+      render: (row) => (row.isActive ? "Active" : "Inactive"),
+    },
     {
       header: "Actions",
       key: "actions",
       render: (row) => (
         <div className="table-action-group">
-          <button className="admin-btn admin-btn-secondary" onClick={() => handleOpenEdit(row)}>
+          <button
+            className="admin-btn admin-btn-secondary"
+            onClick={() => handleOpenEdit(row)}
+            type="button"
+          >
             Edit
           </button>
-          <button className="admin-btn admin-btn-danger" onClick={() => setDeleteId(row._id)}>
+          <button
+            className="admin-btn admin-btn-danger"
+            onClick={() => setDeleteId(row._id)}
+            type="button"
+          >
             Delete
           </button>
         </div>
@@ -114,7 +182,10 @@ const Jobs = () => {
   ];
 
   return (
-    <AdminLayout title="Manage Jobs" subtitle="Create, update, and remove job openings.">
+    <AdminLayout
+      title="Manage Jobs"
+      subtitle="Create, update, and remove job openings."
+    >
       <div
         style={{
           display: "flex",
@@ -122,7 +193,11 @@ const Jobs = () => {
           marginBottom: "20px",
         }}
       >
-        <button className="admin-btn admin-btn-primary" onClick={handleOpenCreate} type="button">
+        <button
+          className="admin-btn admin-btn-primary"
+          onClick={handleOpenCreate}
+          type="button"
+        >
           Add Job
         </button>
       </div>
@@ -144,11 +219,7 @@ const Jobs = () => {
               <h3>{editId ? "Update Job" : "Create Job"}</h3>
               <button
                 className="admin-modal-close"
-                onClick={() => {
-                  setOpenForm(false);
-                  setEditId(null);
-                  setFormData(initialForm);
-                }}
+                onClick={resetForm}
                 type="button"
               >
                 ×
@@ -169,13 +240,14 @@ const Jobs = () => {
               </div>
 
               <div className="admin-form-group">
-                <label>Company</label>
+                <label>Department</label>
                 <input
                   type="text"
-                  name="company"
-                  value={formData.company}
+                  name="department"
+                  value={formData.department}
                   onChange={handleChange}
-                  placeholder="Enter company name"
+                  placeholder="Enter department"
+                  required
                 />
               </div>
 
@@ -187,41 +259,21 @@ const Jobs = () => {
                   value={formData.location}
                   onChange={handleChange}
                   placeholder="Enter job location"
+                  required
                 />
               </div>
 
               <div className="admin-form-group">
                 <label>Type</label>
-                <input
-                  type="text"
+                <select
                   name="type"
                   value={formData.type}
                   onChange={handleChange}
-                  placeholder="e.g., Full-time, Part-time"
-                />
-              </div>
-
-              <div className="admin-form-group">
-                <label>Experience</label>
-                <input
-                  type="text"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={handleChange}
-                  placeholder="e.g., 2-3 years"
-                />
-              </div>
-
-              <div className="admin-form-group">
-                <label>Status</label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
                   required
                 >
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
+                  <option value="contract">Contract</option>
                 </select>
               </div>
 
@@ -233,7 +285,31 @@ const Jobs = () => {
                   onChange={handleChange}
                   placeholder="Enter job description"
                   rows="5"
+                  required
                 />
+              </div>
+
+              <div className="admin-form-group">
+                <label>Requirements</label>
+                <textarea
+                  name="requirements"
+                  value={formData.requirements}
+                  onChange={handleChange}
+                  placeholder="Enter requirements separated by commas"
+                  rows="4"
+                />
+              </div>
+
+              <div className="admin-form-group">
+                <label style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={handleChange}
+                  />
+                  Active Job
+                </label>
               </div>
 
               <div
@@ -247,23 +323,23 @@ const Jobs = () => {
                 <button
                   type="button"
                   className="admin-btn admin-btn-secondary"
-                  onClick={() => {
-                    setOpenForm(false);
-                    setEditId(null);
-                    setFormData(initialForm);
-                  }}
+                  onClick={resetForm}
                 >
                   Cancel
                 </button>
 
-                <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
+                <button
+                  type="submit"
+                  className="admin-btn admin-btn-primary"
+                  disabled={loading}
+                >
                   {loading
                     ? editId
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                      ? "Update Job"
-                      : "Create Job"}
+                    ? "Update Job"
+                    : "Create Job"}
                 </button>
               </div>
             </form>
@@ -272,6 +348,6 @@ const Jobs = () => {
       )}
     </AdminLayout>
   );
-}
+};
 
 export default Jobs;

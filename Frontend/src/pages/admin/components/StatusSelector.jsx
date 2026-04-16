@@ -2,10 +2,30 @@ import React, { useState, useRef, useEffect } from "react";
 import "../styles/status-selector.css";
 
 const statusOptions = [
-  { label: "Pending", value: "pending", icon: "⏳", colorClass: "status-option-pending" },
-  { label: "Reviewed", value: "reviewed", icon: "👁️", colorClass: "status-option-reviewed" },
-  { label: "Rejected", value: "rejected", icon: "✗", colorClass: "status-option-rejected" },
-  { label: "Hired", value: "hired", icon: "✓", colorClass: "status-option-hired" },
+  {
+    label: "Pending",
+    value: "pending",
+    icon: "⏳",
+    colorClass: "status-option-pending",
+  },
+  {
+    label: "Reviewed",
+    value: "reviewed",
+    icon: "👁️",
+    colorClass: "status-option-reviewed",
+  },
+  {
+    label: "Rejected",
+    value: "rejected",
+    icon: "✗",
+    colorClass: "status-option-rejected",
+  },
+  {
+    label: "Hired",
+    value: "hired",
+    icon: "✓",
+    colorClass: "status-option-hired",
+  },
 ];
 
 const StatusSelector = ({ value, onSave, disabled = false }) => {
@@ -20,7 +40,10 @@ const StatusSelector = ({ value, onSave, disabled = false }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
@@ -40,7 +63,8 @@ const StatusSelector = ({ value, onSave, disabled = false }) => {
     };
   }, []);
 
-  const currentStatus = statusOptions.find((option) => option.value === value) || statusOptions[0];
+  const currentStatus =
+    statusOptions.find((option) => option.value === value) || statusOptions[0];
 
   const openSelector = () => {
     if (disabled || isSaving) return;
@@ -61,6 +85,7 @@ const StatusSelector = ({ value, onSave, disabled = false }) => {
       setIsOpen(false);
     } catch (error) {
       console.error("Failed to update status", error);
+      setSelectedStatus(value || "pending");
     } finally {
       setIsSaving(false);
     }
@@ -95,23 +120,31 @@ const StatusSelector = ({ value, onSave, disabled = false }) => {
                 ×
               </button>
             </div>
+
             <div className="status-selector-body">
               {statusOptions.map((option) => (
                 <button
                   key={option.value}
                   type="button"
-                  className={`status-option-item ${option.colorClass} ${option.value === selectedStatus ? "active" : ""}`}
+                  className={`status-option-item ${option.colorClass} ${
+                    option.value === selectedStatus ? "active" : ""
+                  }`}
                   onClick={() => handleSave(option.value)}
                   disabled={isSaving}
                 >
                   <span className="status-option-icon">{option.icon}</span>
                   <span className="status-option-text">{option.label}</span>
-                  {option.value === value && <span className="status-option-current">Current</span>}
+                  {option.value === value && (
+                    <span className="status-option-current">Current</span>
+                  )}
                 </button>
               ))}
             </div>
+
             <div className="status-selector-note">
-              {isSaving ? "Updating status…" : "Select a new status to save changes."}
+              {isSaving
+                ? "Updating status..."
+                : "Select a new status to save changes."}
             </div>
           </div>
         </div>
