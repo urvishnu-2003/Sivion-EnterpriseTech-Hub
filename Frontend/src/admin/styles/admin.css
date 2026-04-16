@@ -1,0 +1,177 @@
+/* ── THEME CSS VARIABLES ── */
+:root {
+  /* Colors from the specifically requested mockup image */
+  --admin-sidebar-bg: #1b2531; 
+  --admin-header-bg: #1b2531;
+  --admin-body-bg: #ffffff;    /* Clean White Body background */
+  
+  --admin-accent: #00d4ff;
+  --admin-accent-glow: rgba(0, 212, 255, 0.5);
+  --admin-text-white: #ffffff;
+  --admin-text-dim: #94a3b8;
+  --admin-border: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"],
+:root:not([data-theme]) {
+  --bg-primary: var(--admin-body-bg);
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --accent-primary: var(--admin-accent);
+  --border-color: #e2e8f0;
+}
+
+/* ── LAYOUT ── */
+.admin-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background: var(--admin-body-bg);
+}
+
+.admin-sidebar {
+  background: var(--admin-sidebar-bg);
+  color: white;
+  padding: 32px 0; /* Vertical padding */
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1005;
+  border-right: none; /* Connect to navbar */
+}
+
+/* Custom Scrollbar from Image */
+.admin-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--admin-accent) transparent;
+}
+.admin-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.admin-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: var(--admin-accent);
+  box-shadow: 0 0 10px var(--admin-accent-glow);
+  border-radius: 10px;
+}
+
+/* ── BRAND ── */
+.admin-brand {
+  padding: 0 24px 32px;
+}
+.admin-brand h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: white;
+}
+.admin-brand h2 span {
+  color: var(--admin-accent);
+}
+.admin-brand p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+}
+
+/* ── NAVIGATION ── */
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  padding: 0 16px;
+}
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  color: #a0aec0;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.admin-nav-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.02);
+}
+.admin-nav-link.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.admin-nav-link svg {
+  color: inherit;
+}
+
+/* ── HEADER ── */
+.admin-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  background: var(--admin-body-bg);
+  min-height: 100vh;
+}
+
+.admin-header {
+  background: #1b2531 !important;
+  padding: 30px 40px; /* Comfortable padding inside the header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff !important;
+  width: 100%;
+}
+.admin-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff !important;
+  letter-spacing: -0.5px;
+}
+.admin-header p {
+  margin: 6px 0 0;
+  color: #cbd5e1 !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ── PAGE CONTENT ── */
+.admin-main-area {
+  padding: 32px 40px; /* Re-apply padding here for content only */
+  background: transparent;
+  flex: 1;
+}
+
+/* ── CARD SYSTEM ── */
+.summary-card, .table-card, .admin-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid #edf2f7;
+  border-top: 3px solid var(--admin-accent);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 212, 255, 0.1);
+  border-top-width: 5px;
+}
+
+.dashboard-welcome-card {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid var(--admin-accent);
+  border-radius: 16px;
+}

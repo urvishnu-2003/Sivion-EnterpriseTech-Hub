@@ -1,0 +1,334 @@
+:root[data-theme="dark"],
+:root:not([data-theme]) {
+  --status-pending-light: #FFB800;
+  --status-pending-medium: #FFB800;
+  --status-pending-dark: #D99800;
+  --status-pending-subtle: rgba(255, 184, 0, 0.12);
+
+  --status-reviewed-light: #00D4FF;
+  --status-reviewed-medium: #00D4FF;
+  --status-reviewed-dark: #00B8E6;
+  --status-reviewed-subtle: rgba(0, 212, 255, 0.12);
+
+  --status-rejected-light: #FF4D6D;
+  --status-rejected-medium: #FF4D6D;
+  --status-rejected-dark: #E33A59;
+  --status-rejected-subtle: rgba(255, 77, 109, 0.12);
+
+  --status-hired-light: #00C896;
+  --status-hired-medium: #00C896;
+  --status-hired-dark: #00AE83;
+  --status-hired-subtle: rgba(0, 200, 150, 0.12);
+}
+
+:root[data-theme="light"] {
+  --status-pending-light: #FFB800;
+  --status-pending-medium: #FFB800;
+  --status-pending-dark: #D99800;
+  --status-pending-subtle: rgba(255, 184, 0, 0.12);
+
+  --status-reviewed-light: #00D4FF;
+  --status-reviewed-medium: #00D4FF;
+  --status-reviewed-dark: #00B8E6;
+  --status-reviewed-subtle: rgba(0, 212, 255, 0.12);
+
+  --status-rejected-light: #FF4D6D;
+  --status-rejected-medium: #FF4D6D;
+  --status-rejected-dark: #E33A59;
+  --status-rejected-subtle: rgba(255, 77, 109, 0.12);
+
+  --status-hired-light: #00C896;
+  --status-hired-medium: #00C896;
+  --status-hired-dark: #00AE83;
+  --status-hired-subtle: rgba(0, 200, 150, 0.12);
+}
+
+.status-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 148px;
+}
+
+.status-dropdown.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  user-select: none;
+  box-shadow: var(--shadow-light);
+}
+
+.status-dropdown-trigger.status-pending {
+  border-color: var(--status-pending-medium);
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.12), rgba(255, 184, 0, 0.04));
+  color: var(--status-pending-light);
+}
+
+.status-dropdown-trigger.status-reviewed {
+  border-color: var(--status-reviewed-medium);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.12), rgba(0, 212, 255, 0.04));
+  color: var(--status-reviewed-light);
+}
+
+.status-dropdown-trigger.status-rejected {
+  border-color: var(--status-rejected-medium);
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.12), rgba(255, 77, 109, 0.04));
+  color: var(--status-rejected-light);
+}
+
+.status-dropdown-trigger.status-hired {
+  border-color: var(--status-hired-medium);
+  background: linear-gradient(135deg, rgba(0, 200, 150, 0.12), rgba(0, 200, 150, 0.04));
+  color: var(--status-hired-light);
+}
+
+.status-dropdown-trigger:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.15), var(--shadow-medium);
+}
+
+.status-dropdown-trigger:focus {
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.16);
+}
+
+.status-dropdown-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  text-align: left;
+}
+
+.status-icon {
+  font-size: 14px;
+}
+
+.status-label {
+  font-size: 12px;
+}
+
+.status-dropdown-arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+
+.status-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.status-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-primary);
+  border-radius: 16px;
+  margin-top: 0;
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.15), var(--shadow-large);
+  z-index: 1000;
+  animation: dropdownSlideDown 0.2s ease-out;
+  backdrop-filter: blur(12px);
+}
+
+@keyframes dropdownSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  position: relative;
+  user-select: none;
+}
+
+.status-dropdown-item:hover {
+  background: var(--bg-hover);
+}
+
+.status-option-icon {
+  font-size: 16px;
+}
+
+.status-option-label {
+  flex: 1;
+}
+
+.status-checkmark {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.status-dropdown-item.status-pending {
+  color: var(--status-pending-light);
+}
+
+.status-dropdown-item.status-pending:hover,
+.status-dropdown-item.status-pending.active {
+  background: var(--status-pending-subtle);
+}
+
+.status-dropdown-item.status-pending.active {
+  border-left: 3px solid var(--status-pending-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-pending.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-pending-medium);
+}
+
+.status-dropdown-item.status-reviewed {
+  color: var(--status-reviewed-light);
+}
+
+.status-dropdown-item.status-reviewed:hover,
+.status-dropdown-item.status-reviewed.active {
+  background: var(--status-reviewed-subtle);
+}
+
+.status-dropdown-item.status-reviewed.active {
+  border-left: 3px solid var(--status-reviewed-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-reviewed.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-reviewed-medium);
+}
+
+.status-dropdown-item.status-rejected {
+  color: var(--status-rejected-light);
+}
+
+.status-dropdown-item.status-rejected:hover,
+.status-dropdown-item.status-rejected.active {
+  background: var(--status-rejected-subtle);
+}
+
+.status-dropdown-item.status-rejected.active {
+  border-left: 3px solid var(--status-rejected-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-rejected.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-rejected-medium);
+}
+
+.status-dropdown-item.status-hired {
+  color: var(--status-hired-light);
+}
+
+.status-dropdown-item.status-hired:hover,
+.status-dropdown-item.status-hired.active {
+  background: var(--status-hired-subtle);
+}
+
+.status-dropdown-item.status-hired.active {
+  border-left: 3px solid var(--status-hired-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-hired.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-hired-medium);
+}
+
+.status-badge-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.status-badge-small.pending {
+  background: var(--status-pending-subtle);
+  color: var(--status-pending-light);
+  border: 1px solid var(--status-pending-medium);
+}
+
+.status-badge-small.reviewed {
+  background: var(--status-reviewed-subtle);
+  color: var(--status-reviewed-light);
+  border: 1px solid var(--status-reviewed-medium);
+}
+
+.status-badge-small.rejected {
+  background: var(--status-rejected-subtle);
+  color: var(--status-rejected-light);
+  border: 1px solid var(--status-rejected-medium);
+}
+
+.status-badge-small.hired {
+  background: var(--status-hired-subtle);
+  color: var(--status-hired-light);
+  border: 1px solid var(--status-hired-medium);
+}
+
+@media (max-width: 768px) {
+  .status-dropdown {
+    max-width: 132px;
+  }
+
+  .status-dropdown-trigger {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .status-dropdown-item {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .status-option-icon {
+    font-size: 14px;
+  }
+}

@@ -20,11 +20,11 @@ const ProjectDetails = () => {
   return (
     <div className="project-details-page">
 
-     <div className="project-details-container">{/* ✅ FIXED */}
+      <div className="project-details-container">{/* ✅ FIXED */}
 
         {/* 🔙 Back */}
-       <Link to="/projects" className="back-btn">
-      ← Back to Projects
+        <Link to="/projects" className="back-btn">
+          ← Back to Projects
         </Link>
 
         {/* 🔥 HERO SECTION */}
@@ -49,33 +49,33 @@ const ProjectDetails = () => {
         </div>
 
         {/* 🔥 CONTENT SECTION */}
-       <div className="details-content">
+        <div className="details-content">
 
-  <div className="detail-card problem">
-    <h2>🚨 Problem</h2>
-    <p>{project.details.problem}</p>
-  </div>
+          <div className="detail-card problem">
+            <h2>🚨 Problem</h2>
+            <p>{project.details.problem}</p>
+          </div>
 
-  <div className="detail-card solution">
-    <h2>💡 Solution</h2>
-    <p>{project.details.solution}</p>
-  </div>
+          <div className="detail-card solution">
+            <h2>💡 Solution</h2>
+            <p>{project.details.solution}</p>
+          </div>
 
-  <div className="detail-card result big">
-    <h2>🚀 Result</h2>
-    <p>{project.details.result}</p>
-  </div>
+          <div className="detail-card result big">
+            <h2>🚀 Result</h2>
+            <p>{project.details.result}</p>
+          </div>
 
-  <div className="detail-card tech">
-    <h2>🛠 Tech Stack</h2>
-    <div className="tech-list">
-      {project.details.tech.map((tech, i) => (
-        <span key={i}>{tech}</span>
-      ))}
-    </div>
-  </div>
+          <div className="detail-card tech">
+            <h2>🛠 Tech Stack</h2>
+            <div className="tech-list">
+              {project.details.tech.map((tech, i) => (
+                <span key={i}>{tech}</span>
+              ))}
+            </div>
+          </div>
 
-</div>
+        </div>
 
       </div>
     </div>

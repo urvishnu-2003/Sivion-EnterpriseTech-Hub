@@ -1,0 +1,380 @@
+/* ── STATUS DROPDOWN STYLES ── */
+
+:root[data-theme="dark"],
+:root:not([data-theme]) {
+  --status-pending-light: #fbbf24;
+  --status-pending-medium: #f59e0b;
+  --status-pending-dark: #d97706;
+  --status-pending-subtle: rgba(245, 158, 11, 0.15);
+
+  --status-reviewed-light: #60a5fa;
+  --status-reviewed-medium: #3b82f6;
+  --status-reviewed-dark: #2563eb;
+  --status-reviewed-subtle: rgba(59, 130, 246, 0.15);
+
+  --status-rejected-light: #f87171;
+  --status-rejected-medium: #ef4444;
+  --status-rejected-dark: #dc2626;
+  --status-rejected-subtle: rgba(220, 38, 38, 0.15);
+
+  --status-hired-light: #4ade80;
+  --status-hired-medium: #22c55e;
+  --status-hired-dark: #10b981;
+  --status-hired-subtle: rgba(16, 185, 129, 0.15);
+}
+
+:root[data-theme="light"] {
+  --status-pending-light: #fde047;
+  --status-pending-medium: #facc15;
+  --status-pending-dark: #eab308;
+  --status-pending-subtle: rgba(250, 204, 21, 0.15);
+
+  --status-reviewed-light: #93c5fd;
+  --status-reviewed-medium: #3b82f6;
+  --status-reviewed-dark: #1d4ed8;
+  --status-reviewed-subtle: rgba(59, 130, 246, 0.15);
+
+  --status-rejected-light: #fca5a5;
+  --status-rejected-medium: #f87171;
+  --status-rejected-dark: #dc2626;
+  --status-rejected-subtle: rgba(220, 38, 38, 0.15);
+
+  --status-hired-light: #86efac;
+  --status-hired-medium: #4ade80;
+  --status-hired-dark: #16a34a;
+  --status-hired-subtle: rgba(22, 163, 74, 0.15);
+}
+
+.status-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 140px;
+}
+
+.status-dropdown.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── DROPDOWN TRIGGER BUTTON ── */
+.status-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid;
+  background: var(--bg-tertiary);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Status-specific trigger styles */
+.status-dropdown-trigger.status-pending {
+  border-color: var(--status-pending-medium);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+  color: var(--status-pending-light);
+  box-shadow: inset 0 0 0 1px var(--status-pending-medium), 0 2px 6px rgba(245, 158, 11, 0.15);
+}
+
+.status-dropdown-trigger.status-pending:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.1));
+  box-shadow: inset 0 0 0 1px var(--status-pending-medium), 0 4px 12px rgba(245, 158, 11, 0.25);
+  transform: translateY(-1px);
+}
+
+.status-dropdown-trigger.status-pending:focus {
+  box-shadow: inset 0 0 0 1px var(--status-pending-medium), 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+.status-dropdown-trigger.status-reviewed {
+  border-color: var(--status-reviewed-medium);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+  color: var(--status-reviewed-light);
+  box-shadow: inset 0 0 0 1px var(--status-reviewed-medium), 0 2px 6px rgba(59, 130, 246, 0.15);
+}
+
+.status-dropdown-trigger.status-reviewed:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.1));
+  box-shadow: inset 0 0 0 1px var(--status-reviewed-medium), 0 4px 12px rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+.status-dropdown-trigger.status-reviewed:focus {
+  box-shadow: inset 0 0 0 1px var(--status-reviewed-medium), 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.status-dropdown-trigger.status-rejected {
+  border-color: var(--status-rejected-medium);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.05));
+  color: var(--status-rejected-light);
+  box-shadow: inset 0 0 0 1px var(--status-rejected-medium), 0 2px 6px rgba(220, 38, 38, 0.15);
+}
+
+.status-dropdown-trigger.status-rejected:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(220, 38, 38, 0.1));
+  box-shadow: inset 0 0 0 1px var(--status-rejected-medium), 0 4px 12px rgba(220, 38, 38, 0.25);
+  transform: translateY(-1px);
+}
+
+.status-dropdown-trigger.status-rejected:focus {
+  box-shadow: inset 0 0 0 1px var(--status-rejected-medium), 0 0 0 3px rgba(220, 38, 38, 0.25);
+}
+
+.status-dropdown-trigger.status-hired {
+  border-color: var(--status-hired-medium);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+  color: var(--status-hired-light);
+  box-shadow: inset 0 0 0 1px var(--status-hired-medium), 0 2px 6px rgba(16, 185, 129, 0.15);
+}
+
+.status-dropdown-trigger.status-hired:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.1));
+  box-shadow: inset 0 0 0 1px var(--status-hired-medium), 0 4px 12px rgba(16, 185, 129, 0.25);
+  transform: translateY(-1px);
+}
+
+.status-dropdown-trigger.status-hired:focus {
+  box-shadow: inset 0 0 0 1px var(--status-hired-medium), 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.status-dropdown-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  text-align: left;
+}
+
+.status-icon {
+  font-size: 14px;
+}
+
+.status-label {
+  font-size: 13px;
+}
+
+.status-dropdown-arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+
+.status-dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* ── DROPDOWN MENU ── */
+.status-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-top: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-large);
+  z-index: 1000;
+  animation: dropdownSlideDown 0.2s ease-out;
+  backdrop-filter: blur(12px);
+}
+
+@keyframes dropdownSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── DROPDOWN ITEMS ── */
+.status-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  transition: all 0.2s ease;
+  position: relative;
+  user-select: none;
+}
+
+.status-dropdown-item:hover {
+  background: var(--bg-hover);
+}
+
+.status-option-icon {
+  font-size: 16px;
+}
+
+.status-option-label {
+  flex: 1;
+}
+
+.status-checkmark {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Status-specific item styles */
+.status-dropdown-item.status-pending {
+  color: var(--status-pending-light);
+}
+
+.status-dropdown-item.status-pending:hover {
+  background: var(--status-pending-subtle);
+}
+
+.status-dropdown-item.status-pending.active {
+  background: var(--status-pending-subtle);
+  border-left: 3px solid var(--status-pending-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-pending.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-pending-medium);
+}
+
+.status-dropdown-item.status-reviewed {
+  color: var(--status-reviewed-light);
+}
+
+.status-dropdown-item.status-reviewed:hover {
+  background: var(--status-reviewed-subtle);
+}
+
+.status-dropdown-item.status-reviewed.active {
+  background: var(--status-reviewed-subtle);
+  border-left: 3px solid var(--status-reviewed-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-reviewed.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-reviewed-medium);
+}
+
+.status-dropdown-item.status-rejected {
+  color: var(--status-rejected-light);
+}
+
+.status-dropdown-item.status-rejected:hover {
+  background: var(--status-rejected-subtle);
+}
+
+.status-dropdown-item.status-rejected.active {
+  background: var(--status-rejected-subtle);
+  border-left: 3px solid var(--status-rejected-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-rejected.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-rejected-medium);
+}
+
+.status-dropdown-item.status-hired {
+  color: var(--status-hired-light);
+}
+
+.status-dropdown-item.status-hired:hover {
+  background: var(--status-hired-subtle);
+}
+
+.status-dropdown-item.status-hired.active {
+  background: var(--status-hired-subtle);
+  border-left: 3px solid var(--status-hired-medium);
+  padding-left: 11px;
+}
+
+.status-dropdown-item.status-hired.active .status-checkmark {
+  opacity: 1;
+  color: var(--status-hired-medium);
+}
+
+/* ── STATUS BADGE SMALL VERSION (for display next to dropdown) ── */
+.status-badge-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.status-badge-small.pending {
+  background: var(--status-pending-subtle);
+  color: var(--status-pending-light);
+  border: 1px solid var(--status-pending-medium);
+}
+
+.status-badge-small.reviewed {
+  background: var(--status-reviewed-subtle);
+  color: var(--status-reviewed-light);
+  border: 1px solid var(--status-reviewed-medium);
+}
+
+.status-badge-small.rejected {
+  background: var(--status-rejected-subtle);
+  color: var(--status-rejected-light);
+  border: 1px solid var(--status-rejected-medium);
+}
+
+.status-badge-small.hired {
+  background: var(--status-hired-subtle);
+  color: var(--status-hired-light);
+  border: 1px solid var(--status-hired-medium);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .status-dropdown {
+    max-width: 120px;
+  }
+
+  .status-dropdown-trigger {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .status-dropdown-item {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .status-option-icon {
+    font-size: 14px;
+  }
+}

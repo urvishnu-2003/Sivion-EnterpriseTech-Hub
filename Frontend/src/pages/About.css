@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════════════
-   ABOUT PAGE SPECIFIC STYLES
+   ABOUT PAGE
    ═══════════════════════════════════════════════════════════════ */
 
 .about-page {
-  padding-top: 100px;
+  padding-top: 0;
 }
 
 .about-hero {
-  padding: 8rem 5%;
+  padding: 3rem 5% 8rem;
   text-align: center;
   background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.06) 0%, transparent 70%);
 }
@@ -146,123 +146,17 @@
   margin-top: 0.75rem;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   COMPANY INTRODUCTION ANIMATED SECTION
-   ═══════════════════════════════════════════════════════════════ */
-
-.intro-section {
-  padding: var(--section-pad);
-}
-
-.intro-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-}
-
-.intro-visual {
-  position: relative;
-  height: 450px;
-}
-
-/* Futuristic visual placeholder */
-.intro-orb {
-  position: absolute;
-  border-radius: 50%;
-}
-
-.intro-orb-1 {
-  width: 300px;
-  height: 300px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(0, 200, 255, 0.15) 0%, transparent 70%);
-  border: 1px solid rgba(0, 200, 255, 0.2);
-  animation: orbRotate 20s linear infinite;
-}
-
-.intro-orb-2 {
-  width: 200px;
-  height: 200px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-  border: 1px dashed rgba(124, 58, 237, 0.3);
-  animation: orbRotate 12s linear infinite reverse;
-}
-
-@keyframes orbRotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg) translateX(60px) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg) translateX(60px) rotate(-360deg);
-  }
-}
-
-.intro-floating-card {
-  position: absolute;
-  background: rgba(10, 22, 40, 0.9);
-  border: 1px solid var(--glass-border);
-  padding: 1rem 1.5rem;
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--white);
-}
-
-.intro-floating-card-1 {
-  top: 15%;
-  right: 0;
-  animation: cardFloat 6s ease-in-out infinite;
-}
-
-.intro-floating-card-2 {
-  bottom: 15%;
-  left: 0;
-  animation: cardFloat 8s ease-in-out infinite reverse;
-}
-
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-.company-intro {
-  padding: var(--section-pad);
-  position: relative;
-  overflow: hidden;
-}
-
-.company-intro::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40%;
-  height: 80%;
-  background: radial-gradient(ellipse, rgba(0, 200, 255, 0.05) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-/* Responsiveness */
 @media (max-width: 1024px) {
-  .mission-grid, .values-grid, .intro-grid {
+  .mission-grid {
     grid-template-columns: 1fr;
   }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .intro-visual {
-    height: 350px;
   }
 }
 

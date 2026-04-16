@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import './Solutions.css';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Shield, Truck, BarChart3, ArrowRight, CheckCircle2, FileCheck, Lock, HeartPulse } from 'lucide-react';
+import { 
+  ChevronDown, Shield, Truck, BarChart3, ArrowRight, 
+  CheckCircle2, FileCheck, Lock, HeartPulse, 
+  ShoppingBag, Layers, Landmark, Globe, Database, Fingerprint, Zap 
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const industries = [
@@ -39,6 +43,22 @@ const industries = [
     caseStudy: { stat: '40%', statLabel: 'Cost Reduction', name: 'GlobalBank Ltd.', desc: 'Migrated legacy infrastructure to microservices, reducing operational IT costs by 40% while achieving 99.99% system uptime.' },
   },
   {
+    id: 'ecommerce',
+    label: 'E-COMMERCE',
+    subtitle: 'Global. Scalable. High-Throughput.',
+    icon: <ShoppingBag size={28} />,
+    accent: '#A855F7',
+    heroImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80',
+    description: 'We build next-generation commerce ecosystems that process millions of transactions while delivering personalized customer journeys. From headless commerce architectures to AI-driven recommendation engines, our solutions power global retail leaders.',
+    services: [
+      { icon: <ShoppingBag size={18} />, title: 'HEADLESS COMMERCE', desc: 'Fast, flexible storefronts decoupled from back-end logic for extreme speed.' },
+      { icon: <Globe size={18} />, title: 'CROSS-BORDER PAYOUTS', desc: 'Localized payment and tax logic for seamless international scaling.' },
+      { icon: <Zap size={18} />, title: 'AI PERSONALIZATION', desc: 'Real-time product recommendations that drive conversion and LTV.' },
+      { icon: <BarChart3 size={18} />, title: 'UNIFIED INVENTORY', desc: 'Real-time sync across physical stores and digital marketplaces.' },
+    ],
+    caseStudy: { stat: '8.4X', statLabel: 'ROI Increase', name: 'StyleHub Co.', desc: 'Migration to a headless microservices architecture enabled a 840% increase in peak BFCM traffic throughput.' },
+  },
+  {
     id: 'logistics',
     label: 'LOGISTICS',
     subtitle: 'Frictionless Supply Chain. Intelligent Logistics.',
@@ -53,6 +73,38 @@ const industries = [
       { icon: <Shield size={18} />, title: 'FLEET MANAGEMENT', desc: 'GPS-powered fleet intelligence with preventive maintenance alerts.' },
     ],
     caseStudy: { stat: '30%', statLabel: 'Efficiency Gain', name: 'SwiftLogistics EU', desc: 'Deployed AI route optimization across a 2,400-vehicle fleet, achieving a 30% reduction in fuel costs and a 22% improvement in on-time delivery rates.' },
+  },
+  {
+    id: 'saas',
+    label: 'SAAS',
+    subtitle: 'Multi-Tenant. Performance-First. Cloud-Native.',
+    icon: <Layers size={28} />,
+    accent: '#6366F1',
+    heroImage: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80',
+    description: 'Our engineers help SaaS founders and enterprise software groups build high-margin platforms. We focus on multi-tenant architecture, robust API ecosystems, and performance monitoring to ensure your software is reliable and infinitely scalable.',
+    services: [
+      { icon: <Layers size={18} />, title: 'MULTI-TENANT ARCHITECTURE', desc: 'Secure data isolation and shared compute resources for high-margin scaling.' },
+      { icon: <Database size={18} />, title: 'DYNAMIC METADATA', desc: 'Flexible schema management for high-customizability across tenants.' },
+      { icon: <Lock size={18} />, title: 'ENTERPRISE SSO', desc: 'SAML, OAuth2, and advanced RBAC for mission-critical security.' },
+      { icon: <BarChart3 size={18} />, title: 'USAGE ANALYTICS', desc: 'Real-time metered billing and customer success data insights.' },
+    ],
+    caseStudy: { stat: '99.99%', statLabel: 'SLA Availability', name: 'CloudStack', desc: 'Architected a multi-region SaaS platform that maintained 99.99% uptime during a 10x sudden user surge.' },
+  },
+  {
+    id: 'government',
+    label: 'GOVERNMENT',
+    subtitle: 'Secure. Transparent. Citizen-Centric.',
+    icon: <Landmark size={28} />,
+    accent: '#F59E0B',
+    heroImage: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80',
+    description: 'We partner with public sector organizations to build secure, interoperable portals that bridge the gap between agencies and citizens. Our G2C (Government-to-Citizen) platforms optimize public service delivery while maintaining the highest levels of data integrity.',
+    services: [
+      { icon: <Fingerprint size={18} />, title: 'SECURE DIGITAL ID', desc: 'Biometric and multi-factor identity management for public services.' },
+      { icon: <Shield size={18} />, title: 'CYBER RESILIENCE', desc: 'Defending nation-state infrastructure against sophisticated threats.' },
+      { icon: <Globe size={18} />, title: 'PORTAL INTEROPERABILITY', desc: 'Scalable API bridges connecting fragmented agency datasets.' },
+      { icon: <FileCheck size={18} />, title: 'AUDITABLE COMPLIANCE', desc: 'Full transparency through immutable transaction logs and reporting.' },
+    ],
+    caseStudy: { stat: '1.2M', statLabel: 'Hours Saved', name: 'City Portal Alpha', desc: 'Automated 40+ public services, reducing wait times by 75% for over a million active citizens.' },
   },
 ];
 
