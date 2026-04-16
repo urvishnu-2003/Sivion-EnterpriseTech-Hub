@@ -29,12 +29,16 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import BookTrial from './pages/BookTrial';
+import Solutions from './pages/Solutions';
 import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminLogin from './pages/admin/pages/AdminLogin';
+import AdminDashboard from './pages/admin/pages/AdminDashboard';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
+
+import ProjectDetails from "./pages/ProjectDetails";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -50,12 +54,19 @@ function AnimatedRoutes() {
         <Route path="/services/software" element={<SoftwareService />} />
         <Route path="/services/strategy" element={<StrategyService />} />
         <Route path="/services/:id" element={<ServiceDetail />} />
-        
+
         {/* Trust */}
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<CaseStudyDetail />} />
         <Route path="/technologies" element={<Technologies />} />
-        
+        <Route path="/book-trial" element={<BookTrial />} />
+        <Route path="/solutions" element={<Solutions />} />
+
+        {/* Admin */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
         {/* Community */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
@@ -68,11 +79,7 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
-
-        {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/project-details/:id" element={<ProjectDetails />} />
       </Routes>
     </AnimatePresence>
   );
@@ -81,19 +88,19 @@ function AnimatedRoutes() {
 
 function useCursor() {
   useEffect(() => {
-    const dot  = document.getElementById('cursor-dot');
+    const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
 
     let mouseX = 0, mouseY = 0;
-    let ringX  = 0, ringY  = 0;
+    let ringX = 0, ringY = 0;
     let raf;
 
     const onMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       dot.style.left = mouseX + 'px';
-      dot.style.top  = mouseY + 'px';
+      dot.style.top = mouseY + 'px';
     };
 
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -101,14 +108,14 @@ function useCursor() {
       ringX = lerp(ringX, mouseX, 0.12);
       ringY = lerp(ringY, mouseY, 0.12);
       ring.style.left = ringX + 'px';
-      ring.style.top  = ringY + 'px';
+      ring.style.top = ringY + 'px';
       raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
 
     // Expand ring on interactive elements
     const addHover = () => ring.classList.add('hovering');
-    const rmHover  = () => ring.classList.remove('hovering');
+    const rmHover = () => ring.classList.remove('hovering');
     const interactables = 'a, button, [role="button"], input, select, textarea, .premium-btn, .outline-btn, .cyan-btn, .tilt-card-inner, .nav-link';
 
     const attach = () => {
@@ -136,7 +143,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* Custom cursor elements — SRS AR-11 */}
-      <div id="cursor-dot"  aria-hidden="true" />
+      <div id="cursor-dot" aria-hidden="true" />
       <div id="cursor-ring" aria-hidden="true" />
 
       <div className="app-container">
