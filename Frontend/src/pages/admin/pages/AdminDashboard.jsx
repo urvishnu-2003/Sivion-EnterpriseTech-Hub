@@ -13,11 +13,8 @@ import {
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
-import Toast from "../components/Toast";
 import axiosInstance from "../../../api/axios";
 import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
-import AdminLayout from "../components/AdminLayout";
-import SummaryCard from "../components/SummaryCard";
 import { getBlogs } from "../services/blogService";
 import { getProjects } from "../services/projectService";
 import { getQuotes } from "../services/quoteService";
