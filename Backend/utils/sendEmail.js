@@ -1,21 +1,24 @@
-const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async ({ to, subject, text, html }) => {
-  const transporter = nodemailer.createTransport({
-    service: process.env.EMAIL_SERVICE,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+  try {
+    const msg = {
+      to,
+      from: `"Sivion EnterpriseTech Hub" <${process.env.EMAIL_FROM}>`, // verified sender
+      subject,
+      text,
+      html,
+    };
 
-  await transporter.sendMail({
-    from: `"Sivion EnterpriseTech Hub" <${process.env.EMAIL_USER}>`,
-    to,
-    subject,
-    text,
-    html,
-  });
+    await sgMail.send(msg);
+
+    console.log("✅ Email sent successfully");
+  } catch (error) {
+    console.error("❌ Email sending failed:", error.response?.body || error.message);
+    throw new Error("Email could not be sent");
+  }
 };
 
 module.exports = sendEmail;
