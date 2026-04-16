@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
-
 // Pillar 1: Home & Capability
 import Hero from './pages/Hero';
 import Aboutus from './pages/Aboutus';
@@ -30,12 +29,16 @@ import RequestQuote from './pages/RequestQuote';
 import ThankYou from './pages/ThankYou';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
-import Admin from './pages/admin/Admin';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingActions from './components/ui/FloatingActions';
+
+// Admin
+import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
+import AdminRoutes from './pages/admin/routes/AdminRoutes';
+import "./pages/admin/style/admin.css";
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -51,10 +54,12 @@ function AnimatedRoutes() {
         <Route path="/services/software" element={<SoftwareService />} />
         <Route path="/services/strategy" element={<StrategyService />} />
         <Route path="/services/:id" element={<ServiceDetail />} />
+
         {/* Trust */}
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<CaseStudyDetail />} />
         <Route path="/technologies" element={<Technologies />} />
+
         {/* Community */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
@@ -67,10 +72,16 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
+
         {/* Admin */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminAuthProvider>
+              <AdminRoutes />
+            </AdminAuthProvider>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -78,7 +89,6 @@ function AnimatedRoutes() {
 
 function useCursor() {
   useEffect(() => {
-    
     const dot = document.getElementById('cursor-dot');
     const ring = document.getElementById('cursor-ring');
     if (!dot || !ring) return;
@@ -91,7 +101,7 @@ function useCursor() {
       mouseX = e.clientX;
       mouseY = e.clientY;
       dot.style.left = mouseX + 'px';
-       dot.style.top = mouseY + 'px';
+      dot.style.top = mouseY + 'px';
     };
 
     const lerp = (a, b, t) => a + (b - a) * t;
@@ -107,8 +117,10 @@ function useCursor() {
     raf = requestAnimationFrame(animate);
 
     const addHover = () => ring.classList.add('hovering');
-    const rmHover  = () => ring.classList.remove('hovering');
-    const interactables = 'a, button, [role="button"], input, select, textarea, .premium-btn, .outline-btn, .cyan-btn, .tilt-card-inner, .nav-link';
+    const rmHover = () => ring.classList.remove('hovering');
+
+    const interactables =
+      'a, button, [role="button"], input, select, textarea, .premium-btn, .outline-btn, .cyan-btn, .tilt-card-inner, .nav-link';
 
     const attach = () => {
       document.querySelectorAll(interactables).forEach((el) => {
@@ -161,18 +173,7 @@ function App() {
 
   return (
     <BrowserRouter>
-    {/* Custom cursor elements — SRS AR-11 */}
-      <div id="cursor-dot"  aria-hidden="true" />
-      <div id="cursor-ring" aria-hidden="true" />
-
-      <div className="app-container">
-        <Navbar />
-        <main className="app-main">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <FloatingActions />
-      </div>
+      <AppLayout />
     </BrowserRouter>
   );
 }
