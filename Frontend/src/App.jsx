@@ -72,7 +72,6 @@ function AnimatedRoutes() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
-
         {/* Admin */}
         <Route
           path="/admin/*"
@@ -82,6 +81,10 @@ function AnimatedRoutes() {
             </AdminAuthProvider>
           }
         />
+    {/* Admin */}
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </AnimatePresence>
   );
@@ -121,6 +124,7 @@ function useCursor() {
 
     const interactables =
       'a, button, [role="button"], input, select, textarea, .premium-btn, .outline-btn, .cyan-btn, .tilt-card-inner, .nav-link';
+    const interactables = 'a, button, [role="button"], input, select, textarea, .premium-btn, .outline-btn, .cyan-btn, .tilt-card-inner, .nav-link';
 
     const attach = () => {
       document.querySelectorAll(interactables).forEach((el) => {

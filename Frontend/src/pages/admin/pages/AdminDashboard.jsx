@@ -1,4 +1,20 @@
 import React, { useEffect, useState } from "react";
+import {
+  FileText,
+  Cpu,
+  CreditCard,
+  Briefcase,
+  Users,
+  Mail,
+  HelpCircle,
+  Contact,
+} from "lucide-react";
+
+import AdminLayout from "../components/AdminLayout";
+import SummaryCard from "../components/SummaryCard";
+import SkeletonTable from "../components/SkeletonTable";
+import Toast from "../components/Toast";
+import axiosInstance from "../../../api/axios";
 import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
@@ -12,6 +28,7 @@ import { getInquiries } from "../services/inquiryService";
 import { getContacts } from "../services/contactService";
 
 const AdminDashboard = () => {
+  const [loading, setLoading] = useState(true);
   const [counts, setCounts] = useState({
     blogs: 0,
     projects: 0,
@@ -25,6 +42,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const loadCounts = async () => {
+      setLoading(true);
       try {
         const [blogs, projects, quotes, jobs, applications, subscribers, inquiries, contacts] = await Promise.all([
           getBlogs(),
@@ -49,6 +67,8 @@ const AdminDashboard = () => {
         });
       } catch (error) {
         console.log("Dashboard load failed", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -72,6 +92,53 @@ const AdminDashboard = () => {
         </div>
       </div>
 
+      {loading ? (
+        <SkeletonTable />
+      ) : (
+        <>
+          <div className="summary-grid">
+            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
+            <SummaryCard
+              icon={<Cpu />}
+              label="Projects"
+              count={counts.projects}
+            />
+            <SummaryCard
+              icon={<CreditCard />}
+              label="Quotes"
+              count={counts.quotes}
+            />
+            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
+            <SummaryCard
+              icon={<Users />}
+              label="Applications"
+              count={counts.applications}
+            />
+            <SummaryCard
+              icon={<Mail />}
+              label="Newsletter"
+              count={counts.subscribers}
+            />
+            <SummaryCard
+              icon={<HelpCircle />}
+              label="Inquiry"
+              count={counts.inquiries}
+            />
+            <SummaryCard
+              icon={<Contact />}
+              label="Contact"
+              count={counts.contacts}
+            />
+          </div>
+
+          <div className="panel-card" style={{ padding: "20px" }}>
+            <h3>Recent Activity</h3>
+            <p className="muted-text">
+              Recent admin actions, submissions, and updates can be shown here.
+            </p>
+          </div>
+        </>
+      )}
       {/* Dashboard Statistics Section */}
       <div className="dashboard-section">
         <h4 className="dashboard-section-title">📈 Key Metrics</h4>

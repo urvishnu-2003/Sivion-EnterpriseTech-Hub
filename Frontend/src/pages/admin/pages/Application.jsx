@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
+import Toast from "../components/Toast";
+import SkeletonTable from "../components/SkeletonTable";
+import axiosInstance from "../../../api/axios";
+
+const PAGE_SIZE = 5;
 import StatusSelector from "../components/StatusSelector";
 import { getApplications, updateApplication, deleteApplication } from "../services/applicationService";
 
@@ -53,7 +58,7 @@ const Applications = () => {
       console.log(error);
     }
   };
-const columns = [
+  const columns = [
     { header: "S.No", key: "serial", render: (_, i) => i + 1 },
     { header: "Candidate", key: "name" },
     { header: "Email", key: "email" },
@@ -80,7 +85,7 @@ const columns = [
     },
   ];
 
-   return (
+  return (
     <AdminLayout title="Manage Applications" subtitle="Review candidate applications and update their status.">
       <DataTable columns={columns} rows={applications} emptyText="No applications available" />
       <ConfirmModal
