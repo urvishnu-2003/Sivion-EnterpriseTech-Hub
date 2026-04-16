@@ -33,10 +33,10 @@ const Projects = () => {
       const projectList = Array.isArray(data?.data)
         ? data.data
         : Array.isArray(data?.projects)
-        ? data.projects
-        : Array.isArray(data)
-        ? data
-        : [];
+          ? data.projects
+          : Array.isArray(data)
+            ? data
+            : [];
 
       setProjects(projectList);
     } catch (error) {
@@ -293,8 +293,8 @@ const Projects = () => {
                       ? "Updating..."
                       : "Creating..."
                     : editId
-                    ? "Update Project"
-                    : "Create Project"}
+                      ? "Update Project"
+                      : "Create Project"}
                 </button>
               </div>
             </form>

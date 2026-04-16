@@ -53,7 +53,7 @@ const Applications = () => {
       console.log(error);
     }
   };
-const columns = [
+  const columns = [
     { header: "S.No", key: "serial", render: (_, i) => i + 1 },
     { header: "Candidate", key: "name" },
     { header: "Email", key: "email" },
@@ -80,7 +80,7 @@ const columns = [
     },
   ];
 
-   return (
+  return (
     <AdminLayout title="Manage Applications" subtitle="Review candidate applications and update their status.">
       <DataTable columns={columns} rows={applications} emptyText="No applications available" />
       <ConfirmModal
