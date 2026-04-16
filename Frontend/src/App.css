@@ -3807,6 +3807,562 @@ body::before {
  project page ends 
 ===============
 */
+@media (max-width: 768px) {
+  .project-card {
+    border-radius: 14px;
+  }
 
+  .project-image {
+    height: 180px;
+  }
+
+  .project-info {
+    padding: 14px;
+  }
+
+  .project-info h3 {
+    font-size: 16px;
+  }
+
+  .project-info p {
+    font-size: 12px;
+  }
+
+  .view-link {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .impact-strip {
+    padding: 60px 15px;
+  }
+
+  .impact-box {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .impact-box h2 {
+    font-size: 1.8rem;
+  }
+
+  .impact-box p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .impact-box {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta-panel {
+    padding: 40px 20px;
+  }
+
+  .cta-panel h2 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .cta-panel p {
+    font-size: 13px;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.project-card {
+  will-change: transform;
+}
+
+@media (hover: none) {
+  .project-card:hover {
+    transform: none; /* disable hover jump on mobile */
+  }
+}
+
+.projects-grid {
+  display: grid;
+  width: 100%;
+  gap: 24px;
+
+  /* Mobile First */
+  grid-template-columns: 1fr;
+}
+
+/* Tablet */
+@media (min-width: 576px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small Laptop */
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-image {
+    order: 1; /* show FIRST */
+  }
+
+  .hero-text {
+    order: 2; /* show AFTER image */
+    text-align: center;
+  }
+}
+/* ==========================================
+   MOBILE HERO - ATTRACTIVE & RESPONSIVE
+=========================================== */
+
+/* DESKTOP: Keep original styling */
+@media (min-width: 769px) {
+  .projects-hero {
+    padding: 80px 0;
+    background: rgba(5, 13, 26, 0.75);
+    color: white;
+  }
+
+  .hero-flex {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hero-content {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.6px;
+    color: #ffffff;
+    margin-bottom: 18px;
+  }
+
+  .hero-bg {
+    flex: 1;
+    min-height: 400px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+}
+
+/* ==========================================
+   TABLET: Medium optimization
+=========================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero-flex {
+    gap: 30px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-bg {
+    min-height: 350px;
+  }
+}
+
+/* ==========================================
+   MOBILE: Primary optimization
+=========================================== */
+@media (max-width: 768px) {
+  /* HERO SECTION WRAPPER */
+  .projects-hero {
+    padding: 50px 0;
+    background: linear-gradient(
+      135deg,
+      rgba(2, 6, 23, 0.95),
+      rgba(15, 42, 68, 0.85)
+    );
+    color: white;
+  }
+
+  /* FLEX LAYOUT - IMAGE FIRST */
+  .hero-flex {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 28px;
+    padding: 0 16px;
+    align-items: center;
+  }
+
+  /* IMAGE - PROMINENT ON MOBILE */
+  .hero-bg {
+    width: 100%;
+    min-height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.15),
+      rgba(14, 165, 233, 0.1)
+    );
+  }
+
+  /* CONTENT CONTAINER */
+  .hero-content {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* CHIP BADGE - MOBILE SIZED */
+  .hero-chip {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.25),
+      rgba(14, 165, 233, 0.15)
+    );
+    color: #cddff3;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    margin-bottom: 14px;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+    transition: 0.3s ease;
+  }
+
+  .hero-chip:hover {
+    transform: scale(1.05);
+  }
+
+  /* HEADING - OPTIMIZED FOR MOBILE */
+  .hero-content h1 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+    color: #ffffff;
+    word-spacing: normal;
+  }
+
+  /* GRADIENT TEXT ANIMATION */
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      #60a5fa,
+      #38bdf8,
+      #22d3ee,
+      #60a5fa
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 4s linear infinite;
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  /* SUBTEXT - READABLE ON MOBILE */
+  .hero-sub {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 100%;
+    margin-bottom: 20px;
+    letter-spacing: 0.2px;
+  }
+
+  /* GLOW EFFECT - OPTIMIZED */
+  .hero-content::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.25),
+      transparent 70%
+    );
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    filter: blur(60px);
+    z-index: -1;
+    opacity: 0.8;
+  }
+
+  /* STATS SECTION - VERTICAL STACK */
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  /* STAT BOXES - FULL WIDTH */
+  .stat-box {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02)
+    );
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-box:hover {
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .stat-box h3 {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #60a5fa, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 3px;
+  }
+
+  .stat-box p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 2px;
+  }
+
+  .stat-box .icon {
+    font-size: 16px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+  }
+
+  /* GREEN STAT */
+  .stat-box.green h3 {
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* ==========================================
+   EXTRA SMALL SCREENS
+=========================================== */
+@media (max-width: 480px) {
+  /* HERO PADDING */
+  .projects-hero {
+    padding: 40px 0;
+  }
+
+  .hero-flex {
+    gap: 20px;
+    padding: 0 12px;
+  }
+
+  /* HEADING - SMALLER */
+  .hero-content h1 {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  /* SUBTEXT */
+  .hero-sub {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* CHIP */
+  .hero-chip {
+    font-size: 10px;
+    padding: 5px 11px;
+    margin-bottom: 10px;
+  }
+
+  /* IMAGE */
+  .hero-bg {
+    min-height: 240px;
+    border-radius: 14px;
+  }
+
+  /* STATS */
+  .hero-stats {
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .stat-box {
+    padding: 12px 14px;
+  }
+
+  .stat-box h3 {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .stat-box p {
+    font-size: 11px;
+  }
+
+  /* GLOW - REDUCE */
+  .hero-content::before {
+    width: 140px;
+    height: 140px;
+    filter: blur(50px);
+  }
+}
+
+/* ==========================================
+   IPHONE SE / Small Phones
+=========================================== */
+@media (max-width: 375px) {
+  .hero-flex {
+    padding: 0 10px;
+  }
+
+  .hero-content h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+  }
+
+  .stat-box {
+    padding: 10px 12px;
+  }
+
+  .stat-box h3 {
+    font-size: 18px;
+  }
+
+  .hero-bg {
+    min-height: 220px;
+  }
+}
+
+/* ==========================================
+   TOUCH DEVICES - DISABLE HOVER ANIMATIONS
+=========================================== */
+@media (hover: none) {
+  .hero-chip:hover {
+    transform: none;
+  }
+
+  .stat-box:hover {
+    transform: none;
+  }
+
+  .stat-box::before,
+  .stat-box::after {
+    display: none;
+  }
+}
+
+/* ==========================================
+   DARK MODE SUPPORT
+=========================================== */
+@media (prefers-color-scheme: dark) {
+  .projects-hero {
+    background: linear-gradient(135deg, rgba(2, 6, 23, 0.98), rgba(15, 42, 68, 0.9));
+  }
+}
+
+/* ==========================================
+   HIGH CONTRAST MODE
+=========================================== */
+@media (prefers-contrast: more) {
+  .hero-chip {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .stat-box {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .hero-content h1 {
+    letter-spacing: -0.5px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+=========================================== */
+@media (prefers-reduced-motion: reduce) {
+  .gradient-text {
+    animation: none;
+  }
+
+  .hero-chip,
+  .stat-box {
+    transition: none;
+  }
+
+  .stat-box:hover {
+    transform: none;
+  }
+}
 
             
