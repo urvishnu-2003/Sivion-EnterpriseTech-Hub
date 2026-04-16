@@ -8,23 +8,12 @@ import {
   MailOpen,
   HelpCircle,
   BookUser,
-  FileText,
-  Cpu,
-  CreditCard,
-  Briefcase,
-  Users,
-  Mail,
-  HelpCircle,
-  Contact,
 } from "lucide-react";
 
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
 import Toast from "../components/Toast";
-import axiosInstance from "../../../api/axiosInstance";
-import axiosInstance from "../../../api/axios";
-import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import { getBlogs } from "../services/blogService";
 import { getProjects } from "../services/projectService";
 import { getQuotes } from "../services/quoteService";
@@ -33,6 +22,7 @@ import { getApplications } from "../services/applicationService";
 import { getSubscribers } from "../services/newsettlerService";
 import { getInquiries } from "../services/inquiryService";
 import { getContacts } from "../services/contactService";
+
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [counts, setCounts] = useState({
@@ -81,7 +71,7 @@ const AdminDashboard = () => {
     loadCounts();
   }, []);
 
-    return (
+  return (
     <AdminLayout
       title="Admin Dashboard"
       subtitle="Track platform activity and manage all enterprise modules from one place."
@@ -102,45 +92,19 @@ const AdminDashboard = () => {
         <SkeletonTable />
       ) : (
         <>
-          <div className="summary-grid">
-            <SummaryCard icon={<BookOpen />} label="Blogs" count={counts.blogs} />
-            <SummaryCard
-              icon={<FolderKanban />}
-            <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
-            <SummaryCard
-              icon={<Cpu />}
-              label="Projects"
-              count={counts.projects}
-            />
-            <SummaryCard
-              icon={<Receipt />}
-              icon={<CreditCard />}
-              label="Quotes"
-              count={counts.quotes}
-            />
-            <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
-            <SummaryCard
-              icon={<Users />}
-              label="Applications"
-              count={counts.applications}
-            />
-            <SummaryCard
-              icon={<MailOpen />}
-              icon={<Mail />}
-              label="Newsletter"
-              count={counts.subscribers}
-            />
-            <SummaryCard
-              icon={<HelpCircle />}
-              label="Inquiry"
-              count={counts.inquiries}
-            />
-            <SummaryCard
-              icon={<BookUser />}
-              icon={<Contact />}
-              label="Contact"
-              count={counts.contacts}
-            />
+          {/* Dashboard Statistics Section */}
+          <div className="dashboard-section">
+            <h4 className="dashboard-section-title">📈 Key Metrics</h4>
+            <div className="summary-grid">
+              <SummaryCard icon={<BookOpen />} label="Blogs" count={counts.blogs} />
+              <SummaryCard icon={<FolderKanban />} label="Projects" count={counts.projects} />
+              <SummaryCard icon={<Receipt />} label="Quotes" count={counts.quotes} />
+              <SummaryCard icon={<Briefcase />} label="Jobs" count={counts.jobs} />
+              <SummaryCard icon={<Users />} label="Applications" count={counts.applications} />
+              <SummaryCard icon={<MailOpen />} label="Newsletter" count={counts.subscribers} />
+              <SummaryCard icon={<HelpCircle />} label="Inquiry" count={counts.inquiries} />
+              <SummaryCard icon={<BookUser />} label="Contact" count={counts.contacts} />
+            </div>
           </div>
 
           <div className="panel-card" style={{ padding: "20px" }}>
@@ -151,20 +115,6 @@ const AdminDashboard = () => {
           </div>
         </>
       )}
-      {/* Dashboard Statistics Section */}
-      <div className="dashboard-section">
-        <h4 className="dashboard-section-title">📈 Key Metrics</h4>
-        <div className="summary-grid">
-          <SummaryCard icon={<FaBlog />} label="Blogs" count={counts.blogs} />
-          <SummaryCard icon={<FaProjectDiagram />} label="Projects" count={counts.projects} />
-          <SummaryCard icon={<FaFileInvoiceDollar />} label="Quotes" count={counts.quotes} />
-          <SummaryCard icon={<FaBriefcase />} label="Jobs" count={counts.jobs} />
-          <SummaryCard icon={<FaUsers />} label="Applications" count={counts.applications} />
-          <SummaryCard icon={<FaEnvelopeOpenText />} label="Newsletter" count={counts.subscribers} />
-          <SummaryCard icon={<FaQuestionCircle />} label="Inquiry" count={counts.inquiries} />
-          <SummaryCard icon={<FaAddressBook />} label="Contact" count={counts.contacts} />
-        </div>
-      </div>
     </AdminLayout>
   );
 };

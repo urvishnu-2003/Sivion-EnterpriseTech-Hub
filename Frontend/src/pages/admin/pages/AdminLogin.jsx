@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../../api/axiosInstance";
 import { useAdminAuth } from "../context/AdminAuthContext";
 import "../styles/admin.css";
-
-import axiosInstance from "../../../api/axios";
-import { useAdminAuth } from "../context/AdminAuthContext";
-import "../styles/admin.css";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
 const AdminLogin = () => {
   const navigate = useNavigate();

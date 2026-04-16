@@ -203,7 +203,6 @@
   margin: 0;
   font-size: 36px;
   color: var(--text-primary);
-    color: var(--text-primary);
 }
 
 .admin-header p {
@@ -304,8 +303,6 @@
   margin: 0;
   font-size: 32px;
   color: var(--text-primary);
-}
-  font-size: 32px;
 }
 
 .dashboard-welcome-card {

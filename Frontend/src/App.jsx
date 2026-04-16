@@ -42,7 +42,7 @@ import ScrollToTop from './components/ui/ScrollToTop';
 // Admin
 import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
 import AdminRoutes from './pages/admin/routes/AdminRoutes';
-import "./pages/admin/style/admin.css";
+import "./pages/admin/styles/admin.css";
 
 function AnimatedRoutes() {
   const location = useLocation();

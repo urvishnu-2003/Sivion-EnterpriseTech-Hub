@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
-<<<<<<< HEAD
 import Toast from "../components/Toast";
 import SkeletonTable from "../components/SkeletonTable";
-import axiosInstance from "../../../api/axiosInstance";
-=======
 import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService";
->>>>>>> origin/developer
 
 const initialForm = {
   title: "",
