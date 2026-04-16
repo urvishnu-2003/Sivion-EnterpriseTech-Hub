@@ -202,6 +202,7 @@
 .admin-header h1 {
   margin: 0;
   font-size: 36px;
+  color: var(--text-primary);
     color: var(--text-primary);
 }
 

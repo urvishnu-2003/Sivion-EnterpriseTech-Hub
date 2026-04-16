@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
+import SearchBar from "../components/SearchBar";
+import Pagination from "../components/Pagination";
+import Toast from "../components/Toast";
+import SkeletonTable from "../components/SkeletonTable";
+import axiosInstance from "../../../api/axiosInstance";
+
+const PAGE_SIZE = 5;
 import ConfirmModal from "../components/ConfirmModal";
 import { getSubscribers, deleteSubscriber } from "../services/newsettlerService";
-
 const Newsletter = () => {
   const [subscribers, setSubscribers] = useState([]);
   const [deleteId, setDeleteId] = useState(null);

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import DataTable from "../components/DataTable";
 import ConfirmModal from "../components/ConfirmModal";
+import Toast from "../components/Toast";
+import SkeletonTable from "../components/SkeletonTable";
+import axiosInstance from "../../../api/axiosInstance";
+
+const PAGE_SIZE = 5;
 import { getQuotes, deleteQuote } from "../services/quoteService";
 
 const Quotes = () => {

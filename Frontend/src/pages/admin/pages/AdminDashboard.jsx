@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
+  BookOpen,
+  FolderKanban,
+  Receipt,
+  Briefcase,
+  Users,
+  MailOpen,
+  HelpCircle,
+  BookUser,
   FileText,
   Cpu,
   CreditCard,
@@ -13,6 +21,8 @@ import {
 import AdminLayout from "../components/AdminLayout";
 import SummaryCard from "../components/SummaryCard";
 import SkeletonTable from "../components/SkeletonTable";
+import Toast from "../components/Toast";
+import axiosInstance from "../../../api/axiosInstance";
 import axiosInstance from "../../../api/axios";
 import { FaBlog, FaProjectDiagram, FaFileInvoiceDollar, FaBriefcase, FaUsers, FaEnvelopeOpenText, FaQuestionCircle, FaAddressBook } from "react-icons/fa";
 import { getBlogs } from "../services/blogService";
@@ -23,7 +33,6 @@ import { getApplications } from "../services/applicationService";
 import { getSubscribers } from "../services/newsettlerService";
 import { getInquiries } from "../services/inquiryService";
 import { getContacts } from "../services/contactService";
-
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [counts, setCounts] = useState({
@@ -94,6 +103,9 @@ const AdminDashboard = () => {
       ) : (
         <>
           <div className="summary-grid">
+            <SummaryCard icon={<BookOpen />} label="Blogs" count={counts.blogs} />
+            <SummaryCard
+              icon={<FolderKanban />}
             <SummaryCard icon={<FileText />} label="Blogs" count={counts.blogs} />
             <SummaryCard
               icon={<Cpu />}
@@ -101,6 +113,7 @@ const AdminDashboard = () => {
               count={counts.projects}
             />
             <SummaryCard
+              icon={<Receipt />}
               icon={<CreditCard />}
               label="Quotes"
               count={counts.quotes}
@@ -112,6 +125,7 @@ const AdminDashboard = () => {
               count={counts.applications}
             />
             <SummaryCard
+              icon={<MailOpen />}
               icon={<Mail />}
               label="Newsletter"
               count={counts.subscribers}
@@ -122,6 +136,7 @@ const AdminDashboard = () => {
               count={counts.inquiries}
             />
             <SummaryCard
+              icon={<BookUser />}
               icon={<Contact />}
               label="Contact"
               count={counts.contacts}
