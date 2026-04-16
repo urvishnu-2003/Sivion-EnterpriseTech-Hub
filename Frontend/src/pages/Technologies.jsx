@@ -150,23 +150,16 @@ const Technologies = () => {
 
       {/* ── FLOWCHART ARCHITECTURE ─────────────── */}
       <section style={{ padding: '0 5% 6rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-
-          {/* SVG connecting lines */}
-          <div style={{ position: 'relative' }}>
-            <svg
-              viewBox="0 0 1100 20" preserveAspectRatio="none"
-              style={{ width: '100%', height: 20, display: 'block', marginBottom: -10, position: 'relative', zIndex: 1 }}
-            >
-              <line x1="137" y1="10" x2="963" y2="10" stroke="rgba(0,245,255,0.3)" strokeWidth="1" strokeDasharray="6 4" />
-              <circle cx="137" cy="10" r="3" fill="#00F5FF" />
-              <circle cx="412" cy="10" r="3" fill="#7C3AED" />
-              <circle cx="688" cy="10" r="3" fill="#10B981" />
-              <circle cx="963" cy="10" r="3" fill="#F59E0B" />
-            </svg>
-
-            {/* Four pods */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', position: 'relative' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          {/* SVG connecting lines - Hidden on 2-row layout as it's meant for 4-col */}
+          
+          {/* Two-row grid (2 columns each) */}
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', 
+            gap: '2.5rem', 
+            position: 'relative' 
+          }}>
               {pods.map((pod, idx) => (
                 <motion.div
                   key={pod.id}
@@ -263,16 +256,7 @@ const Technologies = () => {
                   </div>
                 </motion.div>
               ))}
-            </div>
           </div>
-
-          {/* Bottom connector line */}
-          <svg
-            viewBox="0 0 1100 20" preserveAspectRatio="none"
-            style={{ width: '100%', height: 20, display: 'block', marginTop: -10 }}
-          >
-            <line x1="137" y1="10" x2="963" y2="10" stroke="rgba(0,245,255,0.15)" strokeWidth="1" strokeDasharray="6 4" />
-          </svg>
         </div>
       </section>
 
