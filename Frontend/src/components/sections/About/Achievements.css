@@ -1,0 +1,32 @@
+.achievements {
+  background: #020617;
+  padding: 100px 20px;
+  color: white;
+}
+
+.achieve-container {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* STAT */
+.stat h2 {
+  font-size: 42px;
+  color: #00e5ff;
+}
+
+.stat p {
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .achieve-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
