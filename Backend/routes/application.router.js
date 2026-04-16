@@ -12,9 +12,10 @@ const {
 
 const { protect } = require("../middleware/auth.middleware");
 const uploadResume = require("../config/multer");
+const verifyRecaptcha= require("../middleware/recaptcha.middleware");
 
 // PUBLIC: Submit application
-router.post("/", uploadResume.single("resume"), submitApplication);
+router.post("/", uploadResume.single("resume"), verifyRecaptcha, submitApplication);
 
 // PUBLIC: Get single application
 router.get("/:id", getApplicationById);
