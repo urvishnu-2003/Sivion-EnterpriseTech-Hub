@@ -7,6 +7,7 @@ import logo from '../assets/logo/logo.png';
 import './Navbar.css';
 
 const navLinks = [
+  { to: '/',             label: 'Home'         },
   { to: '/services',     label: 'Services'     },
   { to: '/solutions',    label: 'Solutions'    },
   { to: '/projects',     label: 'Case Studies' },
@@ -55,17 +56,9 @@ function Navbar() {
 
       {/* ── LOGO ── */}
       <Link to="/" className="logo" aria-label="Sivion Hub — Home">
-        <motion.div
-          className="logo-icon"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: 'spring', stiffness: 350, damping: 18 }}
-        >
+        <div className="logo-icon">
           <img src={logo} alt="Sivion Hub Logo" className="logo-img" />
-        </motion.div>
-
-        <span className="logo-text">
-          Sivion<span className="cyan-text">Hub</span>
-        </span>
+        </div>
       </Link>
 
       {/* ── DESKTOP NAV ── */}

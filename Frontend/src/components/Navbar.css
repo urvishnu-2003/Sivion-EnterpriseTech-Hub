@@ -54,15 +54,12 @@
 }
 
 .logo-icon {
-  width: 64px;
-  height: 64px;
-
-
+  width: 180px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.2));
 }
 
 .logo-img {
@@ -71,9 +68,7 @@
   object-fit: contain;
 }
 
-.logo:hover .logo-icon {
-  box-shadow: 0 0 22px rgba(0, 200, 255, 0.4), inset 0 0 16px rgba(0, 200, 255, 0.1);
-}
+
 
 .logo-text {
   font-size: 2rem;
@@ -197,9 +192,8 @@
   }
   
   .logo-icon { 
-    width: 32px; 
-    height: 32px; 
-    border-radius: 8px;
+    width: 120px; 
+    height: 40px; 
   }
   
   .logo-text { 

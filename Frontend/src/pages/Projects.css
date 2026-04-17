@@ -554,11 +554,12 @@
 
 .bottom-cta h2 {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.8rem, 4.2vw, 3.5rem);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.2;
   color: white;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  white-space: nowrap;
 }
 
 .bottom-cta .highlight {

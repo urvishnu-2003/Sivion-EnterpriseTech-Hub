@@ -115,31 +115,33 @@ const Solutions = () => {
 
   return (
     <PageWrapper>
-      <div className="solutions-page-bg">
-        <img src={solutionBg} alt="" />
-      </div>
+      <div className="solutions-page">
+        <div className="solutions-page-bg">
+          <img src={solutionBg} alt="" />
+        </div>
 
-      {/* Hero */}
-      <section className="solutions-hero">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="solutions-badge">
-          <span className="solutions-badge-dot" />
-          Solutions / Industries
-        </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="solutions-title">
-          Industry-Specific{' '}
-          <span className="gradient-text">
-            Solutions
-          </span>
-        </motion.h1>
-        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-          className="solutions-subtitle">
-          Enterprise technology crafted for the specific demands, compliance requirements, and competitive pressures of your industry vertical.
-        </motion.p>
-      </section>
+        {/* Hero */}
+        <section className="solutions-hero">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="solutions-badge">
+            <span className="solutions-badge-dot" />
+            Solutions / Industries
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="solutions-title">
+            Industry-Specific{' '}
+            <span className="gradient-text">
+              Solutions
+            </span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+            className="solutions-subtitle">
+            Enterprise technology crafted for the specific demands, compliance requirements, and competitive pressures of your industry vertical.
+          </motion.p>
+        </section>
 
-      {/* Accordion */}
-      <section className="solutions-accordion-section">
+        {/* Accordion */}
+        <section className="solutions-accordion-section">
+
         <div className="solutions-accordion-container">
           {industries.map((industry, idx) => {
             const isOpen = expanded === industry.id;
@@ -266,6 +268,7 @@ const Solutions = () => {
           </Link>
         </div>
       </section>
+      </div>
     </PageWrapper>
   );
 };

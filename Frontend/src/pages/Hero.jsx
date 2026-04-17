@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import './Home.css';
 import Services from '../components/sections/Services';
+import TiltCard from '../components/ui/TiltCard';
 import Process from '../components/sections/Process';
 
 /* ─────────────────────────────────────────────
@@ -287,11 +288,13 @@ const WhyUs = () => (
     </div>
     <div className="why-grid">
       {whyItems.map((item, i) => (
-        <motion.div key={i} className="why-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-          <div className="why-icon">{item.icon}</div>
-          <div className="why-stat">{item.stat}</div>
-          <h3 style={{ color: '#fff', fontFamily: 'var(--font-main)', fontWeight: 700, marginBottom: '0.75rem' }}>{item.label}</h3>
-          <p style={{ color: 'var(--text-dim)', lineHeight: '1.7', fontSize: '0.95rem' }}>{item.desc}</p>
+        <motion.div key={i} className="why-card-wrapper" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+          <TiltCard className="why-tilt-card">
+            <div className="why-icon">{item.icon}</div>
+            <div className="why-stat">{item.stat}</div>
+            <h3 style={{ color: '#fff', fontFamily: 'var(--font-main)', fontWeight: 700, marginBottom: '0.75rem' }}>{item.label}</h3>
+            <p style={{ color: 'var(--text-dim)', lineHeight: '1.7', fontSize: '0.95rem' }}>{item.desc}</p>
+          </TiltCard>
         </motion.div>
       ))}
     </div>
