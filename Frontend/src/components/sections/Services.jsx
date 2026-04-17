@@ -65,42 +65,18 @@ const services = [
 const Services = () => {
   return (
     <section className="services-section relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-          <motion.span
-            className="eyebrow"
-            style={{ marginBottom: 0 }}
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            ⚡ What We Build
-          </motion.span>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center text-center">
-          <motion.h2
-            className="section-title"
-            style={{ marginBottom: 0 }}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            Core <br className="hidden lg:block" /> <span className="gradient-text">Capabilities</span>
-          </motion.h2>
-        </div>
-        <div className="w-full lg:w-1/4 flex justify-center lg:justify-end text-center lg:text-right">
-          <motion.p
-            className="section-desc"
-            style={{ margin: 0 }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            Combining technical excellence with strategic vision to deliver transformative digital experiences at enterprise scale.
-          </motion.p>
-        </div>
+      <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+        <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          ⚡ What We Build
+        </motion.span>
+        
+        <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Core <br className="hidden lg:block" /> <span className="gradient-text">Capabilities</span>
+        </motion.h2>
+        
+        <motion.p className="section-desc" style={{ margin: 0 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          Combining technical excellence with strategic vision to deliver transformative digital experiences at enterprise scale.
+        </motion.p>
       </div>
 
       <div className="services-grid">

@@ -170,16 +170,13 @@ const FAQ = () => {
   const [open, setOpen] = useState(null);
   return (
     <section className="faq-section relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>💬 Got Questions?</motion.span>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center text-center">
-          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-            Frequently <br className="hidden lg:block" /> <span className="gradient-text">Asked Questions</span>
-          </motion.h2>
-        </div>
-        <div className="w-full lg:w-1/4" />
+      <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+        <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          💬 Got Questions?
+        </motion.span>
+        <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Frequently <br className="hidden lg:block" /> <span className="gradient-text">Asked Questions</span>
+        </motion.h2>
       </div>
       <div className="faq-list">
         {faqs.map((faq, i) => (
@@ -218,16 +215,13 @@ const Testimonials = () => {
 
   return (
     <section className="testimonials-section relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🌟 Client Voices</motion.span>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center text-center">
-          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-            Trusted by <br className="hidden lg:block" /> <span className="gradient-text">Enterprise Leaders</span>
-          </motion.h2>
-        </div>
-        <div className="w-full lg:w-1/4" />
+      <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+        <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          🌟 Client Voices
+        </motion.span>
+        <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Trusted by <br className="hidden lg:block" /> <span className="gradient-text">Enterprise Leaders</span>
+        </motion.h2>
       </div>
       <div style={{ maxWidth: '680px', margin: '4rem auto 0', position: 'relative', minHeight: '340px' }}>
         <AnimatePresence mode="wait">
@@ -278,20 +272,18 @@ const whyItems = [
 
 const WhyUs = () => (
   <section className="why-us-section relative">
-    <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-      <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-        <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>✅ Our Edge</motion.span>
-      </div>
-      <div className="w-full lg:w-1/2 flex justify-center text-center">
-        <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-          Why Choose <br className="hidden lg:block" /> <span className="gradient-text">Sivion Hub</span>
-        </motion.h2>
-      </div>
-      <div className="w-full lg:w-1/4 flex justify-center lg:justify-end text-center lg:text-right">
-        <motion.p className="section-desc" style={{ margin: 0 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-          The intersection of technical mastery and strategic enterprise thinking.
-        </motion.p>
-      </div>
+    <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+      <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        ✅ Our Edge
+      </motion.span>
+      
+      <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+        Why Choose <br className="hidden lg:block" /> <span className="gradient-text">Sivion Hub</span>
+      </motion.h2>
+      
+      <motion.p className="section-desc" style={{ margin: 0 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+        The intersection of technical mastery and strategic enterprise thinking.
+      </motion.p>
     </div>
     <div className="why-grid">
       {whyItems.map((item, i) => (
@@ -383,16 +375,13 @@ const TechLogo = ({ slug, name }) => (
 
 const TechTicker = () => (
   <section className="technologies-ticker-section relative">
-    <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-      <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-        <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>⚙️ Tech Stack</motion.span>
-      </div>
-      <div className="w-full lg:w-1/2 flex justify-center text-center">
-        <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-          Technologies We <br className="hidden lg:block" /> <span className="gradient-text">Master</span>
-        </motion.h2>
-      </div>
-      <div className="w-full lg:w-1/4" />
+    <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+      <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        ⚙️ Tech Stack
+      </motion.span>
+      <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+        Technologies We <br className="hidden lg:block" /> <span className="gradient-text">Master</span>
+      </motion.h2>
     </div>
     {[{ items: techRow1, dir: 'row-1' }, { items: techRow2, dir: 'row-2' }].map(({ items, dir }) => (
       <div key={dir} style={{ overflow: 'hidden', padding: '0.75rem 0' }}>
@@ -425,16 +414,13 @@ const Industries = () => {
   const [active, setActive] = useState(0);
   return (
     <section className="industries-section relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
-        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
-          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🏭 Sectors Served</motion.span>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center text-center">
-          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-            Industry <br className="hidden lg:block" /> <span className="gradient-text">Solutions</span>
-          </motion.h2>
-        </div>
-        <div className="w-full lg:w-1/4" />
+      <div className="max-w-3xl mx-auto px-6 flex flex-col items-center text-center gap-5 mb-16 border-b border-white/[0.04] pb-10">
+        <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          🏭 Sectors Served
+        </motion.span>
+        <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Industry <br className="hidden lg:block" /> <span className="gradient-text">Solutions</span>
+        </motion.h2>
       </div>
       <div className="industry-tabs" role="tablist">
         {industries.map((ind, i) => (

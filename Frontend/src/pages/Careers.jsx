@@ -24,6 +24,7 @@ const Careers = () => {
   const [status, setStatus] = useState({ success: '', error: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [recaptchaReady, setRecaptchaReady] = useState(false);
+  const [mockCaptchaVerified, setMockCaptchaVerified] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -115,7 +116,21 @@ const Careers = () => {
     }
 
     if (!RECAPTCHA_SITE_KEY) {
-      setStatus({ error: 'reCAPTCHA is not configured. Set VITE_RECAPTCHA_SITE_KEY in your Frontend environment.' });
+      if (!mockCaptchaVerified) {
+        setErrors({ recaptcha: 'Please complete the reCAPTCHA verification.' });
+        return;
+      }
+      
+      setIsSubmitting(true);
+      
+      // Simulate backend submission for UI mockup purposes
+      setTimeout(() => {
+        setStatus({ success: 'Application received! (Mock environment: No backend connected)' });
+        setFormData({ jobId: formData.jobId, fullName: '', email: '', phone: '', experience: '', skills: '', resume: null });
+        setMockCaptchaVerified(false);
+        setIsSubmitting(false);
+      }, 1500);
+      
       return;
     }
 
@@ -194,7 +209,7 @@ const Careers = () => {
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="careers-hero-subtitle">
               Build systems that move fast, scale far, and stay secure at every layer. Our careers page brings the same precision and velocity to talent acquisition.
             </motion.p>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="flex flex-row flex-wrap items-center gap-4 mt-8">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row gap-4 mt-8">
               <button type="button" className="premium-btn px-6 py-3 rounded-full font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" onClick={() => handleRoleApply(jobs[0]?._id || jobs[0]?.id)} disabled={jobs.length === 0}>
                 {jobs.length > 0 ? 'Apply Now' : 'No Openings'}
               </button>
@@ -266,7 +281,7 @@ const Careers = () => {
                     <p className="job-meta">{job.department || job.dept} • {job.type}</p>
                     <p className="job-desc">{job.description}</p>
                   </div>
-                  <button type="button" className="apply-btn bg-cyan-light hover:bg-cyan text-navy px-6 py-2.5 rounded-full font-bold transition-all duration-300" onClick={() => handleRoleApply(job._id || job.id)}>
+                  <button type="button" className="apply-btn bg-cyan-light hover:bg-cyan text-cyan hover:text-navy px-6 py-2.5 rounded-full font-bold transition-all duration-300" onClick={() => handleRoleApply(job._id || job.id)}>
                     Apply Now
                   </button>
                 </motion.div>
@@ -359,8 +374,40 @@ const Careers = () => {
 
             <div className="flex flex-col gap-3 items-center">
               <label className="careers-form-label self-start">Verify reCAPTCHA</label>
-              <div className="recaptcha-themed-badge">
-                <div id="g-recaptcha"></div>
+              <div className="w-full flex justify-start">
+                {!RECAPTCHA_SITE_KEY ? (
+                  <div 
+                    className="flex items-center justify-between w-[304px] h-[78px] bg-[#222] border border-[#333] rounded-[3px] p-[10px] cursor-pointer"
+                    onClick={() => {
+                      setMockCaptchaVerified(true);
+                      setErrors(prev => ({ ...prev, recaptcha: '' }));
+                    }}
+                  >
+                    <div className="flex items-center gap-[14px] pl-1">
+                      <div className="w-7 h-7 bg-white rounded-[2px] flex items-center justify-center border-2 border-[#c1c1c1] shadow-inner relative overflow-hidden transition-all duration-300">
+                        {mockCaptchaVerified ? (
+                          <motion.svg initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} viewBox="0 0 24 24" className="w-[18px] h-[18px] text-[#00c853]" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </motion.svg>
+                        ) : (
+                          <div className="absolute inset-0 hover:bg-[#f9f9f9] transition-colors" />
+                        )}
+                      </div>
+                      <span className="text-[14px] text-white font-medium font-[Roboto,sans-serif]">I'm not a robot</span>
+                    </div>
+                    <div className="flex flex-col items-center pr-1">
+                      <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA" className="w-[28px] h-[28px] mb-1" />
+                      <span className="text-[10px] text-[#9b9b9b] tracking-wide font-[Roboto,sans-serif] leading-none mb-1">reCAPTCHA</span>
+                      <div className="flex gap-1 text-[8px] text-[#9b9b9b] font-[Roboto,sans-serif] leading-none">
+                        <span className="hover:underline cursor-pointer">Privacy</span> - <span className="hover:underline cursor-pointer">Terms</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="recaptcha-themed-badge">
+                    <div id="g-recaptcha"></div>
+                  </div>
+                )}
               </div>
               {errors.recaptcha && <span className="text-red-400 text-sm text-center">{errors.recaptcha}</span>}
             </div>
