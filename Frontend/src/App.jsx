@@ -52,6 +52,7 @@ import FloatingActions from './components/ui/FloatingActions';
 
 import ProjectDetails from "./pages/ProjectDetails";
 import { AdminAuthProvider } from './pages/admin/context/AdminAuthContext';
+import ScrollToTop from './components/ScrollToTop';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -164,6 +165,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       {/* Custom cursor elements — SRS AR-11 */}
       <div id="cursor-dot" aria-hidden="true" />
       <div id="cursor-ring" aria-hidden="true" />
