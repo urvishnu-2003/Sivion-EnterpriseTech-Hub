@@ -415,7 +415,9 @@ function ServicesArc() {
                 {/* Node Label */}
                 <div className="flex flex-col">
                   <h3 className="text-white font-bold text-[10px] lg:text-[14px] leading-tight uppercase tracking-[0.15em] group-hover:text-[#00c8ff] transition-all duration-300">
-                    {svc.title.split(' ').slice(0, 2).join(' ')}
+                    {svc.title.toLowerCase().includes('java') 
+                    ? svc.title.split(' ').slice(0, 3).join(' ') 
+                    : svc.title.split(' ').slice(0, 2).join(' ')}
                   </h3>
                   <div className="h-px w-0 group-hover:w-full bg-[#00c8ff] transition-all duration-500 rounded-full mt-1" />
                 </div>
