@@ -13,6 +13,7 @@
     "@react-three/fiber": "^8.17.10",
     "axios": "^1.15.0",
     "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.38.0",
     "gsap": "^3.12.5",
     "lucide-react": "^1.8.0",
