@@ -1,0 +1,84 @@
+/* ═══════════════════════════════════════════════════════════════
+   CTA BANNER (Home)
+   ═══════════════════════════════════════════════════════════════ */
+
+.cta-section {
+  padding: var(--section-pad);
+}
+
+.cta-card {
+  background: linear-gradient(135deg, rgba(10, 22, 40, 0.95), rgba(7, 16, 32, 0.98));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  padding: 6rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(0, 200, 255, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.cta-card h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-main);
+  letter-spacing: -1px;
+}
+
+.cta-card p {
+  font-size: 1.25rem;
+  color: var(--text-dim);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+}
+
+/* Floating Shapes in CTA */
+.cta-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  opacity: 0.15;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.cta-shape-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -100px;
+  animation: auroraFloat 15s infinite linear;
+}
+
+.cta-shape-2 {
+  width: 250px;
+  height: 250px;
+  bottom: -80px;
+  right: -80px;
+  animation: auroraFloat 12s infinite linear reverse;
+}
+
+.cta-shape-3 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  right: 5%;
+  animation: auroraFloat 8s infinite ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .cta-card {
+    padding: 4rem 2rem;
+  }
+}

@@ -1,0 +1,59 @@
+/* ═══════════════════════════════════════════════════════════════
+   TECHNOLOGIES TICKER (Home)
+   ═══════════════════════════════════════════════════════════════ */
+
+.technologies-ticker-section {
+  padding: var(--section-pad);
+  overflow: hidden;
+  background: rgba(5, 13, 26, 0.4);
+}
+
+.ticker-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+}
+
+.tech-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border2);
+  padding: 0.75rem 1.75rem;
+  border-radius: 12px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.tech-badge:hover {
+  background: rgba(0, 200, 255, 0.08);
+  border-color: rgba(0, 200, 255, 0.3);
+  transform: translateY(-2px);
+  color: var(--cyan);
+}
+
+.ticker-row-1 {
+  animation: tickerLeft 30s linear infinite;
+}
+
+.ticker-row-2 {
+  animation: tickerRight 30s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes tickerLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes tickerRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}

@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════════════════════════
+   INDUSTRIES (Home Section)
+   ═══════════════════════════════════════════════════════════════ */
+
+.industries-section {
+  padding: var(--section-pad);
+}
+
+.industry-tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.industry-tab {
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  background: transparent;
+  border: 1px solid var(--glass-border2);
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.industry-tab:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  color: var(--white);
+}
+
+.industry-tab.active {
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 200, 255, 0.25);
+}
+
+.industry-content {
+  background: rgba(10, 22, 40, 0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 4rem;
+  min-height: 300px;
+}
