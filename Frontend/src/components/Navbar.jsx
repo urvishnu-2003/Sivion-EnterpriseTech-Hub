@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Box, Menu, X, ArrowRight, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/logo/logo.png';
+
 import './Navbar.css';
 
 const navLinks = [
@@ -58,7 +60,7 @@ function Navbar() {
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: 'spring', stiffness: 350, damping: 18 }}
         >
-          <Box size={20} color="#00c8ff" aria-hidden="true" />
+          <img src={logo} alt="Sivion Hub Logo" className="logo-img" />
         </motion.div>
 
         <span className="logo-text">

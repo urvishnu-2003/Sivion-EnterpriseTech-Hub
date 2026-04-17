@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Server, Layout, Cloud, Database, ArrowRight, Zap, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Technologies.css';
+import techBg from '../assets/technologies/techbg.png';
+
 
 // ── Tech logos via img tags ──────────────────────────────
 const Logo = ({ src, alt }) => (
@@ -182,6 +184,10 @@ const Technologies = () => {
 
   return (
     <PageWrapper className="tech-page">
+      <div className="tech-page-bg">
+        <img src={techBg} alt="" />
+      </div>
+
 
       {/* ── HERO ─────────────────────────────── */}
       <section className="tech-hero">

@@ -8,6 +8,8 @@ import {
   ShoppingBag, Layers, Landmark, Globe, Database, Fingerprint, Zap 
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import solutionBg from '../assets/solutions/solutionbg.png';
+
 
 const industries = [
   {
@@ -113,6 +115,10 @@ const Solutions = () => {
 
   return (
     <PageWrapper>
+      <div className="solutions-page-bg">
+        <img src={solutionBg} alt="" />
+      </div>
+
       {/* Hero */}
       <section className="solutions-hero">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="solutions-badge">

@@ -1,3 +1,8 @@
+import bankingImg from './assets/casestudies/banking.png';
+import cloudImg from './assets/casestudies/cloud.png';
+import logisticsImg from './assets/casestudies/logistics.png';
+import erpImg from './assets/casestudies/erp.png';
+
 export const projects = [
   {
     id: 1,
@@ -5,7 +10,7 @@ export const projects = [
     category: "AI",
     desc: "Fraud detection system",
     stats: "99.4% Accuracy",
-    image: "https://i.postimg.cc/tCdnJgpb/download-(1).jpg",
+    image: bankingImg,
 
     details: {
       problem: "Bank was facing fraud detection issues in r in real-time Bank wore",
@@ -20,7 +25,7 @@ export const projects = [
     category: "Cloud",
     desc: "Multi-cloud system",
     stats: "0% Downtime",
-    image: "https://i.postimg.cc/bv2HrhJ1/download-(2).jpg",
+    image: cloudImg,
 
     details: {
       problem: "Legacy systems were slow and expensive.",
@@ -35,7 +40,7 @@ export const projects = [
     category: "Strategy",
     desc: "Supply chain optimization",
     stats: "30% Efficiency",
-    image: "https://i.postimg.cc/tCdnJgpb/download-(1).jpg",
+    image: logisticsImg,
 
     details: {
       problem: "Inefficient logistics planning.",
@@ -50,7 +55,7 @@ export const projects = [
     category: "Software",
     desc: "Enterprise platform",
     stats: "High performance",
-    image: "https://i.postimg.cc/tCdnJgpb/download-(1).jpg",
+    image: erpImg,
 
     details: {
       problem: "Disconnected business systems.",
@@ -59,7 +64,4 @@ export const projects = [
       tech: ["React", "Node.js", "MySQL"]
     }
   },
-   
-
-  
 ];

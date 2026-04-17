@@ -4,24 +4,13 @@ import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, TrendingUp, BarChart, Settings, ArrowRight } from 'lucide-react';
 import './CaseStudyDetail.css';
+import { projects } from '../data';
+
 
 const CaseStudyDetail = () => {
   const { id } = useParams();
 
-  // Mock data for the demonstration
-  const project = {
-    title: "The Sentient Bank",
-    subtitle: "AI-Driven Fraud Detection Ecosystem",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1600",
-    challenge: "A top-tier financial institution was losing $12M annually to sophisticated neural phishing and algorithmic credit fraud. Legacy systems were too slow to adapt.",
-    synthesis: "Sivion engineered a real-time neural gateway that processes 50,000 transactions per second with sub-millisecond inference latency, utilizing custom LLM clusters.",
-    outcome: "Fraud reduction of 94% within the first 6 months. Operational overhead decreased by 40% due to automated threat mitigation.",
-    results: [
-      { label: "Fraud Reduction", value: "94%", icon: <TrendingUp className="cyan-text" /> },
-      { label: "Latency", value: "0.8ms", icon: <Settings className="cyan-text" /> },
-      { label: "ROI", value: "3.2x", icon: <BarChart className="cyan-text" /> }
-    ]
-  };
+  const project = projects.find(p => p.id === parseInt(id)) || projects[0];
 
   return (
     <PageWrapper className="case-study-detail">
@@ -36,7 +25,7 @@ const CaseStudyDetail = () => {
             <ArrowLeft size={18} /> Back to Case Studies
           </Link>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="hero-content-detail">
-            <span className="cyan-text font-bold uppercase tracking-widest text-sm">{project.subtitle}</span>
+            <span className="cyan-text font-bold uppercase tracking-widest text-sm">{project.desc}</span>
             <h1 className="hero-title">{project.title}</h1>
           </motion.div>
         </div>
@@ -53,7 +42,7 @@ const CaseStudyDetail = () => {
                className="narrative-box"
             >
               <h3>The Challenge</h3>
-              <p>{project.challenge}</p>
+              <p>{project.details?.problem || "No challenge specified."}</p>
             </motion.div>
 
             <motion.div 
@@ -63,7 +52,7 @@ const CaseStudyDetail = () => {
                className="narrative-box highlighted"
             >
               <h3>The Synthesis</h3>
-              <p>{project.synthesis}</p>
+              <p>{project.details?.solution || "No synthesis specified."}</p>
               <ul className="feature-list">
                 <li><CheckCircle2 size={16} className="cyan-text" /> Custom Neural Mesh</li>
                 <li><CheckCircle2 size={16} className="cyan-text" /> Real-time Inference</li>
@@ -78,7 +67,11 @@ const CaseStudyDetail = () => {
       <section className="case-results">
         <div className="container">
           <div className="results-grid">
-            {project.results.map((res, i) => (
+            {(project.results || [
+              { label: "Efficiency", value: project.stats, icon: <TrendingUp className="cyan-text" /> },
+              { label: "Stability", value: "100%", icon: <Settings className="cyan-text" /> },
+              { label: "Quality", value: "A+", icon: <BarChart className="cyan-text" /> }
+            ]).map((res, i) => (
               <motion.div 
                 key={i} 
                 className="result-item"
@@ -102,7 +95,7 @@ const CaseStudyDetail = () => {
           <div className="outcome-card">
              <div className="outcome-text">
                 <h2>The Outcome</h2>
-                <p>{project.outcome}</p>
+                <p>{project.details.result}</p>
              </div>
              <div className="outcome-quote">
                 <blockquote>
