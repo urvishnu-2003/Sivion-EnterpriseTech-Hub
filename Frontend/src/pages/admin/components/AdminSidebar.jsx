@@ -18,7 +18,7 @@ const AdminSidebar = () => {
   return (
     <aside className="admin-sidebar">
       <div className="admin-brand">
-        <h2>SIVION<span>.OS</span></h2>
+        <h2>SIVION</h2>
         <p>Enterprise Hub</p>
       </div>
 

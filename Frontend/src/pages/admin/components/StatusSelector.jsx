@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../styles/status-selector.css";
+import "../style/status-selector.css";
 
 const statusOptions = [
   {
