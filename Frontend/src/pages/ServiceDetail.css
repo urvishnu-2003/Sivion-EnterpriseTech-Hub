@@ -16,20 +16,16 @@
 
 
 
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  background: rgba(0, 200, 255, 0.08);
-  border: 1px solid rgba(0, 200, 255, 0.2);
-  border-radius: 50px;
-  color: #00c8ff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+@media (max-width: 768px) {
+  .service-hero {
+    padding: 6rem 5% 3rem;
+  }
+
+  .service-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .expertise-section,
@@ -192,43 +188,76 @@
   animation-delay: 0.4s;
 }
 
-.stack-section {
-  padding: 4rem 5%;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  text-align: center;
-}
+@media (max-width: 768px) {
+  .expertise-section,
+  .pillars-section {
+    padding: 4rem 5%;
+  }
 
-.stack-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #3d5a7a;
-  margin-bottom: 2rem;
-}
+  .expertise-grid,
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
 
-.stack-icons {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
+  .exp-card,
+  .pillar-card {
+    padding: 1.5rem;
+  }
 
-.stack-item {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  color: #6b87a8;
-  opacity: 0.5;
-  transition: opacity 0.3s;
-}
+  .lifecycle-section {
+    padding: 4rem 5%;
+  }
 
-.stack-item:hover {
-  opacity: 1;
-  color: #00c8ff;
-}
+  .lifecycle-timeline::before {
+    left: 20px;
+  }
 
-.service-cta {
-  padding: 8rem 5%;
+  .lifecycle-step,
+  .lifecycle-step:nth-child(even) {
+    justify-content: flex-start;
+    padding-left: 50px;
+    padding-right: 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .lifecycle-step::after {
+    left: 20px;
+  }
+
+  .tech-deep-dive {
+    padding: 4rem 5%;
+  }
+
+  .mockup-body {
+    padding: 1.5rem;
+  }
+
+  .stack-section {
+    padding: 3rem 5%;
+  }
+
+  .stack-icons {
+    gap: 1.5rem;
+  }
+
+  .stack-item {
+    font-size: 0.9rem;
+  }
+
+  .service-cta {
+    padding: 4rem 5%;
+  }
+
+  .cta-card {
+    padding: 3rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .cta-card h2 {
+    font-size: 1.8rem;
+  }
 }
 
 .cta-card {

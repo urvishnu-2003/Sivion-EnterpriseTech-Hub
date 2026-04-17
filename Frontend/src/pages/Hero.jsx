@@ -460,6 +460,13 @@ const typewriterPhrases = [
 function Hero() {
   const tw = useTypewriter(typewriterPhrases, 75, 2200);
 
+  const handleScrollDown = () => {
+    const nextSection = document.querySelector('.home-sections');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="home-page">
 
@@ -516,14 +523,21 @@ function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="scroll-indicator" aria-hidden="true">
+        <div
+          className="scroll-indicator"
+          role="button"
+          tabIndex={0}
+          aria-label="Scroll to next section"
+          onClick={handleScrollDown}
+          onKeyDown={(event) => event.key === 'Enter' && handleScrollDown()}
+        >
           <div className="mouse"><div className="wheel" /></div>
           <span>Scroll</span>
         </div>
       </section>
 
       {/* ── HOMEPAGE SECTIONS ── */}
-      <section className="home-sections">
+      <section className="home-sections" id="home-sections">
         <WhyUs />
         <Services />
         <TechTicker />

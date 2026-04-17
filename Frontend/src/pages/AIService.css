@@ -14,20 +14,16 @@
   background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 255, 0.08) 0%, transparent 65%);
 }
 
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  background: rgba(0, 200, 255, 0.08);
-  border: 1px solid rgba(0, 200, 255, 0.2);
-  border-radius: 50px;
-  color: var(--cyan);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+@media (max-width: 768px) {
+  .service-hero {
+    padding: 6rem 5% 3.5rem;
+  }
+
+  .service-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .expertise-section,
@@ -117,24 +113,48 @@
 }
 
 @media (max-width: 768px) {
-
   .expertise-grid,
   .pillars-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .exp-card,
+  .pillar-card {
+    padding: 1.5rem;
+  }
+
+  .exp-card h3, 
+  .pillar-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .lifecycle-section {
+    padding: 4rem 5%;
   }
 
   .lifecycle-timeline::before {
-    left: 5%;
+    left: 4%;
   }
 
   .lifecycle-step,
   .lifecycle-step:nth-child(even) {
-    padding-left: 15%;
+    padding-left: 12%;
     padding-right: 0;
     justify-content: flex-start;
+    margin-bottom: 2rem;
+  }
+
+  .lifecycle-step h3 {
+    font-size: 1.15rem;
+  }
+
+  .lifecycle-step p {
+    font-size: 0.9rem;
   }
 
   .lifecycle-step::after {
-    left: 5%;
+    left: 4%;
   }
 }

@@ -57,3 +57,35 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+@media (max-width: 768px) {
+  .terms-header {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .terms-icon-wrapper {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .terms-title {
+    font-size: 2rem;
+  }
+
+  .terms-subtitle {
+    font-size: 1rem;
+  }
+
+  .terms-document-body {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .terms-heading {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .terms-document-body p {
+    font-size: 0.95rem;
+  }
+}

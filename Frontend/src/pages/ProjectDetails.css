@@ -196,52 +196,66 @@
   }
 
   .details-image {
-    min-height: 320px;
+    min-height: 280px;
+    border-radius: 20px;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .project-details-page {
-    padding: 3rem 0 4rem;
-  }
-
-  .project-details-container {
-    padding: 0 1rem;
+    padding: 2.5rem 0 4rem;
   }
 
   .details-text h1 {
-    font-size: 2.6rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
   }
 
   .details-text p {
-    font-size: 0.98rem;
-  }
-
-  .details-hero {
-    gap: 1.5rem;
-  }
-
-  .details-content {
-    grid-template-columns: 1fr;
-  }
-
-  .detail-card.big {
-    grid-column: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .details-hero {
-    padding: 1rem 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
   }
 
   .pd-badge,
   .pd-stats {
-    font-size: 0.8rem;
-    padding: 0.55rem 0.85rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.75rem;
   }
 
-  .back-btn {
-    font-size: 0.92rem;
+  .details-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .detail-card {
+    padding: 1.25rem;
+    min-height: auto;
+    border-radius: 18px;
+  }
+
+  .detail-card h2 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .detail-card p {
+    font-size: 0.88rem;
+  }
+
+  .tech-list span {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .details-image {
+    min-height: 220px;
   }
 }

@@ -101,7 +101,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
-  margin-top: 4rem;
+  margin-top: 2.5rem;
 }
 
 .team-card {
@@ -149,19 +149,74 @@
 @media (max-width: 1024px) {
   .mission-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .values-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 2rem 5% 4rem;
+  }
+
+  .about-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mission-section, .values-section, .team-section {
+    padding: 3rem 5%;
+  }
+
+  .mission-box {
+    padding: 2rem;
+    gap: 1rem;
+  }
+
+  .mission-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .mission-box p {
+    font-size: 0.95rem;
+  }
+
+  .mission-box .icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mission-box .icon-wrapper svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (max-width: 600px) {
   .team-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .member-avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .team-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .team-card p {
+    font-size: 0.85rem;
   }
 }

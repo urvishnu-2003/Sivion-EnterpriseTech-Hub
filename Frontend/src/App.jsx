@@ -160,6 +160,22 @@ function useCursor() {
   }, []);
 }
 
+function AppContent() {
+  const location = useLocation();
+  const hideShell = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="app-container">
+      {!hideShell && <Navbar />}
+      <main className="app-main">
+        <AnimatedRoutes />
+      </main>
+      {!hideShell && <Footer />}
+      {!hideShell && <FloatingActions />}
+    </div>
+  );
+}
+
 function App() {
   useCursor();
 
@@ -171,14 +187,7 @@ function App() {
       <div id="cursor-ring" aria-hidden="true" />
 
       <AdminAuthProvider>
-        <div className="app-container">
-          <Navbar />
-          <main className="app-main">
-            <AnimatedRoutes />
-          </main>
-          <Footer />
-          <FloatingActions />
-        </div>
+        <AppContent />
       </AdminAuthProvider>
     </BrowserRouter>
   );

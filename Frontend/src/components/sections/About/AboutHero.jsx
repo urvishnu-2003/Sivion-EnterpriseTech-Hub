@@ -90,10 +90,6 @@ const AboutHero = () => {
               <span className="section-tag">SIVION TEAM</span>
               <h2>Meet Leadership</h2>
             </div>
-            <div className="header-nav">
-              <button className="nav-btn prev">←</button>
-              <button className="nav-btn next">→</button>
-            </div>
           </motion.div>
 
           <motion.div

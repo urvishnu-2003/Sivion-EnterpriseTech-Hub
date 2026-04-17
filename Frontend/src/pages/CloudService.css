@@ -28,20 +28,16 @@
   z-index: 0;
 }
 
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  background: rgba(0, 200, 255, 0.08);
-  border: 1px solid rgba(0, 200, 255, 0.2);
-  border-radius: 50px;
-  color: #00c8ff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+@media (max-width: 768px) {
+  .service-hero {
+    padding: 6rem 5% 3.5rem;
+  }
+
+  .service-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .pillars-section {
@@ -220,12 +216,60 @@
 }
 
 @media (max-width: 768px) {
+  .pillars-section {
+    padding: 4rem 5%;
+  }
+
   .pillars-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .pillar-card {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .tech-deep-dive {
+    padding: 4rem 5%;
+  }
+
+  .mockup-body {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+  }
+
+  .stack-section {
+    padding: 3rem 5%;
+  }
+
+  .stack-icons {
+    gap: 1.5rem;
+  }
+
+  .stack-item {
+    font-size: 0.9rem;
+  }
+
+  .service-cta {
+    padding: 4rem 5%;
   }
 
   .cta-card {
     padding: 3rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .cta-card h2 {
+    font-size: 1.85rem;
   }
 }
 

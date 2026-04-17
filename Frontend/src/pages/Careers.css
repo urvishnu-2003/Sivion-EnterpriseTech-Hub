@@ -31,7 +31,58 @@
 @media (max-width: 1024px) {
     .careers-hero-grid {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2.5rem;
+        text-align: center;
+    }
+    
+    .careers-hero {
+        padding: 6rem 5% 4rem;
+    }
+
+    .careers-hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-stats-panel {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .careers-hero {
+        padding: 5rem 5% 3rem;
+    }
+
+    .careers-hero-title {
+        font-size: 2.2rem;
+        line-height: 1.1;
+    }
+
+    .careers-hero-subtitle {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-stats-panel {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .stat-item-card {
+        padding: 1rem;
+    }
+
+    .stat-item-card .stat-val {
+        font-size: 1.25rem;
+    }
+
+    .role-badge {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -50,7 +101,7 @@
 
 .careers-hero-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 3.6rem;
+    font-size: clamp(2rem, 7vw, 3.6rem);
     line-height: 1.02;
     font-weight: 900;
     margin: 1.5rem 0 1rem;
@@ -161,7 +212,25 @@
     letter-spacing: 0.05em;
 }
 
-/* ── JOB CARDS ── */
+@media (max-width: 768px) {
+    .careers-highlights-section {
+        padding: 3rem 5%;
+    }
+
+    .careers-highlight-card {
+        padding: 1.5rem;
+        border-radius: 18px;
+    }
+
+    .careers-highlight-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .careers-highlight-card p {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+}
 
 .careers-jobs-section {
     padding: 6rem 5%;
@@ -224,7 +293,36 @@
     font-size: 0.95rem;
 }
 
-/* ── APPLICATION FORM ── */
+@media (max-width: 768px) {
+    .careers-jobs-section {
+        padding: 3rem 5%;
+    }
+
+    .job-section-title {
+        font-size: 1.8rem;
+    }
+
+    .job-section-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .careers-job-card {
+        padding: 1.5rem;
+        min-height: auto;
+        border-radius: 20px;
+    }
+
+    .careers-job-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .careers-job-card .job-desc {
+        font-size: 0.88rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+}
 
 .careers-form-section {
     padding: 6rem 5% 10rem;

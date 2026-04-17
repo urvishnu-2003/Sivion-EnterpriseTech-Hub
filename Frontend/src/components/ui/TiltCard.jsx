@@ -30,7 +30,25 @@ const TiltCard = ({ children, className = '' }) => {
     setGlowPos({ x: nX * 100, y: nY * 100 });
   };
 
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nX = (touch.clientX - rect.left) / rect.width;
+    const nY = (touch.clientY - rect.top)  / rect.height;
+    x.set(nX - 0.5);
+    y.set(nY - 0.5);
+    // Update spotlight position (% within card)
+    setGlowPos({ x: nX * 100, y: nY * 100 });
+  };
+
   const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+    setGlowPos({ x: 50, y: 50 });
+  };
+
+  const handleTouchEnd = () => {
     x.set(0);
     y.set(0);
     setGlowPos({ x: 50, y: 50 });
@@ -42,6 +60,8 @@ const TiltCard = ({ children, className = '' }) => {
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         style={{
           rotateX,
           rotateY,

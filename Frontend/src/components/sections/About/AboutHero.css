@@ -74,7 +74,7 @@
 
 .hero-main-title {
   font-family: 'Outfit', sans-serif;
-  font-size: clamp(3.2rem, 8vw, 4.8rem);
+  font-size: clamp(2rem, 7vw, 4.8rem);
   /* Reduced for elegance */
   font-weight: 900;
   line-height: 1.05;

@@ -47,7 +47,7 @@
   --gradient-text: linear-gradient(135deg, #ffffff 0%, #00c8ff 60%, #7c3aed 100%);
 
   /* Spacing */
-  --section-pad: 1rem 5%;
+  --section-pad: 0.75rem 5%;
   --card-pad: 2.5rem;
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -154,6 +154,18 @@ h1, h2, h3, h4, h5, .logo-text {
   padding: 0 5%;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 4%;
+  }
+}
+
+@media (max-width: 375px) {
+  .container {
+    padding: 0 3%;
+  }
+}
+
 .page-wrapper {
   padding-top: 0;
   animation: fadeSlideUp 0.5s ease both;
@@ -221,5 +233,19 @@ h1, h2, h3, h4, h5, .logo-text {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile-first improvements */
+@media (max-width: 640px) {
+  /* Prevent iOS zoom on form inputs */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Ensure minimum touch targets */
+  button, .btn, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

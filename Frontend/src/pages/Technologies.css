@@ -51,13 +51,27 @@
   box-shadow: 0 0 10px #00F5FF;
 }
 
-.tech-page-h1 {
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 900;
-  color: #fff;
-  margin: 0 0 1.5rem;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
+@media (max-width: 768px) {
+  .tech-hero {
+    padding: 3rem 5% 2rem;
+  }
+
+  .tech-eyebrow {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-page-h1 {
+    font-size: 2.2rem;
+    line-height: 1.1;
+  }
+
+  .tech-page-p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
 }
 
 .tech-h1-gradient {
@@ -431,16 +445,112 @@
 }
 
 @media (max-width: 768px) {
-  .tech-page-h1 {
-    font-size: 2.8rem;
-  }
-
-  .tech-cta-btns {
-    flex-direction: column;
-    align-items: stretch;
+  .diagram-frame {
+    padding: 3rem 1.5rem;
+    margin: 0 4% 4rem;
+    border-radius: 24px;
   }
 
   .diagram-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .node-inner {
+    width: 100%;
+    max-width: 280px;
+    padding: 1.25rem;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1.25rem;
+  }
+
+  .node-inner svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .node-inner span {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  .connections {
+    display: none; /* Hide complex SVG lines on mobile for cleaner look */
+  }
+
+  .pods-section {
+    padding: 0 5% 4rem;
+  }
+
+  .pod-card {
+    padding: 1.5rem;
+    border-radius: 18px;
+  }
+
+  .pod-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .pod-icon-wrapper svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .pod-label {
+    font-size: 0.65rem;
+  }
+
+  .stack-grid {
+    gap: 0.5rem;
+  }
+
+  .tech-chip {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .tech-chip span {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tech-stat-card {
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
+  }
+
+  .tech-stat-value {
+    font-size: 2rem;
+  }
+
+  .tech-stat-label {
+    font-size: 0.75rem;
+  }
+
+  .tech-cta-section {
+    padding: 4rem 5% 6rem;
+  }
+
+  .tech-cta-container {
+    padding: 2.5rem 1.5rem;
+    border-radius: 28px;
+  }
+
+  .tech-cta-title {
+    font-size: 1.8rem;
+  }
+
+  .tech-cta-desc {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
   }
 }

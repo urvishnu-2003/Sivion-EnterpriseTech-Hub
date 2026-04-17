@@ -31,6 +31,23 @@ function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [isMobileOpen]);
 
+  /* ── close mobile menu on outside click ── */
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (isMobileOpen && !event.target.closest('.nav-menu') && !event.target.closest('.mobile-toggle')) {
+        setIsMobileOpen(false);
+      }
+    };
+
+    if (isMobileOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isMobileOpen]);
+
   return (
     <header className={`app-header ${isScrolled ? 'scrolled' : ''}`} role="banner">
 

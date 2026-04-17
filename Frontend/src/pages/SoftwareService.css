@@ -28,20 +28,16 @@
   z-index: 0;
 }
 
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  background: rgba(34, 197, 94, 0.08);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-  border-radius: 50px;
-  color: #22c55e;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+@media (max-width: 768px) {
+  .service-hero {
+    padding: 6rem 5% 3.5rem;
+  }
+
+  .service-badge {
+    padding: 0.4rem 1rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .expertise-section {
@@ -274,8 +270,22 @@
 }
 
 @media (max-width: 768px) {
+  .expertise-section {
+    padding: 4rem 5%;
+  }
+
   .expertise-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .exp-card {
+    padding: 1.5rem;
+  }
+
+  .lifecycle-section {
+    padding: 4rem 5%;
   }
 
   .lifecycle-timeline::before {
@@ -287,6 +297,7 @@
     justify-content: flex-start;
     padding-left: 50px;
     padding-right: 0;
+    margin-bottom: 2.5rem;
   }
 
   .lifecycle-step::after {
@@ -296,10 +307,37 @@
   .lifecycle-step:nth-child(odd) .step-number,
   .lifecycle-step:nth-child(even) .step-number {
     left: 20px;
+    font-size: 2rem;
+  }
+
+  .stack-showcase {
+    padding: 4rem 5%;
+  }
+
+  .mockup-body.code {
+    padding: 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+  }
+
+  .service-cta {
+    padding: 4rem 5%;
   }
 
   .cta-card {
     padding: 3rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .cta-card h2 {
+    font-size: 1.85rem;
   }
 }
 

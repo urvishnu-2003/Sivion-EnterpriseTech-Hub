@@ -60,22 +60,33 @@
   margin-bottom: 1.5rem;
 }
 
-.hero-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 2rem;
-}
+@media (max-width: 768px) {
+  .post-hero {
+    padding: 3rem 5% 1.5rem;
+  }
 
-.post-info-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  color: #64748b;
-  font-size: 0.95rem;
-  font-weight: 500;
+  .back-link {
+    margin-bottom: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .cat-badge {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-info-row {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.85rem;
+  }
 }
 
 .post-info-row span {
@@ -105,37 +116,62 @@
 }
 
 /* Article Body */
-.post-article-section {
-  padding: 2rem 5% 6rem;
-}
+@media (max-width: 768px) {
+  .post-article-section {
+    padding: 1.5rem 5% 4rem;
+  }
 
-.article-body {
-  color: #cbd5e1;
-  font-size: 1.15rem;
-  line-height: 1.8;
-}
+  .article-body {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
 
-.article-body h2 {
-  color: #fff;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 3.5rem 0 1.5rem;
-}
+  .article-body h2 {
+    font-size: 1.35rem;
+    margin: 2.5rem 0 1rem;
+  }
 
-.article-body p {
-  margin-bottom: 1.5rem;
-}
+  .article-body blockquote {
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
 
-.article-body blockquote {
-  border-left: 4px solid var(--cyan, #00f5ff);
-  padding: 2rem;
-  margin: 3rem 0;
-  background: rgba(0, 245, 255, 0.03);
-  border-radius: 0 16px 16px 0;
-  font-style: italic;
-  font-size: 1.4rem;
-  color: #fff;
-  line-height: 1.5;
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    gap: 2rem;
+  }
+
+  .share-box {
+    padding: 1.25rem;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .share-links {
+    justify-content: center;
+  }
+
+  .author-box {
+    gap: 15px;
+  }
+
+  .author-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  .author-info strong {
+    font-size: 1rem;
+  }
+
+  .author-info p {
+    font-size: 0.8rem;
+  }
 }
 
 .article-body ul {

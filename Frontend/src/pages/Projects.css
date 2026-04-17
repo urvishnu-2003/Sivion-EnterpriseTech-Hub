@@ -48,7 +48,7 @@
 }
 
 .project-image {
-  height: 400px;
+  height: clamp(250px, 50vw, 400px);
   /* Big, professional image presence */
   position: relative;
   overflow: hidden;
@@ -193,6 +193,41 @@
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 30px 0 60px;
+  }
+
+  .project-info {
+    padding: 24px;
+  }
+
+  .project-info h3 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+  }
+
+  .project-info p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .project-meta {
+    margin-bottom: 12px;
+  }
+
+  .project-cat {
+    padding: 4px 12px;
+    font-size: 0.65rem;
+  }
+
+  .filter-section {
+    padding: 20px 0;
+    margin-top: 20px;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    font-size: 0.8rem;
   }
 }
 
@@ -363,17 +398,64 @@
 }
 
 @media (max-width: 768px) {
+  .projects-hero-premium {
+    min-height: auto;
+    padding: 60px 0 80px;
+    text-align: center !important;
+  }
+
+  .projects-hero-premium .container {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+
+  .hero-center-content {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   .hero-stat-row {
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .p-stat-pill {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 20px;
+    gap: 15px;
+  }
+
+  .p-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .p-info {
+    text-align: left;
+  }
+
+  .p-val {
+    font-size: 1.6rem;
   }
 
   .hero-main-title {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
+    line-height: 1.1;
   }
 
   .hero-sub-text {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .hero-chip {
+    padding: 6px 16px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
   }
 }
 
@@ -426,11 +508,28 @@
 }
 
 /* BOTTOM CTA */
-.bottom-cta {
-  padding: 160px 0 200px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+@media (max-width: 768px) {
+  .bottom-cta {
+    padding: 80px 0 100px;
+  }
+
+  .bottom-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .bottom-cta p {
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+  }
+
+  .primary-btn {
+    padding: 16px 36px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
 }
 
 .bottom-cta::before {

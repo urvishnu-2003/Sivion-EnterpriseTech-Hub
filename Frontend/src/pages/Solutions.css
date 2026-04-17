@@ -7,7 +7,11 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 0%, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
+  background-image: linear-gradient(180deg, rgba(5, 13, 26, 0.88), rgba(5, 13, 26, 0.94)), url('/assets/images/services/modern-cityscape-enterprise.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
 }
 
 .solutions-hero::before {
@@ -361,6 +365,151 @@
 @media (max-width: 1024px) {
   .industry-services-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .solutions-hero {
+    padding: 2.5rem 5% 3rem;
+    min-height: auto;
+  }
+
+  .solutions-badge {
+    padding: 0.55rem 1.1rem;
+  }
+
+  .solutions-title {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+
+  .solutions-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 100%;
+    margin: 0 auto 1.5rem;
+    color: #94a3b8;
+  }
+
+  .solutions-accordion-section {
+    padding: 0 5% 4rem;
+  }
+
+  .industry-card {
+    border-radius: 16px;
+  }
+
+  .industry-header-btn {
+    padding: 1.2rem 1.2rem;
+    gap: 1rem;
+  }
+
+  .industry-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .industry-icon-box svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .industry-label {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .industry-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .industry-hero-box {
+    height: 220px;
+  }
+
+  .industry-hero-overlay {
+    padding: 0 1rem;
+  }
+
+  .industry-hero-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .industry-services-grid {
+    padding: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .industry-service-card {
+    padding: 1rem;
+  }
+
+  .industry-service-card h4 {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+  }
+
+  .industry-service-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .industry-service-card p {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .industry-case-study-bar {
+    margin: 0 1rem 1.5rem;
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .case-study-name {
+    font-size: 0.9rem;
+  }
+
+  .case-study-desc {
+    font-size: 0.8rem;
+  }
+
+  .solutions-cta-banner {
+    padding: 3rem 5%;
+  }
+
+  .solutions-cta-banner h2 {
+    font-size: 2rem;
+  }
+
+  .solutions-cta-banner p {
+    font-size: 1rem;
+  }
+
+  .solutions-cta-btns {
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .quote-btn-primary, .talk-experts-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
