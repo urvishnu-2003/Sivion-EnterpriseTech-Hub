@@ -47,9 +47,9 @@
 
 .legal-nav {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
 }
 
 .legal-nav-btn {

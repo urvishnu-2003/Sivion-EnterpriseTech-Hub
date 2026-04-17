@@ -41,7 +41,7 @@
 .quote-subtitle {
   color: #94a3b8;
   font-size: 1.05rem;
-  maxWidth: 560px;
+  max-width: 560px;
   margin: 0 auto;
 }
 
@@ -149,7 +149,7 @@
 /* Bottom CTA */
 .quote-bottom-cta {
   padding: 4rem 5% 6rem;
-  textAlign: center;
+  text-align: center;
   border-top: 1px solid rgba(255,255,255,0.05);
   background: linear-gradient(135deg, rgba(0,245,255,0.04), rgba(124,58,237,0.04));
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, Zap, Star, Users, Award, Cpu,
   Code2, Cloud, Briefcase, Layers, CheckCircle2,
@@ -169,12 +169,17 @@ const faqs = [
 const FAQ = () => {
   const [open, setOpen] = useState(null);
   return (
-    <section className="faq-section">
-      <div className="section-header">
-        <motion.span className="eyebrow" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>💬 Got Questions?</motion.span>
-        <motion.h2 className="section-title" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-          Frequently <span className="gradient-text">Asked Questions</span>
-        </motion.h2>
+    <section className="faq-section relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
+        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
+          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>💬 Got Questions?</motion.span>
+        </div>
+        <div className="w-full lg:w-1/2 flex justify-center text-center">
+          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            Frequently <br className="hidden lg:block" /> <span className="gradient-text">Asked Questions</span>
+          </motion.h2>
+        </div>
+        <div className="w-full lg:w-1/4" />
       </div>
       <div className="faq-list">
         {faqs.map((faq, i) => (
@@ -212,36 +217,43 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="testimonials-section">
-      <div className="section-header">
-        <motion.span className="eyebrow" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🌟 Client Voices</motion.span>
-        <motion.h2 className="section-title" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-          Trusted by <span className="gradient-text">Enterprise Leaders</span>
-        </motion.h2>
+    <section className="testimonials-section relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
+        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
+          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🌟 Client Voices</motion.span>
+        </div>
+        <div className="w-full lg:w-1/2 flex justify-center text-center">
+          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            Trusted by <br className="hidden lg:block" /> <span className="gradient-text">Enterprise Leaders</span>
+          </motion.h2>
+        </div>
+        <div className="w-full lg:w-1/4" />
       </div>
-      <div style={{ maxWidth: '680px', margin: '4rem auto 0' }}>
-        {testimonials.map((t, i) => (
+      <div style={{ maxWidth: '680px', margin: '4rem auto 0', position: 'relative', minHeight: '340px' }}>
+        <AnimatePresence mode="wait">
           <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={active === i ? { opacity: 1, scale: 1, display: 'block' } : { opacity: 0, scale: 0.95, display: 'none' }}
-            transition={{ duration: 0.5 }}
+            key={active}
+            initial={{ opacity: 0, x: 80 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -80 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
             className="testimonial-card active"
+            style={{ width: '100%' }}
           >
             <div className="quote-mark">"</div>
-            <p className="testimonial-text">{t.text}</p>
+            <p className="testimonial-text">{testimonials[active].text}</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'space-between' }}>
               <div className="testimonial-author">
-                <div className="author-avatar" style={{ background: `hsl(${i * 120}, 70%, 50%)` }}></div>
+                <div className="author-avatar" style={{ background: `hsl(${active * 120}, 70%, 50%)` }}></div>
                 <div>
-                  <p className="author-name">{t.name}</p>
-                  <p className="author-role">{t.role}</p>
+                  <p className="author-name">{testimonials[active].name}</p>
+                  <p className="author-role">{testimonials[active].role}</p>
                 </div>
               </div>
-              <div style={{ color: '#fbbf24', fontSize: '0.9rem' }}>{'★'.repeat(t.rating)}</div>
+              <div style={{ color: '#fbbf24', fontSize: '0.9rem' }}>{'★'.repeat(testimonials[active].rating)}</div>
             </div>
           </motion.div>
-        ))}
+        </AnimatePresence>
         <div className="carousel-dots" role="tablist">
           {testimonials.map((_, i) => (
             <button key={i} className={`carousel-dot ${active === i ? 'active' : ''}`} onClick={() => setActive(i)} aria-label={`Testimonial ${i + 1}`} role="tab" aria-selected={active === i} />
@@ -265,15 +277,21 @@ const whyItems = [
 ];
 
 const WhyUs = () => (
-  <section className="why-us-section">
-    <div className="section-header">
-      <motion.span className="eyebrow" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>✅ Our Edge</motion.span>
-      <motion.h2 className="section-title" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-        Why Choose <span className="gradient-text">Sivion Hub</span>
-      </motion.h2>
-      <motion.p className="section-desc" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-        The intersection of technical mastery and strategic enterprise thinking.
-      </motion.p>
+  <section className="why-us-section relative">
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
+      <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
+        <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>✅ Our Edge</motion.span>
+      </div>
+      <div className="w-full lg:w-1/2 flex justify-center text-center">
+        <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Why Choose <br className="hidden lg:block" /> <span className="gradient-text">Sivion Hub</span>
+        </motion.h2>
+      </div>
+      <div className="w-full lg:w-1/4 flex justify-center lg:justify-end text-center lg:text-right">
+        <motion.p className="section-desc" style={{ margin: 0 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          The intersection of technical mastery and strategic enterprise thinking.
+        </motion.p>
+      </div>
     </div>
     <div className="why-grid">
       {whyItems.map((item, i) => (
@@ -364,12 +382,17 @@ const TechLogo = ({ slug, name }) => (
 );
 
 const TechTicker = () => (
-  <section className="technologies-ticker-section">
-    <div className="section-header" style={{ marginBottom: '3rem' }}>
-      <motion.span className="eyebrow" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>⚙️ Tech Stack</motion.span>
-      <motion.h2 className="section-title" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-        Technologies We <span className="gradient-text">Master</span>
-      </motion.h2>
+  <section className="technologies-ticker-section relative">
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
+      <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
+        <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>⚙️ Tech Stack</motion.span>
+      </div>
+      <div className="w-full lg:w-1/2 flex justify-center text-center">
+        <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+          Technologies We <br className="hidden lg:block" /> <span className="gradient-text">Master</span>
+        </motion.h2>
+      </div>
+      <div className="w-full lg:w-1/4" />
     </div>
     {[{ items: techRow1, dir: 'row-1' }, { items: techRow2, dir: 'row-2' }].map(({ items, dir }) => (
       <div key={dir} style={{ overflow: 'hidden', padding: '0.75rem 0' }}>
@@ -401,12 +424,17 @@ const industries = [
 const Industries = () => {
   const [active, setActive] = useState(0);
   return (
-    <section className="industries-section">
-      <div className="section-header">
-        <motion.span className="eyebrow" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🏭 Sectors Served</motion.span>
-        <motion.h2 className="section-title" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-          Industry <span className="gradient-text">Solutions</span>
-        </motion.h2>
+    <section className="industries-section relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16 border-b border-white/[0.04] pb-10">
+        <div className="w-full lg:w-1/4 flex justify-center lg:justify-start">
+          <motion.span className="eyebrow" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>🏭 Sectors Served</motion.span>
+        </div>
+        <div className="w-full lg:w-1/2 flex justify-center text-center">
+          <motion.h2 className="section-title" style={{ marginBottom: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            Industry <br className="hidden lg:block" /> <span className="gradient-text">Solutions</span>
+          </motion.h2>
+        </div>
+        <div className="w-full lg:w-1/4" />
       </div>
       <div className="industry-tabs" role="tablist">
         {industries.map((ind, i) => (
