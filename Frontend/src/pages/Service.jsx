@@ -840,17 +840,17 @@ const Service = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <FormField label="Full Name *" error={errors.name}>
                           <input id="form-name" type="text" name="name" value={formData.name} onChange={handleChange}
-                            placeholder="John Whitmore" className={inputCls(errors.name)} autoComplete="name" />
+                            placeholder="your name" className={inputCls(errors.name)} autoComplete="name" />
                         </FormField>
                         <FormField label="Email Address *" error={errors.email}>
                           <input id="form-email" type="email" name="email" value={formData.email} onChange={handleChange}
-                            placeholder="john@company.com" className={inputCls(errors.email)} autoComplete="email" />
+                            placeholder="email@gmail.com" className={inputCls(errors.email)} autoComplete="email" />
                         </FormField>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <FormField label="Phone Number" error={errors.phone}>
                           <input id="form-phone" type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                            placeholder="+91 99999 00000" className={inputCls(errors.phone)} autoComplete="tel" />
+                            placeholder="Phone Number" className={inputCls(errors.phone)} autoComplete="tel" />
                         </FormField>
                         <FormField label="Service Required *" error={errors.service}>
                           <div className="relative">

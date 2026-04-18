@@ -57,8 +57,25 @@
   grid-template-columns: 1fr 1px 1fr;
 }
 
+@media (max-width: 768px) {
+  .booking-panel {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+}
+
 .booking-panel-left, .booking-panel-right {
   padding: 3rem;
+}
+
+@media (max-width: 768px) {
+  .booking-panel-left, .booking-panel-right {
+    padding: 1.5rem;
+  }
+
+  .booking-panel-divider {
+    display: none;
+  }
 }
 
 .booking-panel-divider {

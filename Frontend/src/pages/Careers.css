@@ -52,37 +52,99 @@
 
 @media (max-width: 768px) {
     .careers-hero {
-        padding: 5rem 5% 3rem;
+        padding: 4rem 4% 2rem;
     }
 
     .careers-hero-title {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         line-height: 1.1;
     }
 
     .careers-hero-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
     }
 
     .hero-stats-panel {
-        padding: 1.5rem;
-        border-radius: 20px;
+        padding: 1.25rem;
+        border-radius: 18px;
     }
 
     .stat-item-card {
-        padding: 1rem;
+        padding: 0.85rem;
     }
 
     .stat-item-card .stat-val {
-        font-size: 1.25rem;
+        font-size: 1.1rem;
+    }
+
+    .stat-item-card .stat-desc {
+        font-size: 0.7rem;
     }
 
     .role-badge {
-        padding: 0.5rem 1rem;
-        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .stats-grid-mini {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .careers-hero {
+        padding: 3rem 3% 1.5rem;
+    }
+
+    .careers-hero-title {
+        font-size: 1.5rem;
+        line-height: 1.05;
+        margin: 1rem 0 0.8rem;
+    }
+
+    .careers-hero-subtitle {
+        font-size: 0.8rem;
+        line-height: 1.4;
         margin-bottom: 1rem;
+    }
+
+    .hero-stats-panel {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .role-tag-box {
+        padding: 0.65rem 0.8rem;
+        border-radius: 14px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-item-card {
+        padding: 0.7rem;
+        border-radius: 12px;
+    }
+
+    .stat-item-card .stat-val {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .stat-item-card .stat-desc {
+        font-size: 0.65rem;
+    }
+
+    .role-badge {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.65rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .stats-grid-mini {
+        gap: 0.5rem;
     }
 }
 
@@ -214,21 +276,53 @@
 
 @media (max-width: 768px) {
     .careers-highlights-section {
-        padding: 3rem 5%;
+        padding: 2.5rem 4%;
     }
 
     .careers-highlight-card {
-        padding: 1.5rem;
-        border-radius: 18px;
+        padding: 1.25rem;
+        border-radius: 16px;
     }
 
     .careers-highlight-card h3 {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
+        margin-bottom: 0.75rem;
     }
 
     .careers-highlight-card p {
-        font-size: 0.88rem;
-        line-height: 1.5;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+    }
+
+    .careers-highlight-card .read-more {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .careers-highlights-section {
+        padding: 2rem 3%;
+    }
+
+    .careers-highlight-card {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .careers-highlight-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .careers-highlight-card p {
+        font-size: 0.75rem;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+    }
+
+    .careers-highlight-card .read-more {
+        font-size: 0.75rem;
     }
 }
 
@@ -295,7 +389,7 @@
 
 @media (max-width: 768px) {
     .careers-jobs-section {
-        padding: 3rem 5%;
+        padding: 2.5rem 4%;
     }
 
     .job-section-title {
@@ -308,19 +402,62 @@
     }
 
     .careers-job-card {
-        padding: 1.5rem;
+        padding: 1.25rem;
         min-height: auto;
-        border-radius: 20px;
+        border-radius: 18px;
+        gap: 0.75rem;
     }
 
     .careers-job-card h3 {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .careers-job-card .job-meta {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
     }
 
     .careers-job-card .job-desc {
-        font-size: 0.88rem;
-        line-height: 1.5;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 0rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .careers-jobs-section {
+        padding: 2rem 3%;
+    }
+
+    .job-section-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .job-section-subtitle {
+        font-size: 0.85rem;
         margin-bottom: 1.5rem;
+    }
+
+    .careers-job-card {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    .careers-job-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .careers-job-card .job-meta {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .careers-job-card .job-desc {
+        font-size: 0.75rem;
+        line-height: 1.3;
     }
 }
 
@@ -375,7 +512,7 @@
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.03);
-    color: #eef2ff;
+    color: #10818e;
     outline: none;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -434,4 +571,128 @@
     background: rgba(0, 216, 255, 0.1);
     border: 1px solid rgba(0, 216, 255, 0.2);
     color: #dbeafe;
+}
+
+@media (max-width: 768px) {
+    .careers-form-section {
+        padding: 3rem 4% 6rem;
+    }
+
+    .application-form-intro {
+        padding: 1.5rem;
+        border-radius: 20px;
+        margin-bottom: 1.5rem;
+    }
+
+    .application-form-intro h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .application-form-intro p {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .application-form-box {
+        padding: 1.5rem;
+        border-radius: 20px;
+        gap: 1.25rem;
+    }
+
+    .careers-form-label {
+        font-size: 0.85rem;
+    }
+
+    .careers-input {
+        min-height: 3rem;
+        padding: 0.85rem 1rem;
+        border-radius: 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    .role-info-card {
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+        margin-top: 1.25rem;
+    }
+
+    .role-info-card h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .role-info-card p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .resume-upload-label {
+        padding: 0.85rem 1rem;
+        border-radius: 0.85rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .careers-form-section {
+        padding: 2rem 3% 4rem;
+    }
+
+    .application-form-intro {
+        padding: 1.25rem;
+        border-radius: 16px;
+        margin-bottom: 1.25rem;
+    }
+
+    .application-form-intro h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .application-form-intro p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+    }
+
+    .application-form-box {
+        padding: 1.25rem;
+        border-radius: 16px;
+        gap: 1rem;
+    }
+
+    .careers-form-label {
+        font-size: 0.8rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .careers-input {
+        min-height: 2.75rem;
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .role-info-card {
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-top: 1rem;
+    }
+
+    .role-info-card h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .role-info-card p {
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .resume-upload-label {
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.75rem;
+        font-size: 0.8rem;
+    }
 }

@@ -26,6 +26,13 @@
   background: var(--navy);
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding: 3rem 5% 4rem;
+  }
+}
+
 /* Aurora blobs */
 .hero-section::before {
   content: '';
@@ -79,6 +86,15 @@
   animation: fadeSlideUp 0.8s ease forwards;
 }
 
+@media (max-width: 768px) {
+  .hero-label {
+    font-size: 0.65rem;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.2rem;
+    gap: 6px;
+  }
+}
+
 .hero-label-dot {
   width: 6px;
   height: 6px;
@@ -98,6 +114,15 @@
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   animation: fadeSlideUp 0.8s 0.2s ease both;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    letter-spacing: -1px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .hero-subtitle {

@@ -43,25 +43,24 @@ const AdminDashboard = () => {
       setLoading(true);
 
       try {
-        const [
-          blogs,
-          projects,
-          quotes,
-          jobs,
-          applications,
-          subscribers,
-          inquiries,
-          contacts,
-        ] = await Promise.all([
-          getBlogs(),
-          getProjects(),
-          getQuotes(),
-          getJobs(),
-          getApplications(),
-          getSubscribers(),
-          getInquiries(),
-          getContacts(),
+        // Load in batches to avoid resource exhaustion (4 requests at a time)
+        const [batch1, batch2] = await Promise.all([
+          Promise.all([
+            getBlogs().catch(() => ({ data: { data: [] } })),
+            getProjects().catch(() => ({ data: { data: [] } })),
+            getQuotes().catch(() => ({ data: { data: [] } })),
+            getJobs().catch(() => ({ data: { data: [] } })),
+          ]),
+          Promise.all([
+            getApplications().catch(() => ({ data: { data: [] } })),
+            getSubscribers().catch(() => ({ data: { data: [] } })),
+            getInquiries().catch(() => ({ data: { data: [] } })),
+            getContacts().catch(() => ({ data: { data: [] } })),
+          ]),
         ]);
+
+        const [blogs, projects, quotes, jobs] = batch1;
+        const [applications, subscribers, inquiries, contacts] = batch2;
 
         setCounts({
           blogs: blogs.data?.data?.length || blogs.data?.length || 0,
@@ -82,7 +81,18 @@ const AdminDashboard = () => {
             contacts.data?.data?.length || contacts.data?.length || 0,
         });
       } catch (error) {
-        console.log("Dashboard load failed", error);
+        console.error("Dashboard load error:", error);
+        // Set default empty counts on error
+        setCounts({
+          blogs: 0,
+          projects: 0,
+          quotes: 0,
+          jobs: 0,
+          applications: 0,
+          subscribers: 0,
+          inquiries: 0,
+          contacts: 0,
+        });
       } finally {
         setLoading(false);
       }

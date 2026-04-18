@@ -209,14 +209,6 @@ const Careers = () => {
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="careers-hero-subtitle">
               Build systems that move fast, scale far, and stay secure at every layer. Our careers page brings the same precision and velocity to talent acquisition.
             </motion.p>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row gap-4 mt-8">
-              <button type="button" className="premium-btn" onClick={() => handleRoleApply(jobs[0]?._id || jobs[0]?.id)} disabled={jobs.length === 0}>
-                {jobs.length > 0 ? 'Apply Now' : 'No Openings'}
-              </button>
-              <Link to="/contact" className="outline-btn">
-                Book Consultation
-              </Link>
-            </motion.div>
           </div>
 
           <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.25 }} className="hero-stats-panel">
@@ -281,9 +273,6 @@ const Careers = () => {
                     <p className="job-meta">{job.department || job.dept} • {job.type}</p>
                     <p className="job-desc">{job.description}</p>
                   </div>
-                  <button type="button" className="apply-btn bg-cyan-light hover:bg-cyan text-cyan hover:text-navy px-6 py-2.5 rounded-full font-bold transition-all duration-300" onClick={() => handleRoleApply(job._id || job.id)}>
-                    Apply Now
-                  </button>
                 </motion.div>
               ))
             ) : (
