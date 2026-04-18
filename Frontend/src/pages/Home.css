@@ -247,7 +247,7 @@
     gap: 0.8rem;
   }
 
-  .hero-actions .premium-btn, 
+  .hero-actions .premium-btn,
   .hero-actions .outline-btn {
     width: 100%;
     max-width: 280px;
@@ -276,7 +276,7 @@
   .hero-stats {
     gap: 1rem;
   }
-  
+
   .hero-content {
     padding: 0 3%;
   }
@@ -425,7 +425,7 @@
     grid-template-columns: 1fr;
     gap: 1.2rem;
   }
-  
+
   .services-section {
     padding: 3rem 5%;
   }
@@ -460,11 +460,11 @@
   .services-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .services-section {
     padding: 2rem 5%;
   }
-  
+
   .tilt-card-inner {
     padding: 1.25rem;
     gap: 0.875rem;
@@ -768,15 +768,15 @@
     height: auto;
     padding: 5rem 5%;
   }
-  
+
   .step-content h3 {
     font-size: 2rem;
   }
-  
+
   .step-content p {
     font-size: 1rem;
   }
-  
+
   .step-count {
     font-size: 6rem;
     top: -2rem;
@@ -902,32 +902,32 @@
     gap: 1rem;
     perspective: none;
   }
-  
+
   .testimonial-card {
     transform: none !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     padding: 2rem;
   }
-  
+
   .testimonial-card.active {
     transform: none;
   }
-  
+
   .testimonial-card.side {
     transform: none;
     opacity: 1;
     pointer-events: auto;
   }
-  
+
   .testimonial-card.side-right {
     transform: none;
   }
-  
+
   .quote-mark {
     font-size: 3rem;
   }
-  
+
   .testimonial-text {
     font-size: 1rem;
   }
@@ -1024,11 +1024,11 @@
     padding: 1.25rem 1.5rem;
     font-size: 0.95rem;
   }
-  
+
   .faq-body {
     padding: 0 1.5rem;
   }
-  
+
   .faq-item.active .faq-body {
     padding: 0 1.5rem 1.25rem;
   }
@@ -1117,11 +1117,11 @@
   .cta-card {
     padding: 4rem 2rem;
   }
-  
+
   .cta-card h2 {
     font-size: clamp(1.75rem, 6vw, 2.5rem);
   }
-  
+
   .cta-card p {
     font-size: 1rem;
     margin-bottom: 2.5rem;
@@ -1412,49 +1412,115 @@
 /* ── Animations ────────────────────────────────────────── */
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes tickerLeft {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes tickerRight {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
-.ticker-row-1 { animation: tickerLeft 28s linear infinite; }
-.ticker-row-2 { animation: tickerRight 34s linear infinite; }
-.ticker-row-1:hover, .ticker-row-2:hover { animation-play-state: paused; }
+.ticker-row-1 {
+  animation: tickerLeft 28s linear infinite;
+}
+
+.ticker-row-2 {
+  animation: tickerRight 34s linear infinite;
+}
+
+.ticker-row-1:hover,
+.ticker-row-2:hover {
+  animation-play-state: paused;
+}
 
 @keyframes auroraFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(3%, 5%) scale(1.05); }
-  66% { transform: translate(-2%, -3%) scale(0.98); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(3%, 5%) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-2%, -3%) scale(0.98);
+  }
 }
 
 @keyframes ctaGradient {
-  from { opacity: 0.5; transform: rotate(0deg) scale(1); }
-  to { opacity: 1; transform: rotate(5deg) scale(1.05); }
+  from {
+    opacity: 0.5;
+    transform: rotate(0deg) scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(5deg) scale(1.05);
+  }
 }
 
 @keyframes shapeFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-30px) scale(1.1); }
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-30px) scale(1.1);
+  }
 }
 
 @keyframes scrollWheel {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  80% { transform: translate(-50%, 13px); opacity: 0; }
-  100% { transform: translate(-50%, 0); opacity: 0; }
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translate(-50%, 13px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
 }
 
 @keyframes hexRotate {
-  from { transform: rotate(0deg) scale(2); }
-  to { transform: rotate(360deg) scale(2); }
+  from {
+    transform: rotate(0deg) scale(2);
+  }
+
+  to {
+    transform: rotate(360deg) scale(2);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1722,12 +1788,20 @@
 }
 
 @media (max-width: 1024px) {
-  .stats-container { grid-template-columns: repeat(2, 1fr); }
-  .stat-card { border-right: none; border-bottom: 1px solid var(--glass-border); }
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card {
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
 }
 
 @media (max-width: 600px) {
-  .stats-container { grid-template-columns: 1fr; }
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════

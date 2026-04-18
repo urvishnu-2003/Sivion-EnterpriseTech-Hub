@@ -181,28 +181,33 @@
 }
 
 @media (max-width: 1024px) {
-  .app-header { padding: 0 2rem; }
-  .nav-menu { gap: 1.5rem; }
+  .app-header {
+    padding: 0 2rem;
+  }
+
+  .nav-menu {
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .app-header { 
-    height: 64px; 
-    padding: 0 1rem; 
-  }
-  
-  .logo-icon { 
-    width: 120px; 
-    height: 40px; 
-  }
-  
-  .logo-text { 
-    font-size: 1.25rem; 
+  .app-header {
+    height: 64px;
+    padding: 0 1rem;
   }
 
-  .mobile-toggle { 
-    display: flex; 
-    padding: 0.5rem; 
+  .logo-icon {
+    width: 120px;
+    height: 40px;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    padding: 0.5rem;
     border-radius: 8px;
   }
 
@@ -225,16 +230,18 @@
     padding: 2.5rem;
   }
 
-  .nav-menu.mobile-open { right: 0; }
-  
-  .nav-link { 
-    font-size: 1rem; 
-    padding: 0.8rem 1rem; 
-    border-radius: 10px; 
-    width: 100%; 
+  .nav-menu.mobile-open {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    width: 100%;
     text-align: center;
   }
-  
+
   .nav-menu .nav-cta {
     display: inline-flex;
     margin-left: 0;
@@ -248,13 +255,19 @@
 }
 
 @media (max-width: 375px) {
-  .app-header { padding: 0 1rem; }
-  .nav-menu { padding: 1.5rem; width: min(85vw, 320px); }
+  .app-header {
+    padding: 0 1rem;
+  }
+
+  .nav-menu {
+    padding: 1.5rem;
+    width: min(85vw, 320px);
+  }
 }
 
 @supports (padding: max(0px)) {
-  .nav-menu { 
-    padding-left: max(2rem, env(safe-area-inset-left)); 
+  .nav-menu {
+    padding-left: max(2rem, env(safe-area-inset-left));
     padding-right: max(2rem, env(safe-area-inset-right));
   }
 }

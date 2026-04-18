@@ -7,9 +7,9 @@
 .premium-btn {
   position: relative;
   overflow: hidden;
-  background: var(--blue-gradient);
+  background: #ffffff; /* Default: White */
   color: #000;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 2.2rem;
   border-radius: 50px;
   font-weight: 800;
   font-family: var(--font-main);
@@ -17,20 +17,30 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  border: none;
+  border: 1px solid #ffffff;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   letter-spacing: 0.5px;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
-  box-shadow: 0 0 30px var(--cyan-glow-lg);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 640px) {
-  .premium-btn {
-    padding: 0.7rem 1.6rem;
-    font-size: 0.85rem;
-    width: 100%;
+.premium-btn:hover {
+  background: var(--blue-gradient); /* Hover: Original color */
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--cyan-glow-lg);
+}
+
+/* GLOBAL MOBILE BUTTON OVERRIDE — PREMIUM SCALING */
+@media (max-width: 768px) {
+  .premium-btn, .outline-btn, .cyan-btn, .nav-cta, .apply-btn, .tech-btn-primary, .tech-btn-secondary {
+    padding: 0.6rem 1.4rem !important; /* Smaller padding */
+    font-size: 0.82rem !important;    /* Smaller font */
+    min-width: 140px;                 /* Consistent base width */
+    width: fit-content;               /* No more oversized blocks */
+    margin: 0 auto;                   /* Center alignment */
     justify-content: center;
   }
 }
@@ -42,7 +52,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: left 0.5s ease;
 }
 
@@ -50,21 +60,12 @@
   left: 100%;
 }
 
-.premium-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 200, 255, 0.35);
-}
-
-.premium-btn.shimmer-load::before {
-  animation: shimmer 1.2s ease 0.5s forwards;
-}
-
 .outline-btn {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 245, 255, 0.3);
-  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ffffff; /* Default: White border */
+  color: #ffffff;
   backdrop-filter: blur(10px);
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 2.2rem;
   border-radius: 50px;
   font-weight: 700;
   font-family: var(--font-main);
@@ -72,31 +73,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   text-decoration: none;
-  transition: var(--transition);
-}
-
-@media (max-width: 640px) {
-  .outline-btn {
-    padding: 0.7rem 1.6rem;
-    font-size: 0.85rem;
-    width: 100%;
-    justify-content: center;
-  }
+  transition: all 0.3s ease;
 }
 
 .outline-btn:hover {
   background: rgba(0, 245, 255, 0.1);
-  border-color: var(--cyan);
+  border-color: var(--cyan); /* Hover: Original cyan */
   color: var(--white);
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
 }
 
 .cyan-btn {
-  background: rgba(0, 200, 255, 0.08);
-  border: 1px solid rgba(0, 200, 255, 0.4);
-  color: var(--cyan);
+  background: transparent;
+  border: 1px solid #ffffff; /* Default: White */
+  color: #ffffff;
   padding: 0.7rem 1.6rem;
   border-radius: 50px;
   font-weight: 600;
@@ -107,11 +99,12 @@
   gap: 0.5rem;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .cyan-btn:hover {
-  background: var(--cyan);
+  background: var(--cyan); /* Hover: Original brand color */
+  border-color: var(--cyan);
   color: var(--navy);
   box-shadow: 0 0 20px var(--cyan-glow-lg);
 }
@@ -126,7 +119,9 @@
   display: inline-block;
 }
 
-.cyan-text { color: var(--cyan); }
+.cyan-text {
+  color: var(--cyan);
+}
 
 .section-header {
   text-align: center;
@@ -137,11 +132,11 @@
   .section-header {
     margin-bottom: 2rem;
   }
-  
+
   .section-title {
     font-size: clamp(1.75rem, 6vw, 3rem);
   }
-  
+
   .section-desc {
     font-size: 1rem;
     line-height: 1.6;
@@ -152,13 +147,13 @@
   .section-header {
     margin-bottom: 1.5rem;
   }
-  
+
   .eyebrow {
     font-size: 0.7rem;
     padding: 0.35rem 0.875rem;
     margin-bottom: 1rem;
   }
-  
+
   .section-title {
     margin-bottom: 1rem;
   }
@@ -240,4 +235,6 @@
   transition: var(--transition-sm);
 }
 
-.link-arrow:hover { gap: 0.8rem; }
+.link-arrow:hover {
+  gap: 0.8rem;
+}

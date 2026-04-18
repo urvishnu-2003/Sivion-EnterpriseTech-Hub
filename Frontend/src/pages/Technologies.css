@@ -44,49 +44,49 @@
 
 
 .tech-hero {
-  padding: 4rem 5% 4rem;
-  /* Adjusted for alignment */
+  padding: 8rem 5% 5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.hero-glow-blob {
+.tech-hero-noise {
   position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 0;
 }
 
 .tech-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
+  gap: 10px;
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #00F5FF;
-  padding: 0.5rem 1.4rem;
-  background: rgba(0, 245, 255, 0.08);
-  border: 1px solid rgba(0, 245, 255, 0.2);
+  color: #fff;
+  padding: 0.6rem 1.6rem;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.4);
   border-radius: 50px;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+  position: relative;
+  z-index: 10;
 }
 
-.tech-eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #00F5FF;
-  box-shadow: 0 0 10px #00F5FF;
+.tech-eyebrow-icon {
+  color: #a855f7;
+  filter: drop-shadow(0 0 5px #a855f7);
 }
+
+
 
 @media (max-width: 768px) {
   .tech-hero {
@@ -98,31 +98,35 @@
     font-size: 0.65rem;
     margin-bottom: 1.5rem;
   }
+}
 
-  .tech-page-h1 {
-    font-size: 2.2rem;
-    line-height: 1.1;
-  }
-
-  .tech-page-p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
+.tech-page-h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.2rem, 6.5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 10;
 }
 
 .tech-h1-gradient {
-  background: linear-gradient(135deg, #fff 0%, #00F5FF 50%, #7C3AED 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #00F5FF 50%, #10b981 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
 
 .tech-page-p {
   color: #94a3b8;
-  font-size: 1.25rem;
-  max-width: 750px;
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  max-width: 800px;
   margin: 0 auto 4rem;
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 /* ── DIAGRAM ARCHITECTURE ── */
@@ -434,18 +438,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 1.1rem 2.5rem;
-  background: #00F5FF;
-  color: #050000;
+  padding: 1.1rem 2.8rem;
+  background: #ffffff;
+  color: #000000;
   border-radius: 100px;
   text-decoration: none;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.05rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .tech-btn-primary:hover {
+  background: #00F5FF;
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 0 50px rgba(0, 245, 255, 0.5);
 }
@@ -454,20 +459,31 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 1.1rem 2.5rem;
+  padding: 1.1rem 2.8rem;
   background: transparent;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #ffffff;
   border-radius: 100px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   transition: all 0.3s;
 }
 
 .tech-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 245, 255, 0.1);
+  border-color: #00F5FF;
+  color: #00F5FF;
+}
+
+@media (max-width: 640px) {
+  .tech-btn-primary, .tech-btn-secondary {
+    padding: 0.75rem 1.8rem;
+    font-size: 0.88rem;
+    width: fit-content;
+    min-width: 170px;
+    justify-content: center;
+  }
 }
 
 /* ── RESPONSIVE ── */

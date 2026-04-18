@@ -80,7 +80,7 @@ const pods = [
     stack: [
       { name: 'PostgreSQL', logo: 'https://cdn.simpleicons.org/postgresql/F59E0B' },
       { name: 'MongoDB', logo: 'https://cdn.simpleicons.org/mongodb/F59E0B' },
-      { name: 'Redis', logo: 'https://cdn.simpleicons.org/redis/F59E0B' },
+      { name: 'Redis', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
       { name: 'Elasticsearch', logo: 'https://cdn.simpleicons.org/elasticsearch/F59E0B' },
       { name: 'MySQL', logo: 'https://cdn.simpleicons.org/mysql/F59E0B' },
       { name: 'Kafka', logo: 'https://cdn.simpleicons.org/apachekafka/F59E0B' },
@@ -192,30 +192,37 @@ const Technologies = () => {
       {/* ── HERO ─────────────────────────────── */}
       <section className="tech-hero">
         <div className="hero-glow-blob" />
+        <div className="tech-hero-noise" />
+
         <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
           className="tech-eyebrow"
         >
-          <span className="tech-eyebrow-dot" />
-          Technologies We Use
+          <Zap size={14} className="tech-eyebrow-icon" />
+          Sivion Tech Ecosystem
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.8 }}
           className="tech-page-h1"
         >
-          Engineered{' '}
+          The Sivion<br />
           <span className="tech-h1-gradient">
-            Tech Stack
-          </span>{' '}
-          Architecture
+            Tech Ecosystem
+          </span>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
           className="tech-page-p"
         >
-          Four distinct architectural layers connected by precision engineering — each pod represents a battle-tested domain of expertise that powers enterprise-grade solutions.
+          Deep dives into our enterprise architecture, cloud strategies, and the battle-tested
+          ideas reshaping the digital world through precision engineering.
         </motion.p>
       </section>
 
@@ -273,7 +280,7 @@ const Technologies = () => {
 
             <div className="node" id="redis">
               <div className="node-inner">
-                <Logo src="https://img.icons8.com/?size=100&id=pHS3eRpynIRQ&format=png&color=000000" alt="Redis" />
+                <Logo src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" />
                 <span>Redis</span>
               </div>
             </div>

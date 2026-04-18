@@ -277,11 +277,11 @@ const WhyUs = () => (
       <motion.span className="eyebrow" style={{ margin: 0 }} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
         ✅ Our Edge
       </motion.span>
-      
+
       <motion.h2 className="section-title" style={{ margin: 0 }} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
         Why Choose <br className="hidden lg:block" /> <span className="gradient-text">Sivion Hub</span>
       </motion.h2>
-      
+
       <motion.p className="section-desc" style={{ margin: 0 }} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
         The intersection of technical mastery and strategic enterprise thinking.
       </motion.p>
@@ -362,7 +362,7 @@ const techRow2 = [
 
 const TechLogo = ({ slug, name }) => (
   <img
-    src={`https://cdn.simpleicons.org/${slug}/00F5FF`}
+    src={name === 'Redis' ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg` : `https://cdn.simpleicons.org/${slug}/00F5FF`}
     alt={name}
     style={{
       width: 18,
