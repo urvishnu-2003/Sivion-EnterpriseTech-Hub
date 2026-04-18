@@ -83,25 +83,67 @@ const Services = () => {
         {services.map((service, index) => (
           <motion.div
             key={index}
-            className="service-card"
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="service-card card-glow-entry"
+            initial={{ opacity: 0, y: 40, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ y: -8 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.08, duration: 0.5 }}
+            transition={{ 
+              delay: index * 0.1, 
+              duration: 0.6,
+              type: "spring",
+              stiffness: 100,
+              damping: 15
+            }}
           >
             <TiltCard>
-              <div className="service-icon">{service.icon}</div>
-              <h3>{service.title}</h3>
-              <p>{service.desc}</p>
-              <div className="tag-strip">
+              <motion.div 
+                className="service-icon icon-float"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.2 }}
+              >
+                {service.icon}
+              </motion.div>
+              <motion.h3
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.3 }}
+              >
+                {service.title}
+              </motion.h3>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.4 }}
+              >
+                {service.desc}
+              </motion.p>
+              <motion.div 
+                className="tag-strip"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.5 }}
+              >
                 {service.tags.map((tag, i) => (
                   <span key={i} className="tag">{tag}</span>
                 ))}
-              </div>
-              <div className="card-arrow">
+              </motion.div>
+              <motion.div 
+                className="card-arrow"
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ x: 5 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.6 }}
+              >
                 <span>Explore Service</span>
                 <ArrowRight size={14} />
-              </div>
+              </motion.div>
             </TiltCard>
           </motion.div>
         ))}

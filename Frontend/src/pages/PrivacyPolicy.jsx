@@ -2,8 +2,9 @@ import React from 'react';
 import './PrivacyPolicy.css';
 import PageWrapper from '../components/ui/PageWrapper';
 import { motion } from 'framer-motion';
-import { Shield, Cookie, FileText, Lock, Eye, Database, ArrowRight } from 'lucide-react';
+import { Shield, Cookie, FileText, Lock, Eye, Database, ArrowRight, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { downloadPDF, downloadText } from '../utils/downloadPDF';
 
 const sections = [
   {
@@ -102,6 +103,23 @@ const PrivacyPolicy = () => {
   const [active, setActive] = React.useState('privacy');
   const current = sections.find(s => s.id === active);
 
+  const handleDownloadPDF = async () => {
+    const contentElement = document.getElementById('legal-content-to-download');
+    if (contentElement) {
+      await downloadPDF(contentElement, `${current.title.replace(/\s+/g, '_')}`);
+    }
+  };
+
+  const handleDownloadText = () => {
+    let textContent = `${current.title}\nLast Updated: ${current.lastUpdated}\n\n`;
+    textContent += `Quick Summary:\n${current.summary.join('\n')}\n\n`;
+    textContent += `Full Content:\n\n`;
+    current.content.forEach(block => {
+      textContent += `${block.heading}\n${block.body}\n\n`;
+    });
+    downloadText(textContent, current.title.replace(/\s+/g, '_'));
+  };
+
   return (
     <PageWrapper>
       {/* Hero */}
@@ -151,17 +169,41 @@ const PrivacyPolicy = () => {
               <div className="legal-card-header">
                 <span style={{ color: '#00F5FF' }}>{current.icon}</span>
                 <h2>{current.title}</h2>
+                <div className="legal-download-buttons">
+                  <motion.button 
+                    onClick={handleDownloadPDF}
+                    className="download-btn download-btn-pdf"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    title={`Download ${current.title} as PDF`}
+                  >
+                    <Download size={16} />
+                    <span>PDF</span>
+                  </motion.button>
+                  <motion.button 
+                    onClick={handleDownloadText}
+                    className="download-btn download-btn-text"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    title={`Download ${current.title} as Text`}
+                  >
+                    <Download size={16} />
+                    <span>TEXT</span>
+                  </motion.button>
+                </div>
               </div>
               <p className="legal-update-date">
                 Last Updated: {current.lastUpdated}
               </p>
 
-              {current.content.map((block, i) => (
-                <div key={i} className="legal-block">
-                  <h3>{block.heading}</h3>
-                  <p>{block.body}</p>
-                </div>
-              ))}
+              <div id="legal-content-to-download">
+                {current.content.map((block, i) => (
+                  <div key={i} className="legal-block">
+                    <h3>{block.heading}</h3>
+                    <p>{block.body}</p>
+                  </div>
+                ))}
+              </div>
 
               <div className="legal-inquiry-box">
                 <p>

@@ -142,22 +142,24 @@
   overflow: hidden;
   background: var(--blue-gradient);
   color: #000 !important;
-  padding: 0.6rem 1.4rem;
-  border-radius: 50px;
+  padding: 0.85rem 1.8rem;
+  border-radius: 12px;
   font-weight: 800;
   font-family: var(--font-main);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: center;
+  gap: 0.6rem;
   border: none;
   cursor: pointer;
-  font-size: 0.84rem;
+  font-size: 0.95rem;
   letter-spacing: 0.5px;
   transition: all 0.3s ease;
   white-space: nowrap;
   margin-left: 0.75rem;
-  box-shadow: 0 0 20px var(--cyan-glow-lg);
+  box-shadow: 0 8px 30px var(--cyan-glow-lg);
+  height: auto;
 }
 
 /* ── MOBILE TOGGLE ── */

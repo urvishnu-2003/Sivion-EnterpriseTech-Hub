@@ -134,11 +134,13 @@
 
 .quote-glow-btn {
   width: 100%;
+  max-width: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 1rem;
+  height: 50px;
   color: #0A192F;
   border-radius: 12px;
   font-weight: 800;
@@ -178,14 +180,22 @@
 .quote-discovery-call-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 0.875rem 2rem;
+  padding: 1rem 2rem;
   background: linear-gradient(135deg, #00F5FF, #0066FF);
   color: #0A192F;
-  border-radius: 10px;
-  font-weight: 700;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1rem;
   text-decoration: none;
-  box-shadow: 0 8px 25px rgba(0,245,255,0.3);
+  box-shadow: 0 8px 30px rgba(0, 245, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: auto;
+  min-width: 180px;
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {
@@ -222,13 +232,6 @@
   .quote-bottom-cta p {
     font-size: 0.88rem;
     margin-bottom: 1.5rem;
-  }
-
-  .quote-discovery-call-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-    width: 100%;
-    justify-content: center;
   }
 }
 

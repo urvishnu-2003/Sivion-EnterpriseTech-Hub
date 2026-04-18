@@ -208,11 +208,22 @@ const testimonials = [
 
 const Testimonials = () => {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
     const interval = setInterval(() => setActive(a => (a + 1) % testimonials.length), 5000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
+
+  const slideTransition = isMobile 
+    ? { duration: 0.3, ease: [0.23, 1, 0.32, 1] } 
+    : { duration: 0.5, ease: [0.23, 1, 0.32, 1] };
 
   return (
     <section className="testimonials-section relative">
@@ -231,7 +242,7 @@ const Testimonials = () => {
             initial={{ opacity: 0, x: 80 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -80 }}
-            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            transition={slideTransition}
             className="testimonial-card active"
             style={{ width: '100%' }}
           >
@@ -320,11 +331,11 @@ const CTABanner = () => (
         style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}
         initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 }}
       >
-        <Link to="/quote" className="premium-btn" style={{ fontSize: '1rem', padding: '0.9rem 2.2rem' }}>
+        <Link to="/quote" className="premium-btn" style={{ fontSize: '1rem', padding: '0.9rem 2.2rem', minWidth: '220px', justifyContent: 'center' }}>
           Get Free Proposal <ArrowRight size={18} />
         </Link>
-        <Link to="/contact" className="outline-btn" style={{ fontSize: '1rem', padding: '0.9rem 2.2rem' }}>
-          Schedule a Call
+        <Link to="/contact" className="premium-btn" style={{ fontSize: '1rem', padding: '0.9rem 2.2rem', minWidth: '220px', justifyContent: 'center' }}>
+          Schedule a Call <ArrowRight size={18} />
         </Link>
       </motion.div>
     </div>
@@ -335,12 +346,12 @@ const CTABanner = () => (
    TECHNOLOGIES TICKER SECTION
    ───────────────────────────────────────────── */
 const techRow1 = [
-  { name: 'Java', slug: 'openjdk' },
+  { name: 'Java', slug: 'java' },
   { name: 'Spring Boot', slug: 'spring' },
   { name: 'React', slug: 'react' },
   { name: 'Node.js', slug: 'nodedotjs' },
   { name: 'TypeScript', slug: 'typescript' },
-  { name: 'AWS', slug: 'amazonwebservices' },
+  { name: 'AWS', slug: 'amazonaws' },
   { name: 'Docker', slug: 'docker' },
   { name: 'Kubernetes', slug: 'kubernetes' },
   { name: 'PostgreSQL', slug: 'postgresql' },
@@ -356,20 +367,19 @@ const techRow2 = [
   { name: 'Terraform', slug: 'terraform' },
   { name: 'Python', slug: 'python' },
   { name: 'Angular', slug: 'angular' },
-  { name: 'Azure', slug: 'azure' },
+  { name: 'Azure', slug: 'microsoftazure' },
   { name: 'Git', slug: 'git' }
 ];
 
 const TechLogo = ({ slug, name }) => (
   <img
-    src={name === 'Redis' ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg` : `https://cdn.simpleicons.org/${slug}/00F5FF`}
+    src={name === 'Redis' ? `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg` : `https://cdn.simpleicons.org/${slug}`}
     alt={name}
+    className="tech-logo-img"
     style={{
       width: 18,
       height: 18,
       objectFit: 'contain',
-      filter: 'brightness(0) invert(1)',
-      opacity: 0.9,
       marginRight: '0.25rem'
     }}
     onError={(e) => { e.target.style.display = 'none'; }}

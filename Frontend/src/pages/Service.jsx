@@ -528,11 +528,11 @@ const Service = () => {
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-wrap gap-4 mb-12">
-              <Link to="/contact" className="px-8 py-3.5 bg-white text-[#050d1a] font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-[#00c8ff] hover:text-white transition-all duration-300 shadow-2xl active:scale-95 text-center min-w-[180px]">
+              className="flex flex-wrap gap-4 justify-center mb-12">
+              <Link to="/contact" className="premium-btn">
                 Consult With Us
               </Link>
-              <Link to="/contact" className="px-8 py-3.5 border border-white/10 text-white font-bold text-xs uppercase tracking-widest rounded-xl hover:border-[#00c8ff] hover:text-[#00c8ff] transition-all duration-300 backdrop-blur-sm active:scale-95 text-center min-w-[180px]">
+              <Link to="/contact" className="outline-btn">
                 Methodology
               </Link>
             </motion.div>
@@ -776,13 +776,12 @@ const Service = () => {
                 <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
                   className="flex flex-wrap gap-4 justify-center mb-10">
                   <Link to="/contact" id="cta-book-consultation"
-                    className="premium-btn group text-[0.95rem] px-8 py-4 rounded-2xl font-bold shadow-[0_8px_32px_rgba(0,200,255,0.25)]">
-                    Book Consultation <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+                    className="premium-btn">
+                    Book Consultation <ArrowRight size={17} />
                   </Link>
                   <Link to="/contact?type=expert" id="cta-talk-experts"
-                    className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-[0.95rem] border transition-all duration-300 text-white hover:border-[#00c8ff]/60 hover:text-[#00c8ff]"
-                    style={{ border: '1px solid rgba(255,255,255,0.14)' }}>
-                    <Phone size={16} /> Talk to Our Experts
+                    className="outline-btn">
+                    Talk to Our Experts
                   </Link>
                 </motion.div>
                 <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.35 }}

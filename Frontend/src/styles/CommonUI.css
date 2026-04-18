@@ -7,41 +7,122 @@
 .premium-btn {
   position: relative;
   overflow: hidden;
-  background: #ffffff; /* Default: White */
-  color: #000;
-  padding: 0.8rem 2.2rem;
-  border-radius: 50px;
+  background: linear-gradient(135deg, #00F5FF, #0066FF);
+  color: #0A192F;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 800;
   font-family: var(--font-main);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
-  border: 1px solid #ffffff;
+  border: none;
   cursor: pointer;
-  font-size: 0.92rem;
+  font-size: 1rem;
   letter-spacing: 0.5px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 245, 255, 0.35);
+  min-width: auto;
+  height: auto;
 }
 
 .premium-btn:hover {
-  background: var(--blue-gradient); /* Hover: Original color */
-  border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--cyan-glow-lg);
+  box-shadow: 0 14px 40px rgba(0, 245, 255, 0.5);
 }
 
-/* GLOBAL MOBILE BUTTON OVERRIDE — PREMIUM SCALING */
+/* GLOBAL MOBILE BUTTON OVERRIDE — ALL BUTTONS STANDARDIZED */
 @media (max-width: 768px) {
-  .premium-btn, .outline-btn, .cyan-btn, .nav-cta, .apply-btn, .tech-btn-primary, .tech-btn-secondary {
-    padding: 0.6rem 1.4rem !important; /* Smaller padding */
-    font-size: 0.82rem !important;    /* Smaller font */
-    min-width: 140px;                 /* Consistent base width */
-    width: fit-content;               /* No more oversized blocks */
-    margin: 0 auto;                   /* Center alignment */
-    justify-content: center;
+  .premium-btn, 
+  .outline-btn, 
+  .cyan-btn, 
+  .nav-cta, 
+  .apply-btn, 
+  .tech-btn-primary, 
+  .tech-btn-secondary,
+  .quote-btn-primary,
+  .talk-experts-btn,
+  .quote-discovery-call-btn {
+    padding: 0.875rem 1.75rem !important;
+    font-size: 0.95rem !important;
+    min-width: 160px !important;
+    height: auto !important;
+    max-width: 280px !important;
+    width: fit-content;
+    margin: 0 auto;
+    justify-content: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    border-radius: 12px !important;
+  }
+
+  .hero-actions .premium-btn,
+  .hero-actions .outline-btn,
+  #cta-banner .premium-btn,
+  #cta-banner .outline-btn,
+  .solutions-cta-btns .quote-btn-primary,
+  .solutions-cta-btns .talk-experts-btn,
+  .tech-cta-btns .tech-btn-primary,
+  .tech-cta-btns .tech-btn-secondary,
+  .cta-actions .primary-btn,
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline,
+  .hero-actions .btn-cyan-glow {
+    width: 205px !important;
+    min-width: 205px !important;
+    max-width: 205px !important;
+    height: 40px !important;
+    padding: 0 1rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+  }
+}
+
+/* Extra small devices - reduce further but keep proportion */
+@media (max-width: 480px) {
+  .premium-btn, 
+  .outline-btn, 
+  .cyan-btn, 
+  .nav-cta, 
+  .apply-btn, 
+  .tech-btn-primary, 
+  .tech-btn-secondary,
+  .quote-btn-primary,
+  .talk-experts-btn,
+  .quote-discovery-call-btn {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    min-width: 140px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 10px !important;
+  }
+
+  .hero-actions .premium-btn,
+  .hero-actions .outline-btn,
+  #cta-banner .premium-btn,
+  #cta-banner .outline-btn,
+  .solutions-cta-btns .quote-btn-primary,
+  .solutions-cta-btns .talk-experts-btn,
+  .tech-cta-btns .tech-btn-primary,
+  .tech-cta-btns .tech-btn-secondary,
+  .cta-actions .primary-btn,
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline,
+  .hero-actions .btn-cyan-glow {
+    width: 205px !important;
+    min-width: 205px !important;
+    max-width: 205px !important;
+    height: 40px !important;
+    padding: 0 1rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
   }
 }
 
@@ -61,45 +142,50 @@
 }
 
 .outline-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #ffffff; /* Default: White border */
-  color: #ffffff;
+  background: linear-gradient(135deg, #00F5FF, #0066FF);
+  border: none;
+  color: #0A192F;
   backdrop-filter: blur(10px);
-  padding: 0.8rem 2.2rem;
-  border-radius: 50px;
-  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 800;
   font-family: var(--font-main);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
-  font-size: 0.92rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  min-width: auto;
+  height: auto;
+  box-shadow: 0 8px 30px rgba(0, 245, 255, 0.35);
 }
 
 .outline-btn:hover {
-  background: rgba(0, 245, 255, 0.1);
-  border-color: var(--cyan); /* Hover: Original cyan */
-  color: var(--white);
-  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0, 245, 255, 0.5);
 }
 
 .cyan-btn {
   background: transparent;
   border: 1px solid #ffffff; /* Default: White */
   color: #ffffff;
-  padding: 0.7rem 1.6rem;
-  border-radius: 50px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
   font-weight: 600;
   font-family: var(--font-main);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  height: auto;
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
 }
 
 .cyan-btn:hover {

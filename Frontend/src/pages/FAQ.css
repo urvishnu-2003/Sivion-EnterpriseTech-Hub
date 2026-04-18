@@ -232,6 +232,37 @@
   background: linear-gradient(90deg, transparent, #00F5FF, transparent);
 }
 
+/* Standardized talk-experts button */
+.talk-experts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: var(--font-main);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 180px;
+  height: auto;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.talk-experts-btn:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 245, 255, 0.08);
+  color: #00F5FF;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
 @media (max-width: 768px) {
   .faq-cta-section {
     padding: 0 5% 6rem;
@@ -249,5 +280,52 @@
   .faq-cta-desc {
     font-size: 0.95rem;
     margin-bottom: 2rem;
+  }
+
+  .faq-cta-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .talk-experts-btn {
+    width: 100%;
+    max-width: 240px;
+    padding: 0.7rem 1.6rem !important;
+    font-size: 0.85rem !important;
+    height: 42px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-cta-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .faq-cta-title {
+    font-size: 1.4rem;
+  }
+
+  .faq-cta-desc {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-cta-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .talk-experts-btn {
+    width: 100%;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.8rem !important;
+    height: 40px !important;
   }
 }

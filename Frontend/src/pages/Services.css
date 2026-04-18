@@ -505,3 +505,20 @@
   border-color: rgba(239, 68, 68, 0.5);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.07);
 }
+
+@media (max-width: 768px) {
+  #cta-banner .premium-btn,
+  #cta-banner .outline-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #cta-banner .premium-btn,
+  #cta-banner .outline-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+  }
+}

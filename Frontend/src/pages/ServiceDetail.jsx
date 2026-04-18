@@ -628,12 +628,12 @@ const ServiceDetail = () => {
 
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link to="/quote"
-                  className="premium-btn text-[0.92rem] px-7 py-3.5 rounded-xl font-bold group shadow-2xl">
-                  Request Proposal <ArrowRight size={16} className="ml-2" />
+                  className="premium-btn">
+                  Request Proposal <ArrowRight size={16} />
                 </Link>
                 <Link to="/services"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-[0.92rem] border border-white/10 text-[#94a3b8] hover:text-white transition-all">
-                  <ArrowLeft size={15} /> All Services
+                  className="outline-btn">
+                  All Services
                 </Link>
               </div>
             </div>

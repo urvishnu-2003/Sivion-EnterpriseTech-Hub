@@ -367,39 +367,58 @@
 .quote-btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 0.8rem 1.5rem;
-  background: #00F5FF;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #00F5FF, #0066FF);
   color: #0A192F;
-  border-radius: 8px;
-  font-weight: 700;
+  border-radius: 12px;
+  font-weight: 800;
+  font-family: var(--font-main);
   text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 25px rgba(0, 245, 255, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 30px rgba(0, 245, 255, 0.35);
+  font-size: 1rem;
+  min-width: auto;
+  height: auto;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
 }
 
 .quote-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 245, 255, 0.4);
+  box-shadow: 0 14px 40px rgba(0, 245, 255, 0.5);
 }
 
 .talk-experts-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 0.8rem 1.5rem;
-  background: transparent;
-  color: #00F5FF;
-  border: 1px solid rgba(0, 245, 255, 0.5);
-  border-radius: 8px;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
   font-weight: 700;
+  font-family: var(--font-main);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 180px;
+  height: auto;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
 }
 
 .talk-experts-btn:hover {
-  border-color: #00F5FF;
-  background: rgba(0, 245, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 245, 255, 0.08);
+  color: #00F5FF;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
 }
 
 /* Responsive */
@@ -544,13 +563,19 @@
     flex-direction: column;
     gap: 0.8rem;
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     margin: 0 auto;
+    padding: 0 1rem;
   }
 
   .quote-btn-primary,
   .talk-experts-btn {
     width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    padding: 0.875rem 1.75rem !important;
+    font-size: 0.95rem !important;
+    height: auto !important;
     justify-content: center;
   }
 }
@@ -574,5 +599,27 @@
   .view-case-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .solutions-cta-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .quote-btn-primary,
+  .talk-experts-btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    height: auto !important;
+    justify-content: center;
+    min-width: 140px !important;
   }
 }

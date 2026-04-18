@@ -42,23 +42,16 @@ const StepCard = ({ step, index }) => {
   const isLeft = index % 2 === 0;
 
   return (
-    <div ref={ref} style={{ display: 'flex', justifyContent: isLeft ? 'flex-end' : 'flex-start', paddingRight: isLeft ? '55%' : '0', paddingLeft: isLeft ? '0' : '55%', marginBottom: '4rem', position: 'relative' }}>
+    <div ref={ref} className={`process-step-row ${isLeft ? 'step-left' : 'step-right'}`}>
       {/* Timeline node */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={isInView ? { scale: 1, opacity: 1 } : {}}
         transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+        className="timeline-node"
         style={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          top: '2rem',
-          width: '16px',
-          height: '16px',
-          borderRadius: '50%',
           background: step.color,
           boxShadow: `0 0 0 4px rgba(${step.color === '#00c8ff' ? '0,200,255' : step.color === '#7c3aed' ? '124,58,237' : '0,229,160'},0.2), 0 0 15px ${step.color}`,
-          zIndex: 2,
         }}
       />
 
@@ -67,14 +60,9 @@ const StepCard = ({ step, index }) => {
         initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1], delay: index * 0.1 }}
+        className="process-card"
         style={{
-          background: 'rgba(10, 22, 40, 0.85)',
           border: `1px solid ${step.color}22`,
-          borderRadius: '20px',
-          padding: '2rem 2.5rem',
-          maxWidth: '420px',
-          backdropFilter: 'blur(10px)',
-          transition: 'border-color 0.3s ease',
         }}
         whileHover={{ borderColor: step.color + '66', y: -4 }}
       >
@@ -135,7 +123,7 @@ const TimelineLine = () => {
           strokeWidth="2"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-          transition={{ duration: 2.5, ease: 'easeInOut', delay: 0.3 }}
+          transition={{ duration: 1.2, ease: 'easeInOut', delay: 0.2 }}
           style={{ filter: 'drop-shadow(0 0 4px rgba(0,200,255,0.5))' }}
         />
       </svg>

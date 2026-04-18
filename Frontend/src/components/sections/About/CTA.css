@@ -43,5 +43,29 @@
 @media (max-width: 768px) {
   .cta-buttons {
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline {
+    width: 100%;
+    max-width: 280px;
+    padding: 0.875rem 1.75rem;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-buttons .btn-primary,
+  .cta-buttons .btn-outline {
+    width: 100%;
+    max-width: 280px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 }

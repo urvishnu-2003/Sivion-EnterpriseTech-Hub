@@ -110,3 +110,233 @@
 .stagger-3 { transition-delay: 0.3s; }
 .stagger-4 { transition-delay: 0.4s; }
 .stagger-5 { transition-delay: 0.5s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ENHANCED CARD ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes cardGlowEntry {
+  0% { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.95);
+    filter: blur(10px);
+  }
+  50% {
+    filter: blur(5px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cardHoverGlow {
+  0% {
+    box-shadow: 0 10px 30px rgba(0, 200, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 20px 60px rgba(0, 200, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  100% {
+    box-shadow: 0 20px 60px rgba(0, 200, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+@keyframes cardBounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9) rotateX(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.02) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes borderGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes cardPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 200, 255, 0.5);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleInCenter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateInY {
+  from {
+    opacity: 0;
+    transform: rotateY(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0);
+  }
+}
+
+/* ── Card Animation Classes ── */
+.card-glow-entry {
+  animation: cardGlowEntry 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.card-bounce-in {
+  animation: cardBounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.card-scale-in {
+  animation: scaleInCenter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Icon animations */
+.icon-float {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+.icon-float-delay-1 { animation-delay: 0s; }
+.icon-float-delay-2 { animation-delay: 0.2s; }
+.icon-float-delay-3 { animation-delay: 0.4s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE ANIMATION OPTIMIZATION
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* Reduce animation complexity for better mobile performance */
+  @keyframes cardGlowEntry {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px);
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes iconFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes cardBounceIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Reduce hover effects for touch devices */
+  .card-glow-entry {
+    animation: cardGlowEntry 0.5s ease-out forwards;
+  }
+
+  .card-bounce-in {
+    animation: cardBounceIn 0.6s ease-out forwards;
+  }
+
+  /* Icon float on mobile should be subtle */
+  .icon-float {
+    animation: iconFloat 4s ease-in-out infinite;
+  }
+
+  /* Disable complex animations on very small devices */
+  @supports (hover: none) {
+    /* This targets touch devices */
+    .service-card,
+    .why-tilt-card,
+    .testimonial-card,
+    .faq-item {
+      will-change: auto;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ultra-lightweight animations for small phones */
+  @keyframes cardGlowEntry {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .card-glow-entry {
+    animation: cardGlowEntry 0.4s ease forwards;
+  }
+
+  .card-bounce-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  .icon-float {
+    animation: none;
+  }
+
+  /* Reduce stagger delays on mobile */
+  .stagger-1 { transition-delay: 0s; }
+  .stagger-2 { transition-delay: 0.05s; }
+  .stagger-3 { transition-delay: 0.1s; }
+  .stagger-4 { transition-delay: 0.15s; }
+  .stagger-5 { transition-delay: 0.2s; }
+}
