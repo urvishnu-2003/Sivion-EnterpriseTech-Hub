@@ -9,8 +9,8 @@ const {
 const { protect, authorizeRoles } = require("../middleware/auth.middleware");
 const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
-// Public subscribe with reCAPTCHA
-router.post("/", verifyRecaptcha, subscribeNewsletter);
+// Public subscribe
+router.post("/", subscribeNewsletter);
 
 // Admin read
 router.get("/", protect, authorizeRoles("admin"), getAllSubscribers);

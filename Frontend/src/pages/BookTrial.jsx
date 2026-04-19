@@ -21,6 +21,8 @@ const buildCalendar = (year, month) => {
   return cells;
 };
 
+import { createQuote } from './admin/services/quoteService';
+
 const BookTrial = () => {
   const navigate = useNavigate();
   const now = new Date();
@@ -30,27 +32,48 @@ const BookTrial = () => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [duration, setDuration] = useState('14');
   const [form, setForm] = useState({ name: '', company: '', email: '', notes: '' });
-  const [step, setStep] = useState(1); // 1=calendar, 2=details, 3=confirm
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [submitting, setSubmitting] = useState(false);
 
-  const cells = buildCalendar(currentYear, currentMonth);
-  const today = now.getDate();
-  const isCurrentMonth = currentMonth === now.getMonth() && currentYear === now.getFullYear();
 
-  const prevMonth = () => {
-    if (currentMonth === 0) { setCurrentMonth(11); setCurrentYear(y => y - 1); }
-    else setCurrentMonth(m => m - 1);
-    setSelectedDay(null); setSelectedSlot(null);
-  };
-  const nextMonth = () => {
-    if (currentMonth === 11) { setCurrentMonth(0); setCurrentYear(y => y + 1); }
-    else setCurrentMonth(m => m + 1);
-    setSelectedDay(null); setSelectedSlot(null);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/thank-you');
+    if (!selectedDay || !selectedSlot) {
+      setStatus({ type: 'error', message: 'Please select a date and time slot.' });
+      return;
+    }
+
+    setSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+
+    try {
+      const payload = {
+        requestType: 'consultation',
+        fullName: form.name,
+        email: form.email,
+        company: form.company,
+        serviceType: `${duration}-Day Trial Session`,
+        preferredDate: `${MONTHS[currentMonth]} ${selectedDay}, ${currentYear}`,
+        preferredTime: selectedSlot,
+        projectDetails: form.notes || 'No additional notes provided.'
+      };
+
+      await createQuote(payload);
+
+      setStatus({ type: 'success', message: 'Trial scheduled successfully!' });
+      setTimeout(() => navigate('/thank-you'), 1500);
+    } catch (error) {
+      console.error("Booking error:", error);
+      setStatus({ 
+        type: 'error', 
+        message: error.response?.data?.message || 'Failed to schedule trial. Please try again.' 
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
+
 
   return (
     <PageWrapper>
@@ -186,6 +209,11 @@ const BookTrial = () => {
             )}
 
             <form onSubmit={handleSubmit} className="booking-form">
+              {status.message && (
+                <div className={`booking-status-msg ${status.type}`}>
+                  {status.message}
+                </div>
+              )}
               <div className="float-field">
                 <input
                   type="text" placeholder=" " required
@@ -222,6 +250,8 @@ const BookTrial = () => {
                 type="submit"
                 className="schedule-btn"
               >
+
+
                 Schedule Trial <ArrowRight size={18} />
               </button>
             </form>

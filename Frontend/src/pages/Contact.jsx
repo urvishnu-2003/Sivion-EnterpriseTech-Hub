@@ -22,18 +22,44 @@ const FloatInput = ({ label, type = 'text', value, onChange, required, textarea,
   </div>
 );
 
+import { submitContact } from './admin/services/contactService';
+
 const Contact = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', company: '', email: '', service: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1200));
-    navigate('/thank-you');
+    setStatus({ type: '', message: '' });
+
+    try {
+      // Map 'name' to 'fullName' and 'service' to 'subject' as expected by backend
+      const payload = {
+        fullName: form.name,
+        email: form.email,
+        company: form.company,
+        subject: form.service || "General Inquiry",
+        message: form.message
+      };
+
+      await submitContact(payload);
+      setStatus({ type: 'success', message: 'Inquiry sent successfully!' });
+      setTimeout(() => navigate('/thank-you'), 1500);
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus({
+        type: 'error',
+        message: error.response?.data?.message || 'Failed to send inquiry. Please try again.'
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -43,13 +69,12 @@ const Contact = () => {
         <div className="contact-hero-bloom" />
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="contact-badge">
           <span className="contact-badge-dot" />
-          Contact Us & Request Quote
+          Book Consultation Request
         </motion.div>
         <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="contact-title">
-          Request a{' '}
           <span className="gradient-text">
-            Quote
+            Contact Us
           </span>
         </motion.h1>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
@@ -132,6 +157,12 @@ const Contact = () => {
               <p>All fields marked * are required. We respond within 24 business hours.</p>
 
               <form onSubmit={handleSubmit}>
+                {status.message && (
+                  <div className={`contact-status-msg ${status.type}`}>
+                    {status.message}
+                  </div>
+                )}
+
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
                   <FloatInput label="First Name" value={form.name} onChange={set('name')} required />
                   <FloatInput label="Company Name" value={form.company} onChange={set('company')} />
@@ -158,12 +189,6 @@ const Contact = () => {
 
                 <FloatInput label="Project Description / Message" value={form.message} onChange={set('message')} required textarea rows={5} />
 
-                {/* reCAPTCHA placeholder */}
-                <div className="recaptcha-box">
-                  <span className="recaptcha-text">Protected by reCAPTCHA</span>
-                  <CheckCircle2 size={18} color="#10B981" />
-                </div>
-
                 <button
                   type="submit"
                   disabled={submitting}
@@ -179,6 +204,5 @@ const Contact = () => {
     </PageWrapper>
   );
 };
-
 
 export default Contact;

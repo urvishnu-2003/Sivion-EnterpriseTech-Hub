@@ -450,6 +450,9 @@ function ServicesArc() {
 /* ═══════════════════════════════════════════════════════════════
    MAIN PAGE COMPONENT
 ═══════════════════════════════════════════════════════════════ */
+import { createInquiry } from './admin/services/inquiryService';
+
+
 const Service = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -462,12 +465,14 @@ const Service = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [isMarqueePaused, setIsMarqueePaused] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
-  }, [errors]);
+    if (apiError) setApiError('');
+  }, [errors, apiError]);
 
   const validate = () => {
     const e = {};
@@ -484,11 +489,29 @@ const Service = () => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
+
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 1800));
-    setSubmitting(false);
-    setSubmitted(true);
+    setApiError('');
+
+    try {
+      const payload = {
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: `Service Inquiry: ${formData.service}`,
+        message: formData.message
+      };
+
+      await createInquiry(payload);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Inquiry error:", error);
+      setApiError(error.response?.data?.message || 'Failed to submit inquiry. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
+
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -837,6 +860,12 @@ const Service = () => {
                   ) : (
                     <motion.form key="form" onSubmit={handleSubmit} noValidate className="space-y-6"
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                      {apiError && (
+                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl text-sm font-medium">
+                          {apiError}
+                        </div>
+                      )}
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <FormField label="Full Name *" error={errors.name}>
                           <input id="form-name" type="text" name="name" value={formData.name} onChange={handleChange}
@@ -869,6 +898,7 @@ const Service = () => {
                           placeholder="Describe your project goals, timeline, budget range, and technical requirements…"
                           className={`${inputCls(errors.message)} resize-none`} />
                       </FormField>
+
                       <motion.button type="submit" disabled={submitting}
                         whileHover={{ scale: submitting ? 1 : 1.015 }} whileTap={{ scale: submitting ? 1 : 0.98 }}
                         className="w-full premium-btn py-4 rounded-xl font-bold text-[0.95rem] justify-center gap-3 disabled:opacity-60 disabled:cursor-not-allowed"

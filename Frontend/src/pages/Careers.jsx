@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './Careers.css';
 
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
 
 const Careers = () => {
@@ -31,7 +31,7 @@ const Careers = () => {
     const fetchJobs = async () => {
       console.log('Fetching jobs...');
       try {
-        const response = await fetch(`${API_BASE_URL}/api/jobs`);
+        const response = await fetch(`${API_BASE_URL}/jobs`);
         const data = await response.json();
         console.log('API response:', data);
         if (response.ok && Array.isArray(data.data)) {
@@ -151,10 +151,10 @@ const Careers = () => {
       payload.append('phone', formData.phone.trim());
       payload.append('experience', formData.experience.trim());
       payload.append('skills', formData.skills.trim());
-      payload.append('resume', formData.resume);
       payload.append('recaptchaToken', recaptchaToken);
+      payload.append('resume', formData.resume);
 
-      const response = await fetch(`${API_BASE_URL}/api/applications`, {
+      const response = await fetch(`${API_BASE_URL}/applications`, {
         method: 'POST',
         body: payload,
       });
@@ -273,6 +273,9 @@ const Careers = () => {
                     <p className="job-meta">{job.department || job.dept} • {job.type}</p>
                     <p className="job-desc">{job.description}</p>
                   </div>
+                  <button className="job-apply-btn" onClick={() => handleRoleApply(job._id || job.id)}>
+                    Apply Now <ArrowRight size={16} />
+                  </button>
                 </motion.div>
               ))
             ) : (

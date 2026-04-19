@@ -164,6 +164,28 @@
   box-shadow: 0 0 15px var(--cyan-glow-lg);
 }
 
+.footer-loader {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: footerSpin 0.8s linear infinite;
+}
+
+@keyframes footerSpin {
+  to { transform: rotate(360deg); }
+}
+
+.newsletter-error-msg {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  margin-top: 0.6rem;
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+
 /* Footer Bottom */
 .footer-bottom {
   display: flex;

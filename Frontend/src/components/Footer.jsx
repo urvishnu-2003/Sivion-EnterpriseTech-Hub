@@ -3,15 +3,35 @@ import { Link } from 'react-router-dom';
 import { Box, Mail, Phone, MapPin, Send, Globe, Share2, Terminal, MessageCircle, Video } from 'lucide-react';
 import './Footer.css';
 
+import { subscribe } from '../pages/admin/services/newsletterService';
+
 function Footer() {
+
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-
-  const handleNewsletterSubmit = (e) => {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    if (email) { setSubscribed(true); }
+    if (!email) return;
+
+    setLoading(true);
+    setError('');
+
+    try {
+      await subscribe(email);
+      setSubscribed(true);
+    } catch (err) {
+      console.error("Newsletter error:", err);
+      setError(err.response?.data?.message || 'Subscription failed.');
+    } finally {
+      setLoading(false);
+    }
   };
+
+
+
 
   return (
     <footer className="app-footer" aria-label="Site footer">
@@ -129,11 +149,17 @@ function Footer() {
                   aria-label="Newsletter email"
                   required
                 />
-                <button type="submit" className="send-btn" aria-label="Subscribe">
-                  <Send size={17} />
+                <button type="submit" className="send-btn" aria-label="Subscribe" disabled={loading}>
+                  {loading ? <span className="footer-loader" /> : <Send size={17} />}
                 </button>
               </div>
+
+
+              {error && <div className="newsletter-error-msg">{error}</div>}
+
               <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start', marginTop: '0.8rem', fontSize: '0.75rem', color: 'var(--text-dim)', cursor: 'pointer' }}>
+
+
                 <input type="checkbox" required style={{ marginTop: '2px', accentColor: 'var(--cyan)' }} />
                 I agree to receive email insights from Sivion Hub.
               </label>

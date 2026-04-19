@@ -132,6 +132,28 @@
   padding: 2rem;
 }
 
+.quote-status-msg {
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.quote-status-msg.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10B981;
+}
+
+.quote-status-msg.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+}
+
+
 @media (max-width: 768px) {
   .quote-form-body {
     padding: 1.2rem;

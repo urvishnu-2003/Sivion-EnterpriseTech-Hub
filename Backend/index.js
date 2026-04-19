@@ -14,13 +14,36 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "https://sivion-enterprise-tech-hub.vercel.app",
+  "http://localhost:3000" // Explicitly adding localhost without trailing slash
+];
+
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL, 
-    "https://sivion-enterprise-tech-hub.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if the origin is in the allowed list or is a localhost variant
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (!allowedOrigin) return false;
+      // Compare after trimming potential trailing slashes
+      return allowedOrigin.replace(/\/$/, '') === origin.replace(/\/$/, '');
+    });
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
+  optionsSuccessStatus: 200
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

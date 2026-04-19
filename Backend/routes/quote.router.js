@@ -13,8 +13,8 @@ const { protect, authorizeRoles } = require("../middleware/auth.middleware");
 const verifyRecaptcha = require("../middleware/recaptcha.middleware");
 
 // User routes
-router.post("/", verifyRecaptcha, createQuoteRequest);
-router.put("/:id", verifyRecaptcha, updateOwnQuoteRequest);
+router.post("/", createQuoteRequest);
+router.put("/:id", updateOwnQuoteRequest);
 
 // Admin routes
 router.get("/", protect, authorizeRoles("admin"), getAllQuoteRequests);
